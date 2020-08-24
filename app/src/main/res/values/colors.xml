@@ -3,4 +3,16 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="textColor">#00001D</color>
+    <color name="dashboard_bg">#F2F6FF</color>
+    <color name="white">#FFFFFF</color>
+
+
+    <color name="green">#4DD1BA</color>
+    <color name="blue">#71B4FA</color>
+
+    <color name="tomato">#E0F0FD</color>
+
+
 </resources>
