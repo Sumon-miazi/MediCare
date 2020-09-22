@@ -243,10 +243,10 @@
                 android:layout_marginStart="8dp"
                 android:text="Dr. Suman miazi"
                 android:textColor="@color/textColor"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/textView4"
-                app:layout_constraintStart_toEndOf="@+id/main_userImageViewId"
+                app:layout_constraintStart_toEndOf="@+id/main_doctorImageViewId"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
@@ -256,7 +256,7 @@
                 android:layout_height="wrap_content"
                 android:text="MBBS, FCPS,"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/textView6"
                 app:layout_constraintStart_toStartOf="@+id/textView5"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -266,7 +266,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lab aid, Green road, Dhanmondi, Dhaka"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView4"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
