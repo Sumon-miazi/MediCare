@@ -54,4 +54,7 @@ dependencies {
 
     implementation 'com.andrognito.flashbar:flashbar:1.0.2'
 
+    //https://github.com/gauravk95/bubble-navigation
+    implementation 'com.gauravk.bubblenavigation:bubblenavigation:1.0.7'
+
 }
