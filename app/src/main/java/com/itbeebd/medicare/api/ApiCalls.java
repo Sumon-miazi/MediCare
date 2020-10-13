@@ -67,7 +67,7 @@ public class ApiCalls {
 
                     } catch (Exception ignore) {
                         System.out.println("getAllHospital>>>>>>>>>>> catch " + ignore.getMessage());
-                        //System.out.println(">>>>>>>>" + ignore.getMessage());
+
                         getAllHospital.data(null);
                     }
                 } else getAllHospital.data(null);
