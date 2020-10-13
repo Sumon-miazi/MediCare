@@ -17,6 +17,14 @@ public class RetrofitRequestBody {
     }
 
 
+    Map<String, Object> getAllDoctorByHospitalId(int id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("hospital_id", id);
+        map.put("api_key", this.api_key);
+        return map;
+    }
+
+
     String getApi_key() {
         return this.api_key;
     }

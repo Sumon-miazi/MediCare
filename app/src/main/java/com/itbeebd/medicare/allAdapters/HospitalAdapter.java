@@ -10,9 +10,9 @@ import com.itbeebd.medicare.allAdapters.genericClasses.GenericRecyclerAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.dataClasses.Hospital;
 
-public class AllHospitalAdapter extends GenericRecyclerAdapter<Hospital, OnRecyclerObjectClickListener<Hospital>, HospitalViewHolder> {
+public class HospitalAdapter extends GenericRecyclerAdapter<Hospital, OnRecyclerObjectClickListener<Hospital>, HospitalViewHolder> {
 
-    public AllHospitalAdapter(Context context) {
+    public HospitalAdapter(Context context) {
         super(context);
     }
 

@@ -13,4 +13,7 @@ public interface RetrofitService {
     @POST(ApiUrls.ALL_HOSPITAL)
     Call<ResponseBody> getAllHospital(@Body Map<String, Object> body);
 
+    @POST(ApiUrls.ALL_DOCTOR)
+    Call<ResponseBody> getAllDoctorByHospitalId(@Body Map<String, Object> body);
+
 }

@@ -1,6 +1,8 @@
 package com.itbeebd.medicare.api;
 
+import com.itbeebd.medicare.api.allInterfaces.GetAllDoctor;
 import com.itbeebd.medicare.api.allInterfaces.GetAllHospital;
+import com.itbeebd.medicare.dataClasses.Doctor;
 import com.itbeebd.medicare.dataClasses.Hospital;
 
 import org.json.JSONArray;
@@ -62,15 +64,16 @@ public class ApiCalls {
 
                             // Collections.shuffle(questionArrayList);
 
-                            getAllHospital.data(hospitalArrayList);
-                        } else getAllHospital.data(null);
+                            getAllHospital.data(hospitalArrayList, jsonObject.optString("message"));
+
+                        } else getAllHospital.data(null, jsonObject.optString("message"));
 
                     } catch (Exception ignore) {
                         System.out.println("getAllHospital>>>>>>>>>>> catch " + ignore.getMessage());
 
-                        getAllHospital.data(null);
+                        getAllHospital.data(null, ignore.getMessage());
                     }
-                } else getAllHospital.data(null);
+                } else getAllHospital.data(null, response.message());
             }
 
             @Override
@@ -78,7 +81,66 @@ public class ApiCalls {
 
                 System.out.println("getAllHospital>>>>>>>>>>> failed " + t.getMessage());
 
-                getAllHospital.data(null);
+                getAllHospital.data(null, t.getMessage());
+            }
+        });
+    }
+
+    public void getAllDoctorByHospitalId(int hospitalId, final GetAllDoctor getAllDoctor) {
+
+        System.out.println("getAllDoctorByHospitalId>>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.getAllDoctorByHospitalId(retrofitRequestBody.getAllDoctorByHospitalId(hospitalId));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("getAllDoctorByHospitalId>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+                            JSONArray doctorJsonArray = jsonObject.getJSONArray("data");
+
+                            ArrayList<Doctor> doctorArrayList = new ArrayList<>();
+
+                            for (int i = 0; i < doctorJsonArray.length(); i++) {
+
+                                JSONObject object = doctorJsonArray.getJSONObject(i);
+
+                                Doctor doctor = new Doctor(object.getInt("id"),
+                                        object.getInt("hospital_id"),
+                                        object.getString("name"),
+                                        object.getString("dob"),
+                                        object.getString("education_history"),
+                                        object.getString("address"),
+                                        object.getString("phone"));
+
+                                doctorArrayList.add(doctor);
+                            }
+
+                            // Collections.shuffle(questionArrayList);
+
+                            getAllDoctor.data(doctorArrayList, jsonObject.optString("message"));
+                        } else getAllDoctor.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("getAllDoctorByHospitalId>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getAllDoctor.data(null, ignore.getMessage());
+                    }
+                } else getAllDoctor.data(null, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("getAllDoctorByHospitalId>>>>>>>>>>> failed " + t.getMessage());
+
+                getAllDoctor.data(null, t.getMessage());
             }
         });
     }
