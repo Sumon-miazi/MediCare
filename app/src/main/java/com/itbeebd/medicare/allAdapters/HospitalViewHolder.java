@@ -16,11 +16,12 @@ public class HospitalViewHolder extends BaseViewHolder<Hospital, OnRecyclerObjec
 
     public HospitalViewHolder(@NonNull View itemView) {
         super(itemView);
-        textView = itemView.findViewById(R.id.testId);
+        textView = itemView.findViewById(R.id.hospitalNameTxtViewId);
     }
 
     @Override
     public void onBind(Hospital item, @Nullable OnRecyclerObjectClickListener<Hospital> listener) {
+        textView.setText(item.getName());
 
         textView.setOnClickListener(view -> {
             assert listener != null;

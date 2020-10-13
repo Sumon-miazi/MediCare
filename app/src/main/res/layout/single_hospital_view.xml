@@ -6,11 +6,11 @@
     android:layout_margin="2dp">
 
     <TextView
-        android:id="@+id/testId"
+        android:id="@+id/hospitalNameTxtViewId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:text="test"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

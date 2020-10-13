@@ -16,11 +16,12 @@ public class DoctorViewHolder extends BaseViewHolder<Doctor, OnRecyclerObjectCli
 
     public DoctorViewHolder(@NonNull View itemView) {
         super(itemView);
-        textView = itemView.findViewById(R.id.test2Id);
+        textView = itemView.findViewById(R.id.doctorNameTxtViewId);
     }
 
     @Override
     public void onBind(Doctor item, @Nullable OnRecyclerObjectClickListener<Doctor> listener) {
+        textView.setText(item.getName());
 
         textView.setOnClickListener(view -> {
             assert listener != null;
