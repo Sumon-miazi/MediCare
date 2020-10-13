@@ -1,10 +1,12 @@
 package com.itbeebd.medicare;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.itbeebd.medicare.hospitals.HospitalListActivity;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class DashBoardActivity extends AppCompatActivity {
@@ -19,7 +21,7 @@ public class DashBoardActivity extends AppCompatActivity {
         hospitalCardView = findViewById(R.id.hospitalCardViewId);
 
         hospitalCardView.setOnClickListener(view -> {
-
+            startActivity(new Intent(this, HospitalListActivity.class));
         });
     }
 }
