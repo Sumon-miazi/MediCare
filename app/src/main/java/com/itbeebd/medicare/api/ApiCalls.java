@@ -1,7 +1,6 @@
 package com.itbeebd.medicare.api;
 
-import com.itbeebd.medicare.api.allInterfaces.GetAllDoctor;
-import com.itbeebd.medicare.api.allInterfaces.GetAllHospital;
+import com.itbeebd.medicare.api.allInterfaces.GetDataFromApiCall;
 import com.itbeebd.medicare.dataClasses.Doctor;
 import com.itbeebd.medicare.dataClasses.Hospital;
 
@@ -27,7 +26,7 @@ public class ApiCalls {
     private RetrofitService service = retrofit.create(RetrofitService.class);
 
 
-    public void getAllHospital(final GetAllHospital getAllHospital) {
+    public void getAllHospital(final GetDataFromApiCall<Hospital> getAllHospital) {
 
         System.out.println("getAllHospital>>>>>>>>>>> called ");
 
@@ -86,7 +85,7 @@ public class ApiCalls {
         });
     }
 
-    public void getAllDoctorByHospitalId(int hospitalId, final GetAllDoctor getAllDoctor) {
+    public void getAllDoctorByHospitalId(int hospitalId, final GetDataFromApiCall<Doctor> getAllDoctor) {
 
         System.out.println("getAllDoctorByHospitalId>>>>>>>>>>> called ");
 
