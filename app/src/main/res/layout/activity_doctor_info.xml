@@ -8,7 +8,7 @@
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/main_doctorImageViewId"
-        android:layout_width="140dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:src="@drawable/demo"
@@ -25,7 +25,7 @@
         android:layout_marginTop="16dp"
         android:text="Md. Suman miazi"
         android:textColor="@color/textColor"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/main_doctorImageViewId"
         app:layout_constraintStart_toStartOf="@+id/main_doctorImageViewId"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:text="MBBS, FCPS"
         android:textColor="@color/textColor"
-        android:textSize="16sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/doctorProfileNameTxtViewId"
         app:layout_constraintStart_toStartOf="@+id/doctorProfileNameTxtViewId"
         app:layout_constraintTop_toBottomOf="@+id/doctorProfileNameTxtViewId" />
@@ -50,7 +50,7 @@
         android:layout_marginTop="24dp"
         android:text="Chambers"
         android:textColor="@color/textColor"
-        android:textSize="26sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/doctorProfileTitleTxtViewId" />
@@ -59,7 +59,6 @@
         android:id="@+id/doctorProfileChamberRecyclerId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />

@@ -1,5 +1,6 @@
 package com.itbeebd.medicare.doctors;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -42,5 +43,6 @@ public class DoctorListActivity extends AppCompatActivity implements OnRecyclerO
     @Override
     public void onItemClicked(Doctor item) {
         System.out.println(">>>>>>>>> doctor list clicked" + item.getName());
+        startActivity(new Intent(this, DoctorInfoActivity.class));
     }
 }
