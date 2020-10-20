@@ -2,6 +2,7 @@ package com.itbeebd.medicare.api;
 
 import com.itbeebd.medicare.api.allInterfaces.GetDataFromApiCall;
 import com.itbeebd.medicare.dataClasses.Doctor;
+import com.itbeebd.medicare.dataClasses.DoctorChamber;
 import com.itbeebd.medicare.dataClasses.Hospital;
 
 import org.json.JSONArray;
@@ -140,6 +141,66 @@ public class ApiCalls {
                 System.out.println("getAllDoctorByHospitalId>>>>>>>>>>> failed " + t.getMessage());
 
                 getAllDoctor.data(null, t.getMessage());
+            }
+        });
+    }
+
+    public void getAllDoctorChambersByDoctorId(int doctorId, final GetDataFromApiCall<DoctorChamber> getAllDoctorChamber) {
+
+        System.out.println("getAllDoctorChambersByDoctorId>>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.getAllDoctorChambersByDoctorId(retrofitRequestBody.getAllDoctorChambersByDoctorId(doctorId));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("getAllDoctorChambersByDoctorId>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+                            JSONArray doctorChamberJsonArray = jsonObject.getJSONArray("data");
+
+                            ArrayList<DoctorChamber> doctorChamberArrayList = new ArrayList<>();
+
+                            for (int i = 0; i < doctorChamberJsonArray.length(); i++) {
+
+                                JSONObject object = doctorChamberJsonArray.getJSONObject(i);
+
+                                DoctorChamber doctorChamber = new DoctorChamber(object.getInt("id"),
+                                        object.getInt("doctor_id"),
+                                        object.getInt("hospital_id"),
+                                        object.getString("visit_fee"),
+                                        object.getString("address"),
+                                        object.getString("phone"),
+                                        object.getDouble("lat"),
+                                        object.getDouble("long"));
+
+                                doctorChamberArrayList.add(doctorChamber);
+                            }
+
+                            // Collections.shuffle(questionArrayList);
+
+                            getAllDoctorChamber.data(doctorChamberArrayList, jsonObject.optString("message"));
+                        } else getAllDoctorChamber.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("getAllDoctorChambersByDoctorId>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getAllDoctorChamber.data(null, ignore.getMessage());
+                    }
+                } else getAllDoctorChamber.data(null, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("getAllDoctorChambersByDoctorId>>>>>>>>>>> failed " + t.getMessage());
+
+                getAllDoctorChamber.data(null, t.getMessage());
             }
         });
     }

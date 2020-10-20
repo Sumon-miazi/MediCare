@@ -1,6 +1,7 @@
 package com.itbeebd.medicare.doctors;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,9 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.DoctorChamberAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
+import com.itbeebd.medicare.api.ApiCalls;
 import com.itbeebd.medicare.dataClasses.DoctorChamber;
-
-import java.util.ArrayList;
 
 public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerObjectClickListener<DoctorChamber> {
 
@@ -26,33 +26,17 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
         allDoctorChamberRecyclerView = findViewById(R.id.doctorProfileChamberRecyclerId);
         doctorChamberListAdapter = new DoctorChamberAdapter(this);
 
-        ArrayList<DoctorChamber> doctorChambers = new ArrayList<>();
-        doctorChambers.add(new DoctorChamber());
-        doctorChambers.add(new DoctorChamber());
-        doctorChambers.add(new DoctorChamber());
-        doctorChambers.add(new DoctorChamber());
-        doctorChambers.add(new DoctorChamber());
-        doctorChambers.add(new DoctorChamber());
-        doctorChambers.add(new DoctorChamber());
-
-        doctorChamberListAdapter.setItems(doctorChambers);
-        doctorChamberListAdapter.setListener(this);
-        allDoctorChamberRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        allDoctorChamberRecyclerView.setAdapter(doctorChamberListAdapter);
-        /*
-        if (getIntent().hasExtra("hospitalId")) {
-            int id = getIntent().getIntExtra("hospitalId", 0);
-            new ApiCalls().getAllDoctorByHospitalId(id, (doctors, message) -> {
-                if (doctors != null) {
-                    doctorChamberListAdapter.setItems(doctors);
+        if (getIntent().hasExtra("doctorId")) {
+            int id = getIntent().getIntExtra("doctorId", 0);
+            new ApiCalls().getAllDoctorChambersByDoctorId(id, (doctorChambers, message) -> {
+                if (doctorChambers != null) {
+                    doctorChamberListAdapter.setItems(doctorChambers);
                     doctorChamberListAdapter.setListener(this);
-                    allDoctorChamberRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+                    allDoctorChamberRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
                     allDoctorChamberRecyclerView.setAdapter(doctorChamberListAdapter);
                 } else Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             });
         }
-
-         */
     }
 
     @Override

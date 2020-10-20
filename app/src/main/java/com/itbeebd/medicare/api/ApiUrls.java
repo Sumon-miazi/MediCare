@@ -8,4 +8,5 @@ public class ApiUrls {
 
     public static final String ALL_HOSPITAL = "getAllHospital";
     public static final String ALL_DOCTOR = "getAllDoctorByHospitalId";
+    public static final String ALL_CHAMBER_OF_A_DOCTOR = "getDoctorChambersByDoctorId";
 }

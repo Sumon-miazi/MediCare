@@ -43,6 +43,9 @@ public class DoctorListActivity extends AppCompatActivity implements OnRecyclerO
     @Override
     public void onItemClicked(Doctor item) {
         System.out.println(">>>>>>>>> doctor list clicked" + item.getName());
-        startActivity(new Intent(this, DoctorInfoActivity.class));
+        Intent intent = new Intent(this, DoctorInfoActivity.class);
+        intent.putExtra("doctorId", item.getId());
+        startActivity(intent);
+        // startActivity(new Intent(this, DoctorInfoActivity.class));
     }
 }
