@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/singleDoctorChamberImageViewId"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/demo"
+            app:civ_border_width="0dp"
+            app:civ_shadow="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/singleDoctorChamberNameId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="LAB AID"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/singleDoctorChamberImageViewId"
+            app:layout_constraintStart_toStartOf="@+id/singleDoctorChamberImageViewId"
+            app:layout_constraintTop_toBottomOf="@+id/singleDoctorChamberImageViewId" />
+
+        <TextView
+            android:id="@+id/singleDoctorChamberAddressId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dhanmondi, new market, kolabagan, dhaka"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/singleDoctorChamberNameId"
+            app:layout_constraintStart_toStartOf="@+id/singleDoctorChamberNameId"
+            app:layout_constraintTop_toBottomOf="@+id/singleDoctorChamberNameId" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
