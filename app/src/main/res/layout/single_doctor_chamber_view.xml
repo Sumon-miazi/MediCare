@@ -11,6 +11,14 @@
         android:layout_height="match_parent"
         android:padding="20dp">
 
+        <ImageView
+            android:id="@+id/redGreenIconViewId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/singleDoctorChamberImageViewId"
             android:layout_width="50dp"
@@ -27,10 +35,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="LAB AID"
+            android:text="Comilla central hospital"
             android:textAlignment="center"
             android:textColor="@color/textColor"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/singleDoctorChamberImageViewId"
             app:layout_constraintStart_toStartOf="@+id/singleDoctorChamberImageViewId"
