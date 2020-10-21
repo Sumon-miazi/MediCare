@@ -1,6 +1,7 @@
 package com.itbeebd.medicare.doctors;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,5 +43,9 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
     @Override
     public void onItemClicked(DoctorChamber item) {
         System.out.println(">>>>>>>>> doctor chamber name clicked");
+    }
+
+    public void bookAppointment(View view) {
+        
     }
 }

@@ -7,12 +7,15 @@
     <color name="textColor">#00001D</color>
     <color name="dashboard_bg">#F2F6FF</color>
     <color name="white">#FFFFFF</color>
+    <color name="off_white">#ECECEF</color>
 
 
     <color name="green">#4DD1BA</color>
     <color name="blue">#71B4FA</color>
+    <color name="deep_blue">#4894FF</color>
+    <color name="deep_blue_2">#EBEFF3</color>
 
-    <color name="tomato">#E0F0FD</color>
+    <color name="tomato">#F3F3F3</color>
 
 
 </resources>
