@@ -2,6 +2,7 @@ package com.itbeebd.medicare.hospitals;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +41,7 @@ public class HospitalListActivity extends AppCompatActivity implements OnRecycle
     }
 
     @Override
-    public void onItemClicked(Hospital item) {
+    public void onItemClicked(Hospital item, View view) {
         System.out.println(">>>>>>>>>>. clicked");
         Intent intent = new Intent(this, DoctorListActivity.class);
         intent.putExtra("hospitalId", item.getId());

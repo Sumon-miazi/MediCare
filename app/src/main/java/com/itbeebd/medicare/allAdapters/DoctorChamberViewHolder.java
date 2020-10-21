@@ -25,7 +25,7 @@ public class DoctorChamberViewHolder extends BaseViewHolder<DoctorChamber, OnRec
 
         textView.setOnClickListener(view -> {
             assert listener != null;
-            listener.onItemClicked(item);
+            listener.onItemClicked(item, view);
         });
     }
 }

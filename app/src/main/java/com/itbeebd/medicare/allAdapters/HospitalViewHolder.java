@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.genericClasses.BaseViewHolder;
@@ -12,20 +13,22 @@ import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickList
 import com.itbeebd.medicare.dataClasses.Hospital;
 
 public class HospitalViewHolder extends BaseViewHolder<Hospital, OnRecyclerObjectClickListener<Hospital>> {
-    private TextView textView;
+    private TextView hospitalName;
+    private ConstraintLayout hospitalInfoLayout;
 
     public HospitalViewHolder(@NonNull View itemView) {
         super(itemView);
-        textView = itemView.findViewById(R.id.hospitalNameTxtViewId);
+        hospitalName = itemView.findViewById(R.id.hospitalNameTxtViewId);
+        hospitalInfoLayout = itemView.findViewById(R.id.hospitalInfoLayoutId);
     }
 
     @Override
     public void onBind(Hospital item, @Nullable OnRecyclerObjectClickListener<Hospital> listener) {
-        textView.setText(item.getName());
+        hospitalName.setText(item.getName());
 
-        textView.setOnClickListener(view -> {
+        hospitalInfoLayout.setOnClickListener(view -> {
             assert listener != null;
-            listener.onItemClicked(item);
+            listener.onItemClicked(item, view);
         });
     }
 }

@@ -22,7 +22,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".userProfile.UserProfileActivity"></activity>
+        <activity android:name=".doctors.DoctorAppointmentActivity"></activity>
+        <activity android:name=".userProfile.UserProfileActivity" />
         <activity android:name=".doctors.DoctorInfoActivity" />
         <activity android:name=".doctors.DoctorListActivity" />
         <activity android:name=".hospitals.HospitalListActivity" />

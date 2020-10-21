@@ -41,11 +41,11 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
     }
 
     @Override
-    public void onItemClicked(DoctorChamber item) {
+    public void onItemClicked(DoctorChamber item, View view) {
         System.out.println(">>>>>>>>> doctor chamber name clicked");
     }
 
     public void bookAppointment(View view) {
-        
+
     }
 }
