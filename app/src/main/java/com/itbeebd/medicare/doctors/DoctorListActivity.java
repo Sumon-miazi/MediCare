@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.itbeebd.medicare.R;
@@ -33,7 +33,7 @@ public class DoctorListActivity extends AppCompatActivity implements OnRecyclerO
                 if (doctors != null) {
                     doctorListAdapter.setItems(doctors);
                     doctorListAdapter.setListener(this);
-                    allDoctorRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+                    allDoctorRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                     allDoctorRecyclerView.setAdapter(doctorListAdapter);
                 } else Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             });
