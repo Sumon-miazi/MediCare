@@ -1,6 +1,7 @@
 package com.itbeebd.medicare.api;
 
 import com.itbeebd.medicare.api.allInterfaces.GetDataFromApiCall;
+import com.itbeebd.medicare.dataClasses.DayOfWeek;
 import com.itbeebd.medicare.dataClasses.Doctor;
 import com.itbeebd.medicare.dataClasses.DoctorChamber;
 import com.itbeebd.medicare.dataClasses.Hospital;
@@ -169,16 +170,33 @@ public class ApiCalls {
                             for (int i = 0; i < doctorChamberJsonArray.length(); i++) {
 
                                 JSONObject object = doctorChamberJsonArray.getJSONObject(i);
-
+                                JSONObject hospitalObj = object.getJSONObject("hospital");
                                 DoctorChamber doctorChamber = new DoctorChamber(object.getInt("id"),
                                         object.getInt("doctor_id"),
                                         object.getInt("hospital_id"),
+                                        hospitalObj.getString("name"),
                                         object.getString("visit_fee"),
-                                        object.getString("address"),
-                                        object.getString("phone"),
-                                        object.getDouble("lat"),
-                                        object.getDouble("long"));
+                                        hospitalObj.getString("address"),
+                                        hospitalObj.getString("phone"),
+                                        hospitalObj.getDouble("lat"),
+                                        hospitalObj.getDouble("long"));
 
+                                JSONArray availableDays = object.getJSONArray("available_days");
+                                ArrayList<DayOfWeek> dayOfWeekArrayList = new ArrayList<>();
+
+                                for (int j = 0; j < availableDays.length(); j++) {
+                                    JSONObject dayObj = availableDays.getJSONObject(j);
+                                    ArrayList<String> times = new ArrayList<>();
+
+                                    JSONArray timesList = dayObj.getJSONArray("available_times");
+                                    for (int k = 0; k < timesList.length(); k++) {
+                                        JSONObject obj = timesList.getJSONObject(k);
+                                        times.add(obj.getString("time"));
+                                    }
+                                    DayOfWeek dayOfWeek = new DayOfWeek(dayObj.getString("day"), times);
+                                    dayOfWeekArrayList.add(dayOfWeek);
+                                }
+                                doctorChamber.setDayOfWeekArrayList(dayOfWeekArrayList);
                                 doctorChamberArrayList.add(doctorChamber);
                             }
 

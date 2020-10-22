@@ -94,17 +94,22 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
 
                 if (calendarDay.getOwner() == DayOwner.THIS_MONTH) {
                     dateTxtView.setVisibility(View.VISIBLE);
-                    LocalDate date = calendarDay.getDate();
-                    if (selectedDate != null && selectedDate.equals(date)) {
-                        dateTxtView.setTextColor(getResources().getColor(R.color.example_2_white));
-                        dateTxtView.setBackgroundResource(R.drawable.date_selected_bg);
-                    } else if (today.equals(date)) {
-                        dateTxtView.setTextColor(getResources().getColor(R.color.example_2_red));
-                        dateTxtView.setBackground(null);
+                    if (calendarDay.getDate().isBefore(today)) {
+                        dateTxtView.setTextColor(getResources().getColor(R.color.example_4_grey_past));
                     } else {
-                        dateTxtView.setTextColor(getResources().getColor(R.color.example_2_black));
-                        dateTxtView.setBackground(null);
+                        LocalDate date = calendarDay.getDate();
+                        if (selectedDate != null && selectedDate.equals(date)) {
+                            dateTxtView.setTextColor(getResources().getColor(R.color.example_2_white));
+                            dateTxtView.setBackgroundResource(R.drawable.date_selected_bg);
+                        } else if (today.equals(date)) {
+                            dateTxtView.setTextColor(getResources().getColor(R.color.example_4_grey));
+                            dateTxtView.setBackgroundResource(R.drawable.circle_bg_for_date);
+                        } else {
+                            dateTxtView.setTextColor(getResources().getColor(R.color.example_2_black));
+                            dateTxtView.setBackground(null);
+                        }
                     }
+
                 } else {
                     dateTxtView.setVisibility(View.INVISIBLE);
                 }
@@ -112,10 +117,10 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
         });
 
         YearMonth currentMonth = YearMonth.now();
-        YearMonth firstMonth = currentMonth.minusMonths(10);
-        YearMonth lastMonth = currentMonth.plusMonths(10);
+        //YearMonth firstMonth = currentMonth.minusMonths(10);
+        //YearMonth lastMonth = currentMonth.plusMonths(10);
         DayOfWeek firstDayOfWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
-        calendarView.setup(firstMonth, lastMonth, firstDayOfWeek);
+        calendarView.setup(currentMonth, currentMonth.plusMonths(12), firstDayOfWeek);
         calendarView.scrollToMonth(currentMonth);
 
         initMonthBinder();
