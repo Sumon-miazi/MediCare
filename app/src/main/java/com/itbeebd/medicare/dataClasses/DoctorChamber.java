@@ -10,6 +10,9 @@ public class DoctorChamber {
     private double lat;
     private double lon;
 
+    public DoctorChamber() {
+    }
+
     public DoctorChamber(int id, int doctor_id, int hospital_id, String visit_fee, String address, String phone, double lat, double lon) {
         this.id = id;
         this.doctor_id = doctor_id;

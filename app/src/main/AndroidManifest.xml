@@ -22,7 +22,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".doctors.DoctorAppointmentActivity"></activity>
+        <activity
+            android:name=".doctors.DoctorAppointmentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".userProfile.UserProfileActivity" />
         <activity android:name=".doctors.DoctorInfoActivity" />
         <activity android:name=".doctors.DoctorListActivity" />
@@ -42,7 +44,9 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".DashBoardActivity">
+        <activity
+            android:name=".DashBoardActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
