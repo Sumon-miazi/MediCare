@@ -15,6 +15,7 @@ import com.itbeebd.medicare.dataClasses.DoctorChamber;
 import com.kizitonwose.calendarview.CalendarView;
 import com.kizitonwose.calendarview.model.CalendarDay;
 import com.kizitonwose.calendarview.model.CalendarMonth;
+import com.kizitonwose.calendarview.model.DayOwner;
 import com.kizitonwose.calendarview.ui.DayBinder;
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder;
 
@@ -45,7 +46,7 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
         appointmentTimeGridAdapter = new AppointmentTimeGridAdapter(this);
 
         initDayBinder();
-        //initRecyclerView();
+        initRecyclerView();
     }
 
     private void initRecyclerView() {
@@ -74,9 +75,39 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
 
             @Override
             public void bind(DayViewContainer dayViewContainer, CalendarDay calendarDay) {
-                TextView textView = dayViewContainer.getView().findViewById(R.id.calendarDayText);
-                // textView.setText(calendarDay.getDate().getDayOfMonth());
-                textView.setText(String.valueOf(calendarDay.getDate().getDayOfMonth()));
+                TextView dateTxtView = dayViewContainer.getDayTxtView();
+                dateTxtView.setText(String.valueOf(calendarDay.getDate().getDayOfMonth()));
+                dateTxtView.setOnClickListener(view -> {
+                    if (calendarDay.getOwner() == DayOwner.THIS_MONTH) {
+                        if (selectedDate == calendarDay.getDate()) {
+                            selectedDate = null;
+                            calendarView.notifyDayChanged(calendarDay);
+                        } else {
+                            LocalDate oldDate = selectedDate;
+                            selectedDate = calendarDay.getDate();
+                            calendarView.notifyDateChanged(calendarDay.getDate());
+                            if (oldDate != null) calendarView.notifyDateChanged(oldDate);
+                        }
+                        // menuItem.isVisible = selectedDate != null
+                    }
+                });
+
+                if (calendarDay.getOwner() == DayOwner.THIS_MONTH) {
+                    dateTxtView.setVisibility(View.VISIBLE);
+                    LocalDate date = calendarDay.getDate();
+                    if (selectedDate != null && selectedDate.equals(date)) {
+                        dateTxtView.setTextColor(getResources().getColor(R.color.example_2_white));
+                        dateTxtView.setBackgroundResource(R.drawable.date_selected_bg);
+                    } else if (today.equals(date)) {
+                        dateTxtView.setTextColor(getResources().getColor(R.color.example_2_red));
+                        dateTxtView.setBackground(null);
+                    } else {
+                        dateTxtView.setTextColor(getResources().getColor(R.color.example_2_black));
+                        dateTxtView.setBackground(null);
+                    }
+                } else {
+                    dateTxtView.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -101,11 +132,8 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
 
             @Override
             public void bind(@NotNull MonthViewContainer monthViewContainer, @NotNull CalendarMonth calendarMonth) {
-                //TextView textView = monthViewContainer.getView().findViewById(R.id.calendarDayText);
-                // textView.setText(calendarDay.getDate().getDayOfMonth());
-                String calenderHeaderTxt = calendarMonth.getYearMonth().getMonth().name() + ", " + calendarMonth.getYear();
+                String calenderHeaderTxt = calendarMonth.getYearMonth().getMonth().name().toLowerCase() + ", " + calendarMonth.getYear();
                 monthViewContainer.getTextView().setText(calenderHeaderTxt);
-                // textView.setText(calendarMonth.getMonth());
             }
 
         });

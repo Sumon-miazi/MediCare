@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.itbeebd.medicare.hospitals.HospitalListActivity;
+import com.itbeebd.medicare.doctors.DoctorAppointmentActivity;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class DashBoardActivity extends AppCompatActivity {
@@ -21,7 +21,8 @@ public class DashBoardActivity extends AppCompatActivity {
         hospitalCardView = findViewById(R.id.hospitalCardViewId);
 
         hospitalCardView.setOnClickListener(view -> {
-            startActivity(new Intent(this, HospitalListActivity.class));
+            //  startActivity(new Intent(this, HospitalListActivity.class));
+            startActivity(new Intent(this, DoctorAppointmentActivity.class));
         });
     }
 }
