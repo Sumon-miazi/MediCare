@@ -8,9 +8,8 @@ import androidx.annotation.NonNull;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.genericClasses.GenericRecyclerAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
-import com.itbeebd.medicare.dataClasses.DoctorChamber;
 
-public class AppointmentTimeGridAdapter extends GenericRecyclerAdapter<DoctorChamber, OnRecyclerObjectClickListener<DoctorChamber>, AppointmentTimeGridViewHolder> {
+public class AppointmentTimeGridAdapter extends GenericRecyclerAdapter<String, OnRecyclerObjectClickListener<String>, AppointmentTimeGridViewHolder> {
 
     public AppointmentTimeGridAdapter(Context context) {
         super(context);

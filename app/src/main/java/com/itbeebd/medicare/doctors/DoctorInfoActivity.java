@@ -47,7 +47,7 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
         doctorChamberListAdapter = new DoctorChamberAdapter(this);
 
         if (getIntent().hasExtra("doctorObj")) {
-            doctor = (Doctor) getIntent().getParcelableExtra("doctorObj");
+            doctor = getIntent().getParcelableExtra("doctorObj");
             assert doctor != null;
             doctorName.setText(doctor.getName());
             doctorQualification.setText(doctor.getEducation_history());

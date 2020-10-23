@@ -10,20 +10,21 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="160dp"
         android:layout_height="match_parent"
-        android:padding="20dp">
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/redGreenIconViewId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_green"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/singleDoctorChamberImageViewId"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/demo"
             app:civ_border_width="0dp"
             app:civ_shadow="false"
@@ -33,13 +34,13 @@
 
         <TextView
             android:id="@+id/singleDoctorChamberNameId"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Comilla central hospital"
             android:textAlignment="center"
             android:textColor="@color/textColor"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/singleDoctorChamberImageViewId"
             app:layout_constraintStart_toStartOf="@+id/singleDoctorChamberImageViewId"
@@ -52,7 +53,7 @@
             android:text="Dhanmondi, new market, kolabagan, dhaka"
             android:textAlignment="center"
             android:textColor="@color/textColor"
-            android:textSize="12sp"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/singleDoctorChamberNameId"
             app:layout_constraintStart_toStartOf="@+id/singleDoctorChamberNameId"
             app:layout_constraintTop_toBottomOf="@+id/singleDoctorChamberNameId" />
