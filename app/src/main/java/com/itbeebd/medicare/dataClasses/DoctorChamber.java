@@ -1,8 +1,11 @@
 package com.itbeebd.medicare.dataClasses;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class DoctorChamber {
+public class DoctorChamber implements Parcelable {
     private int id;
     private int doctor_id;
     private int hospital_id;
@@ -28,6 +31,52 @@ public class DoctorChamber {
         this.phone = phone;
         this.lat = lat;
         this.lon = lon;
+    }
+
+
+    public static final Creator<DoctorChamber> CREATOR = new Creator<DoctorChamber>() {
+        @Override
+        public DoctorChamber createFromParcel(Parcel in) {
+            return new DoctorChamber(in);
+        }
+
+        @Override
+        public DoctorChamber[] newArray(int size) {
+            return new DoctorChamber[size];
+        }
+    };
+
+    public DoctorChamber(Parcel parcel) {
+        this.id = parcel.readInt();
+        this.doctor_id = parcel.readInt();
+        this.hospital_id = parcel.readInt();
+        this.name = parcel.readString();
+        this.visit_fee = parcel.readString();
+        this.address = parcel.readString();
+        this.phone = parcel.readString();
+        this.lat = parcel.readDouble();
+        this.lon = parcel.readDouble();
+        this.dayOfWeekArrayList = parcel.readArrayList(null);
+
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(this.id);
+        parcel.writeInt(this.doctor_id);
+        parcel.writeInt(this.hospital_id);
+        parcel.writeString(this.name);
+        parcel.writeString(this.visit_fee);
+        parcel.writeString(this.address);
+        parcel.writeString(this.phone);
+        parcel.writeDouble(this.lat);
+        parcel.writeDouble(this.lon);
+        parcel.writeList(this.dayOfWeekArrayList);
     }
 
     public int getId() {

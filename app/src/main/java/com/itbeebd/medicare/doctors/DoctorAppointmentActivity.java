@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +13,8 @@ import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.AppointmentTimeGridAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.dataClasses.DoctorChamber;
+import com.itbeebd.medicare.doctors.customCalender.DayViewContainer;
+import com.itbeebd.medicare.doctors.customCalender.MonthViewContainer;
 import com.kizitonwose.calendarview.CalendarView;
 import com.kizitonwose.calendarview.model.CalendarDay;
 import com.kizitonwose.calendarview.model.CalendarMonth;
@@ -33,8 +36,11 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
     private final LocalDate today = LocalDate.now();
     private CalendarView calendarView;
     private RecyclerView appointmentTimeGridRecycler;
+    private RecyclerView appointmentChamberRecycler;
+    private ConstraintLayout chambersListInAppointment;
     private AppointmentTimeGridAdapter appointmentTimeGridAdapter;
     private LocalDate selectedDate;
+    private ArrayList<DoctorChamber> doctorChambers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +49,16 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
 
         calendarView = findViewById(R.id.calendarView);
         appointmentTimeGridRecycler = findViewById(R.id.appointmentTimeGridRecyclerId);
+        chambersListInAppointment = findViewById(R.id.chambersListInAppointmentId);
+        appointmentChamberRecycler = findViewById(R.id.appointmentChamberRecyclerId);
+
+
+        appointmentTimeGridAdapter = new AppointmentTimeGridAdapter(this);
         appointmentTimeGridAdapter = new AppointmentTimeGridAdapter(this);
 
+        if (getIntent().hasExtra("appointment")) {
+            doctorChambers = getIntent().getParcelableArrayListExtra("appointment");
+        }
         initDayBinder();
         initRecyclerView();
     }

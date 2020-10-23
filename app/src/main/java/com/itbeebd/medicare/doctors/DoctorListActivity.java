@@ -48,12 +48,12 @@ public class DoctorListActivity extends AppCompatActivity implements OnRecyclerO
         switch (view.getId()) {
             case R.id.doctorAppointmentTxtId:
                 intent = new Intent(this, DoctorAppointmentActivity.class);
-                intent.putExtra("doctorId", item.getId());
+                intent.putExtra("doctorObj", item);
                 startActivity(intent);
                 break;
             case R.id.doctorInfoLayoutId:
                 intent = new Intent(this, DoctorInfoActivity.class);
-                intent.putExtra("doctorId", item.getId());
+                intent.putExtra("doctorObj", item);
                 startActivity(intent);
                 break;
         }

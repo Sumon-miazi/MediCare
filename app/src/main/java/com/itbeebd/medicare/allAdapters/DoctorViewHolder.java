@@ -14,12 +14,14 @@ import com.itbeebd.medicare.dataClasses.Doctor;
 
 public class DoctorViewHolder extends BaseViewHolder<Doctor, OnRecyclerObjectClickListener<Doctor>> {
     private TextView doctorName;
+    private TextView doctorTitle;
     private TextView appointment;
     private ConstraintLayout doctorInfoLayout;
 
     public DoctorViewHolder(@NonNull View itemView) {
         super(itemView);
         doctorName = itemView.findViewById(R.id.doctorNameTxtViewId);
+        doctorTitle = itemView.findViewById(R.id.doctorTitleTxtViewId);
         appointment = itemView.findViewById(R.id.doctorAppointmentTxtId);
         doctorInfoLayout = itemView.findViewById(R.id.doctorInfoLayoutId);
     }
