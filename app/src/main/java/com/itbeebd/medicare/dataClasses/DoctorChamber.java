@@ -56,7 +56,7 @@ public class DoctorChamber implements Parcelable {
         this.phone = parcel.readString();
         this.lat = parcel.readDouble();
         this.lon = parcel.readDouble();
-        this.dayOfWeekArrayList = parcel.readArrayList(null);
+        this.dayOfWeekArrayList = parcel.createTypedArrayList(DayOfWeek.CREATOR);
 
     }
 
@@ -76,7 +76,7 @@ public class DoctorChamber implements Parcelable {
         parcel.writeString(this.phone);
         parcel.writeDouble(this.lat);
         parcel.writeDouble(this.lon);
-        parcel.writeList(this.dayOfWeekArrayList);
+        parcel.writeTypedList(this.dayOfWeekArrayList);
     }
 
     public int getId() {

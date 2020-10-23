@@ -27,8 +27,8 @@
 
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/main_doctorImageViewId"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/demo"
                 app:civ_border_width="0dp"
@@ -43,7 +43,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="Dr. Md. Suman miazi"
                 android:textColor="@color/textColor"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/main_doctorImageViewId"
                 app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:text="MBBS, FCPS"
                 android:textColor="@color/textColor"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="@+id/doctorProfileNameTxtViewId"
                 app:layout_constraintStart_toStartOf="@+id/doctorProfileNameTxtViewId"
                 app:layout_constraintTop_toBottomOf="@+id/doctorProfileNameTxtViewId" />
@@ -171,7 +171,7 @@
                 app:layout_constraintTop_toTopOf="@+id/totalPatientReviewCountId"
                 app:layout_constraintVertical_bias="0.55" />
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

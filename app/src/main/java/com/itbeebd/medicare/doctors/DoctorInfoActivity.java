@@ -55,6 +55,7 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
 
             new ApiCalls().getAllDoctorChambersByDoctorId(doctor.getId(), (doctorChambers, message) -> {
                 if (doctorChambers != null) {
+                    //this.doctor
                     this.doctorChambers = doctorChambers;
                     doctorChamberListAdapter.setItems(doctorChambers);
                     doctorChamberListAdapter.setListener(this);
@@ -74,9 +75,12 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
     }
 
     public void bookAppointment(View view) {
-        if (doctorChambers.isEmpty()) {
+        System.out.println(">>>>>>>>>>>>. book appointment btn clicked");
+        if (doctorChambers == null || doctorChambers.isEmpty()) {
+            System.out.println(">>>>>>>>>>>>. doctor chamber is empty");
             return;
         }
+        System.out.println(">>>>>>>>>>>>. doctor chamber size " + doctorChambers.size());
         Intent intent = new Intent(this, DoctorAppointmentActivity.class);
         intent.putExtra("appointment", doctorChambers);
         startActivity(intent);

@@ -64,6 +64,7 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
         doctorChamberListAdapter = new DoctorChamberAdapter(this);
 
         if (getIntent().hasExtra("appointment")) {
+            System.out.println(">>>>>>>>>>>>>> get intent code-block");
             doctorChambers = getIntent().getParcelableArrayListExtra("appointment");
             timeTable = doctorChambers.get(0).getDayOfWeekArrayList().get(0).getTimes();
             initChamberRecyclerView();
