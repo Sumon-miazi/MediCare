@@ -22,6 +22,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
+        <activity android:name=".userProfile.UserSignInActivity"></activity>
+        <activity android:name=".userProfile.UserSignUpActivity" />
         <activity
             android:name=".doctors.DoctorAppointmentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
