@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MediCare</string>
     <string name="sharedPrefName">medi_care</string>
+    <string name="default_notification_channel_id">medi_care_smn</string>
+    <string name="default_notification_channel_name">medi_care_smn</string>
     <string name="title_activity_maps">Map</string>
 </resources>
