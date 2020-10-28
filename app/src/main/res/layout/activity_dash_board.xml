@@ -279,7 +279,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+<!--
     <com.gauravk.bubblenavigation.BubbleNavigationLinearView
         android:id="@+id/bottom_navigation_view_linear"
         android:layout_width="match_parent"
@@ -346,5 +346,5 @@
             app:bt_shape="@drawable/transition_background_drawable_person"
             app:bt_title="@string/profile" />
     </com.gauravk.bubblenavigation.BubbleNavigationLinearView>
-
+-->
 </androidx.constraintlayout.widget.ConstraintLayout>

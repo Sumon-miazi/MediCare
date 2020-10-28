@@ -1,22 +1,25 @@
 package com.itbeebd.medicare;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView;
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
+import com.itbeebd.medicare.hospitals.HospitalListActivity;
 import com.itbeebd.medicare.userProfile.UserProfileActivity;
 
-public class MainActivity extends AppCompatActivity implements BubbleNavigationChangeListener {
+public class MainActivity extends AppCompatActivity implements BubbleNavigationChangeListener,
+        DashBoardActivity.OnItemSelectedListener {
 
     private BubbleNavigationLinearView bubbleNavigation;
     private FragmentManager fragmentManager;
+    private DashBoardActivity dashBoardActivity;
+    private UserProfileActivity userProfileActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,25 +29,14 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
         //bubbleNavigation.setCurrentActiveItem(2);
         bubbleNavigation.setNavigationChangeListener(this);
 
+        dashBoardActivity = new DashBoardActivity();
+        userProfileActivity = new UserProfileActivity();
+
         // get fragment manager
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragmentContainerId, new DashBoardActivity());
+        fragmentTransaction.add(R.id.fragmentContainerId, dashBoardActivity);
         fragmentTransaction.commit();
-
-/*
-// replace
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.your_placehodler, new YourFragment());
-        ft.commit();
-
-// remove
-        Fragment fragment = fm.findFragmentById(R.id.your_placehodler);
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.remove(fragment);
-        ft.commit();
-
- */
     }
 
     @Override
@@ -56,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
 
         switch (view.getId()) {
             case R.id.l_item_home:
-                fragmentTransaction.replace(R.id.fragmentContainerId, new DashBoardActivity());
+                fragmentTransaction.replace(R.id.fragmentContainerId, dashBoardActivity);
                 fragmentTransaction.commit();
                 break;
 
@@ -77,5 +69,10 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
                 fragmentTransaction.commit();
                 break;
         }
+    }
+
+    @Override
+    public void onItemSelectedOnDashBoard(View view) {
+        startActivity(new Intent(this, HospitalListActivity.class));
     }
 }
