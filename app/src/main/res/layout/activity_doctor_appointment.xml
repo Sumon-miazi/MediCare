@@ -41,29 +41,72 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.kizitonwose.calendarview.CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="260dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chambersCalenderLayoutId"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:clipToPadding="false"
-        app:cv_dayViewResource="@layout/calendar_day_layout"
-        app:cv_monthHeaderResource="@layout/calendar_header"
-        app:cv_orientation="horizontal"
-        app:cv_scrollMode="paged"
+        android:background="@drawable/ic_white_bg"
+        android:foregroundGravity="center"
+        android:paddingBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chambersListInAppointmentId" />
+        app:layout_constraintTop_toBottomOf="@+id/chambersListInAppointmentId">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/appointmentTimeGridRecyclerId"
+        <com.kizitonwose.calendarview.CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:foregroundGravity="center"
+            app:cv_dayViewResource="@layout/calendar_day_layout"
+            app:cv_monthHeaderResource="@layout/calendar_header"
+            app:cv_orientation="horizontal"
+            app:cv_scrollMode="paged"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_white_bg"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/appointmentConfirmBtnId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/chambersCalenderLayoutId"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/timeListTitleId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Times"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/appointmentTimeGridRecyclerId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeListTitleId"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/appointmentConfirmBtnId"
