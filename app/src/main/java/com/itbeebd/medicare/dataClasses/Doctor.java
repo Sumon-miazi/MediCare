@@ -7,17 +7,6 @@ public class Doctor implements Parcelable {
     private int id;
     private int hospital_id;
     private String name;
-    public static final Creator<Doctor> CREATOR = new Creator<Doctor>() {
-        @Override
-        public Doctor createFromParcel(Parcel in) {
-            return new Doctor(in);
-        }
-
-        @Override
-        public Doctor[] newArray(int size) {
-            return new Doctor[size];
-        }
-    };
     private String dob;
     private String education_history;
     private String address;
@@ -63,6 +52,17 @@ public class Doctor implements Parcelable {
         this.about = "something";
     }
 
+    public static final Creator<Doctor> CREATOR = new Creator<Doctor>() {
+        @Override
+        public Doctor createFromParcel(Parcel in) {
+            return new Doctor(in);
+        }
+
+        @Override
+        public Doctor[] newArray(int size) {
+            return new Doctor[size];
+        }
+    };
 
     public Doctor(Parcel parcel) {
         this.id = parcel.readInt();

@@ -1,10 +1,12 @@
 package com.itbeebd.medicare.api;
 
 import com.itbeebd.medicare.api.allInterfaces.GetDataFromApiCall;
+import com.itbeebd.medicare.api.allInterfaces.GetPatientInfo;
 import com.itbeebd.medicare.dataClasses.DayOfWeek;
 import com.itbeebd.medicare.dataClasses.Doctor;
 import com.itbeebd.medicare.dataClasses.DoctorChamber;
 import com.itbeebd.medicare.dataClasses.Hospital;
+import com.itbeebd.medicare.dataClasses.Patient;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -222,4 +224,50 @@ public class ApiCalls {
             }
         });
     }
+
+    public void signUpPatient(Patient patient, GetPatientInfo getPatientInfo) {
+
+        System.out.println("signUpPatient>>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.signUpPatient(retrofitRequestBody.signUpPatient(patient));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("signUpPatient>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+                            JSONObject patientJsonObj = jsonObject.getJSONObject("data");
+
+                            Patient patientInfo = new Patient();
+                            patientInfo.setId(patientJsonObj.getInt("id"));
+                            patientInfo.setName(patientJsonObj.getString("name"));
+                            patientInfo.setUid(patientJsonObj.getString("uid"));
+
+                            getPatientInfo.data(patientInfo, jsonObject.optString("message"));
+                        } else getPatientInfo.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("signUpPatient>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getPatientInfo.data(null, ignore.getMessage());
+                    }
+                } else getPatientInfo.data(null, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("signUpPatient>>>>>>>>>>> failed " + t.getMessage());
+
+                getPatientInfo.data(null, t.getMessage());
+            }
+        });
+    }
+
 }

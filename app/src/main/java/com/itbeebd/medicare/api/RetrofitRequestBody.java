@@ -1,5 +1,7 @@
 package com.itbeebd.medicare.api;
 
+import com.itbeebd.medicare.dataClasses.Patient;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +33,13 @@ public class RetrofitRequestBody {
         return map;
     }
 
+    Map<String, Object> signUpPatient(Patient patient) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", patient.getName());
+        map.put("uid", patient.getUid());
+        map.put("api_key", this.api_key);
+        return map;
+    }
 
     String getApi_key() {
         return this.api_key;
