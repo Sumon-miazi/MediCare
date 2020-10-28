@@ -10,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.genericClasses.BaseViewHolder;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
-import com.itbeebd.medicare.dataClasses.Doctor;
+import com.itbeebd.medicare.utils.Doctor;
 
 public class DoctorViewHolder extends BaseViewHolder<Doctor, OnRecyclerObjectClickListener<Doctor>> {
     private TextView doctorName;

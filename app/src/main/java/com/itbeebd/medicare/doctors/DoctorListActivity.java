@@ -13,7 +13,7 @@ import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.DoctorAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.api.ApiCalls;
-import com.itbeebd.medicare.dataClasses.Doctor;
+import com.itbeebd.medicare.utils.Doctor;
 
 public class DoctorListActivity extends AppCompatActivity implements OnRecyclerObjectClickListener<Doctor> {
 

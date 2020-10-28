@@ -2,11 +2,11 @@ package com.itbeebd.medicare.api;
 
 import com.itbeebd.medicare.api.allInterfaces.GetDataFromApiCall;
 import com.itbeebd.medicare.api.allInterfaces.GetPatientInfo;
-import com.itbeebd.medicare.dataClasses.DayOfWeek;
-import com.itbeebd.medicare.dataClasses.Doctor;
-import com.itbeebd.medicare.dataClasses.DoctorChamber;
-import com.itbeebd.medicare.dataClasses.Hospital;
-import com.itbeebd.medicare.dataClasses.Patient;
+import com.itbeebd.medicare.utils.DayOfWeek;
+import com.itbeebd.medicare.utils.Doctor;
+import com.itbeebd.medicare.utils.DoctorChamber;
+import com.itbeebd.medicare.utils.Hospital;
+import com.itbeebd.medicare.utils.Patient;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

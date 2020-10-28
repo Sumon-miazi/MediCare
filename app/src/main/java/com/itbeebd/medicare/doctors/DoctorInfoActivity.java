@@ -14,8 +14,8 @@ import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.DoctorChamberAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.api.ApiCalls;
-import com.itbeebd.medicare.dataClasses.Doctor;
-import com.itbeebd.medicare.dataClasses.DoctorChamber;
+import com.itbeebd.medicare.utils.Doctor;
+import com.itbeebd.medicare.utils.DoctorChamber;
 
 import java.util.ArrayList;
 

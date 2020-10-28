@@ -1,6 +1,6 @@
 package com.itbeebd.medicare.api;
 
-import com.itbeebd.medicare.dataClasses.Patient;
+import com.itbeebd.medicare.utils.Patient;
 
 import java.util.HashMap;
 import java.util.Map;

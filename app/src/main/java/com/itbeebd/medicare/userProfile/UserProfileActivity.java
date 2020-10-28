@@ -2,12 +2,11 @@ package com.itbeebd.medicare.userProfile;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.dataClasses.Patient;
+import com.itbeebd.medicare.utils.NavigationView;
+import com.itbeebd.medicare.utils.Patient;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends NavigationView {
 
     private Patient patient;
 
@@ -15,6 +14,7 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        super.onCreateDrawer();
 
         if (getIntent().hasExtra("patient")) {
             this.patient = getIntent().getParcelableExtra("patient");

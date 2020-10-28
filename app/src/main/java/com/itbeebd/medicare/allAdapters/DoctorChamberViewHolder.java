@@ -10,7 +10,7 @@ import androidx.cardview.widget.CardView;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.genericClasses.BaseViewHolder;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
-import com.itbeebd.medicare.dataClasses.DoctorChamber;
+import com.itbeebd.medicare.utils.DoctorChamber;
 
 public class DoctorChamberViewHolder extends BaseViewHolder<DoctorChamber, OnRecyclerObjectClickListener<DoctorChamber>> {
     private TextView chamberName;

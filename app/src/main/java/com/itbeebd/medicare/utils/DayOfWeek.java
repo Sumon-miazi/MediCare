@@ -1,4 +1,4 @@
-package com.itbeebd.medicare.dataClasses;
+package com.itbeebd.medicare.utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;

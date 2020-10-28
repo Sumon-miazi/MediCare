@@ -1,6 +1,6 @@
 package com.itbeebd.medicare.api.allInterfaces;
 
-import com.itbeebd.medicare.dataClasses.Hospital;
+import com.itbeebd.medicare.utils.Hospital;
 
 import java.util.ArrayList;
 

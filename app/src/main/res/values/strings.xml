@@ -4,4 +4,10 @@
     <string name="default_notification_channel_id">medi_care_smn</string>
     <string name="default_notification_channel_name">medi_care_smn</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
+    <string name="notification">Notify</string>
+    <string name="likes">Favs</string>
 </resources>

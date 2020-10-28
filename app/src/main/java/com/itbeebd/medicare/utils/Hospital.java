@@ -1,4 +1,4 @@
-package com.itbeebd.medicare.dataClasses;
+package com.itbeebd.medicare.utils;
 
 public class Hospital {
     private int id;

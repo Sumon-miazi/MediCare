@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.api.ApiCalls;
-import com.itbeebd.medicare.dataClasses.Patient;
+import com.itbeebd.medicare.utils.Patient;
 
 public class UserSignUpActivity extends AppCompatActivity {
 

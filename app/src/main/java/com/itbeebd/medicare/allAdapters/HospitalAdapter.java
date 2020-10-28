@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.genericClasses.GenericRecyclerAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
-import com.itbeebd.medicare.dataClasses.Hospital;
+import com.itbeebd.medicare.utils.Hospital;
 
 public class HospitalAdapter extends GenericRecyclerAdapter<Hospital, OnRecyclerObjectClickListener<Hospital>, HospitalViewHolder> {
 
