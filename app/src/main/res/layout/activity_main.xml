@@ -4,74 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".userProfile.UserProfileActivity">
+    tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <FrameLayout
+        android:id="@+id/fragmentContainerId"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_margin="10dp"
-        android:layout_marginStart="84dp"
-        android:background="@drawable/ic_white_bg"
-        android:padding="20dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view_linear"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/patientProfileImageViewId"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/demo"
-            app:civ_border_width="0dp"
-            app:civ_shadow="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/patientProfileNameTxtViewId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Dr. Md. Suman miazi"
-            android:textAlignment="center"
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/patientProfileImageViewId"
-            app:layout_constraintStart_toStartOf="@+id/patientProfileImageViewId"
-            app:layout_constraintTop_toBottomOf="@+id/patientProfileImageViewId" />
-
-        <TextView
-            android:id="@+id/patientProfileTitleTxtViewId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MBBS, FCPS"
-            android:textAlignment="center"
-            android:textColor="@color/textColor"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/patientProfileNameTxtViewId"
-            app:layout_constraintStart_toStartOf="@+id/patientProfileNameTxtViewId"
-            app:layout_constraintTop_toBottomOf="@+id/patientProfileNameTxtViewId" />
-
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/blue_bg"
-            android:gravity="center"
-            android:text="Appointments"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-<!--
+        app:layout_constraintTop_toTopOf="parent" />
     <com.gauravk.bubblenavigation.BubbleNavigationLinearView
         android:id="@+id/bottom_navigation_view_linear"
         android:layout_width="match_parent"
@@ -138,5 +80,4 @@
             app:bt_shape="@drawable/transition_background_drawable_person"
             app:bt_title="@string/profile" />
     </com.gauravk.bubblenavigation.BubbleNavigationLinearView>
--->
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="colorPrimary">#727272</color>
+    <color name="colorPrimaryDark">#212121</color>
+    <color name="colorAccent">#D81B60</color>
+
     <color name="textColor">#00001D</color>
     <color name="textColorGray">#41414A</color>
     <color name="dashboard_bg">#F2F6FF</color>
@@ -50,11 +55,6 @@
     <color name="example_6_black">#BF000000</color>
     <color name="example_7_white">#D9FFFFFF</color>
     <color name="example_7_yellow">#FFEB3B</color>
-
-
-    <color name="colorPrimary">#fafafa</color>
-    <color name="colorPrimaryDark">#212121</color>
-    <color name="colorAccent">#D81B60</color>
 
     <color name="red_active">#f44336</color>
     <color name="purple_active">#9c27b0</color>
