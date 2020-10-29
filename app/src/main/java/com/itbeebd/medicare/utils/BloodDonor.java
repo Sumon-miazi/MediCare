@@ -5,17 +5,7 @@ import android.os.Parcelable;
 
 public class BloodDonor implements Parcelable {
 
-    public static final Creator<BloodDonor> CREATOR = new Creator<BloodDonor>() {
-        @Override
-        public BloodDonor createFromParcel(Parcel in) {
-            return new BloodDonor(in);
-        }
 
-        @Override
-        public BloodDonor[] newArray(int size) {
-            return new BloodDonor[size];
-        }
-    };
     private int id;
     private String name;
     private String lastDonateDate;
@@ -36,6 +26,23 @@ public class BloodDonor implements Parcelable {
         this.about = "I am nothing but a server of allah";
     }
 
+    public static final Creator<BloodDonor> CREATOR = new Creator<BloodDonor>() {
+        @Override
+        public BloodDonor createFromParcel(Parcel in) {
+            return new BloodDonor(in);
+        }
+
+        @Override
+        public BloodDonor[] newArray(int size) {
+            return new BloodDonor[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
 
     public BloodDonor(Parcel parcel) {
         this.id = parcel.readInt();
@@ -46,11 +53,6 @@ public class BloodDonor implements Parcelable {
         this.address = parcel.readString();
         this.phone = parcel.readString();
         this.about = parcel.readString();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
     @Override
@@ -65,4 +67,35 @@ public class BloodDonor implements Parcelable {
         parcel.writeString(this.about);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLastDonateDate() {
+        return lastDonateDate;
+    }
+
+    public String getTotalBloodDonation() {
+        return totalBloodDonation;
+    }
+
+    public String getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAbout() {
+        return about;
+    }
 }
