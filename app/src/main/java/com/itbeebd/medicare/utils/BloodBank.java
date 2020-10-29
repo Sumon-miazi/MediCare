@@ -5,17 +5,6 @@ import android.os.Parcelable;
 
 public class BloodBank implements Parcelable {
 
-    public static final Creator<BloodBank> CREATOR = new Creator<BloodBank>() {
-        @Override
-        public BloodBank createFromParcel(Parcel in) {
-            return new BloodBank(in);
-        }
-
-        @Override
-        public BloodBank[] newArray(int size) {
-            return new BloodBank[size];
-        }
-    };
     private int id;
     private String name;
     private String address;
@@ -30,6 +19,22 @@ public class BloodBank implements Parcelable {
         this.about = "I am nothing but a server of allah";
     }
 
+    public static final Creator<BloodBank> CREATOR = new Creator<BloodBank>() {
+        @Override
+        public BloodBank createFromParcel(Parcel in) {
+            return new BloodBank(in);
+        }
+
+        @Override
+        public BloodBank[] newArray(int size) {
+            return new BloodBank[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
     public BloodBank(Parcel parcel) {
         this.id = parcel.readInt();
@@ -37,11 +42,6 @@ public class BloodBank implements Parcelable {
         this.address = parcel.readString();
         this.phone = parcel.readString();
         this.about = parcel.readString();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
     @Override
@@ -53,4 +53,24 @@ public class BloodBank implements Parcelable {
         parcel.writeString(this.about);
     }
 
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAbout() {
+        return about;
+    }
 }
