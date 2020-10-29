@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/bloodDonorImageViewId"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/demo"
+        app:civ_border_width="0dp"
+        app:civ_shadow="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/bloodDonorNameTxtViewId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:maxLength="30"
+        android:text="Sumon miazi"
+        android:textColor="@color/textColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/bloodGroupNameTxtViewId"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/bloodDonorImageViewId"
+        app:layout_constraintTop_toTopOf="@+id/bloodDonorImageViewId" />
+
+    <TextView
+        android:id="@+id/lastBloodDonateDateId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLength="22"
+        android:text="Cumilla, kandirpar"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/bloodDonorNameTxtViewId"
+        app:layout_constraintStart_toStartOf="@+id/bloodDonorNameTxtViewId"
+        app:layout_constraintTop_toBottomOf="@+id/donorAddressTxtViewId" />
+
+    <TextView
+        android:id="@+id/donorAddressTxtViewId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLength="32"
+        android:text="Cumilla, kandirpar"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/bloodDonorNameTxtViewId"
+        app:layout_constraintStart_toStartOf="@+id/bloodDonorNameTxtViewId"
+        app:layout_constraintTop_toBottomOf="@+id/bloodDonorNameTxtViewId" />
+
+    <TextView
+        android:id="@+id/bloodGroupNameTxtViewId"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/circle_bg_for_date"
+        android:gravity="center"
+        android:maxLength="20"
+        android:text="AB+"
+        android:textAlignment="center"
+        android:textColor="@color/pink_700"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/contactDonorTxtId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/round_border_bg"
+        android:gravity="center"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="Ask For Help"
+        android:textColor="@color/pink_700"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bloodGroupNameTxtViewId"
+        app:layout_constraintStart_toEndOf="@+id/bloodDonorImageViewId"
+        app:layout_constraintTop_toBottomOf="@+id/lastBloodDonateDateId" />
+</androidx.constraintlayout.widget.ConstraintLayout>
