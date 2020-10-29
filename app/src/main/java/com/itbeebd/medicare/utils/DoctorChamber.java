@@ -122,4 +122,10 @@ public class DoctorChamber implements Parcelable {
     public void setDayOfWeekArrayList(ArrayList<DayOfWeek> dayOfWeekArrayList) {
         this.dayOfWeekArrayList = dayOfWeekArrayList;
     }
+
+    public void printDays() {
+        for (int i = 0; i < this.dayOfWeekArrayList.size(); i++) {
+            System.out.println(dayOfWeekArrayList.get(i).getDay().toUpperCase());
+        }
+    }
 }

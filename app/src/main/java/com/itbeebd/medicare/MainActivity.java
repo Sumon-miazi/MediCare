@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView;
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
+import com.itbeebd.medicare.bloodBank.BloodBankFragment;
 import com.itbeebd.medicare.hospitals.HospitalListActivity;
 import com.itbeebd.medicare.userProfile.UserProfileActivity;
 
@@ -57,7 +58,8 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
                 break;
 
             case R.id.l_item_profile_list:
-                System.out.println(">>>>>>>>>love");
+                fragmentTransaction.replace(R.id.fragmentContainerId, new BloodBankFragment());
+                fragmentTransaction.commit();
                 break;
 
             case R.id.l_item_notification:
