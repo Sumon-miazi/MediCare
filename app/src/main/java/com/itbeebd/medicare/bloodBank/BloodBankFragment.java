@@ -1,5 +1,6 @@
 package com.itbeebd.medicare.bloodBank;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ import com.itbeebd.medicare.utils.BloodDonationRequest;
 import java.util.ArrayList;
 
 
-public class BloodBankFragment extends Fragment implements OnRecyclerObjectClickListener {
+public class BloodBankFragment extends Fragment implements OnRecyclerObjectClickListener, View.OnClickListener {
 
     private TextView findDonorBtn;
     private TextView addReqBtn;
@@ -47,6 +48,10 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
 
         bloodBankAdapter = new BloodBankAdapter(getContext());
         bloodDonationRequestAdapter = new BloodDonationRequestAdapter(getContext());
+
+        findDonorBtn.setOnClickListener(this);
+        addReqBtn.setOnClickListener(this);
+
         return view;
     }
 
@@ -89,5 +94,14 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
     @Override
     public void onItemClicked(Object item, View view) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.findDonorBtnId) {
+            startActivity(new Intent(getContext(), BloodDonorListActivity.class));
+        } else {
+            startActivity(new Intent(getContext(), BloodRequestActivity.class));
+        }
     }
 }

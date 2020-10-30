@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <!--android:hardwareAccelerated="true"-->
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
@@ -23,7 +23,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".bloodBank.BloodDonorListActivity" />
+        <activity android:name=".bloodBank.BloodRequestActivity" />
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,21 +36,19 @@
         </activity>
         <activity android:name=".userProfile.UserSignInActivity" />
         <activity android:name=".userProfile.UserSignUpActivity" />
-        <activity android:name=".doctors.DoctorAppointmentActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-       <!-- <activity android:name=".userProfile.UserProfileActivity" />-->
-
+        <activity
+            android:name=".doctors.DoctorAppointmentActivity"
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- <activity android:name=".userProfile.UserProfileActivity" /> -->
         <activity android:name=".doctors.DoctorInfoActivity" />
         <activity android:name=".doctors.DoctorListActivity" />
         <activity android:name=".hospitals.HospitalListActivity" />
-
-        <activity android:name=".MapsActivity"
+        <activity
+            android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-
-        <!--<activity android:name=".DashBoardActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>-->
-
+        <!--
+<activity android:name=".DashBoardActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        -->
         <service
             android:name=".service.CloudMessagingService"
             android:exported="false">
@@ -83,7 +84,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
     </application>
 
 </manifest>

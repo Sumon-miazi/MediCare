@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="blood_grid_txt_size">16dp</dimen>
+    <dimen name="blood_grid_card_size">70dp</dimen>
+    <dimen name="blood_grid_card_height_size">40dp</dimen>
+</resources>
