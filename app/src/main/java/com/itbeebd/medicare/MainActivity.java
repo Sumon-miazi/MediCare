@@ -3,6 +3,7 @@ package com.itbeebd.medicare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -11,8 +12,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView;
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
 import com.itbeebd.medicare.bloodBank.BloodBankFragment;
+import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.hospitals.HospitalListActivity;
 import com.itbeebd.medicare.userProfile.UserProfileActivity;
+import com.itbeebd.medicare.userProfile.UserSignInActivity;
 
 public class MainActivity extends AppCompatActivity implements BubbleNavigationChangeListener,
         DashBoardActivity.OnItemSelectedListener {
@@ -21,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
     private FragmentManager fragmentManager;
     private DashBoardActivity dashBoardActivity;
     private UserProfileActivity userProfileActivity;
-
+    private long time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +70,14 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
                 break;
 
             case R.id.l_item_profile:
-                fragmentTransaction.replace(R.id.fragmentContainerId, new UserProfileActivity());
-                fragmentTransaction.commit();
+                if (CustomSharedPref.getInstance(this).getUserSignedInOrNot()) {
+                    fragmentTransaction.replace(R.id.fragmentContainerId, new UserProfileActivity());
+                    fragmentTransaction.commit();
+                } else {
+                    startActivity(new Intent(this, UserSignInActivity.class));
+                }
+
+
                 break;
         }
     }
@@ -76,5 +85,16 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
     @Override
     public void onItemSelectedOnDashBoard(View view) {
         startActivity(new Intent(this, HospitalListActivity.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (time + 2000 > System.currentTimeMillis()) {
+            finish();
+        } else {
+            time = System.currentTimeMillis();
+            Toast.makeText(this, "press again to exit", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

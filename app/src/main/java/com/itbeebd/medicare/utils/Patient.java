@@ -15,6 +15,7 @@ public class Patient implements Parcelable {
             return new Patient[size];
         }
     };
+
     private int id;
     private String name;
     private String uid;

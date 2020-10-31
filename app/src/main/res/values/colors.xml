@@ -87,4 +87,6 @@
     <color name="orange_bg_light">#fff3e0</color>
     <color name="grey_bg_light">#fafafa</color>
 
+    <color name="flash_bar">#05A19C</color>
+
 </resources>
