@@ -47,6 +47,7 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
     private DoctorChamberAdapter doctorChamberListAdapter;
     private LocalDate selectedDate;
     private ArrayList<DoctorChamber> doctorChambers;
+    private DoctorChamber selectedChamber;
     private ArrayList<String> timeTable;
     private ArrayList<String> dayArrayList;
     private Doctor doctor;
@@ -88,6 +89,7 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
 
 
         if (doctorChambers.size() > 0) {
+            selectedChamber = doctorChambers.get(0);
             setUpCalenderAndTimeForChamberClicked(doctorChambers.get(0));
         }
 
@@ -110,7 +112,7 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
             if (doctorChambers != null) {
                 this.doctorChambers = doctorChambers;
                 if (!doctorChambers.isEmpty()) {
-                    timeTable = doctorChambers.get(0).getCustomDayOfWeekArrayList().get(0).getTimes();
+                    //  timeTable = doctorChambers.get(0).getCustomDayOfWeekArrayList().get(0).getTimes();
                     initChamberRecyclerView();
                 }
             } else {
@@ -137,11 +139,13 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
                         if (selectedDate == calendarDay.getDate()) {
                             selectedDate = null;
                             calendarView.notifyDayChanged(calendarDay);
+                            clearTimeRecyclerView();
                         } else {
                             LocalDate oldDate = selectedDate;
                             selectedDate = calendarDay.getDate();
                             calendarView.notifyDateChanged(calendarDay.getDate());
                             if (oldDate != null) calendarView.notifyDateChanged(oldDate);
+                            getAllTimesFromDay(calendarDay.getDate().getDayOfWeek().toString());
                         }
                         // menuItem.isVisible = selectedDate != null
                     }
@@ -149,9 +153,12 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
 
                 if (calendarDay.getOwner() == DayOwner.THIS_MONTH) {
                     dateTxtView.setVisibility(View.VISIBLE);
-                    if (calendarDay.getDate().isBefore(today) || dayArrayList.contains(calendarDay.getDate().getDayOfWeek().toString())) {
-                        System.out.println(">>>>>> day of week " + calendarDay.getDate().getDayOfWeek());
+                    if (calendarDay.getDate().isBefore(today) || !(dayArrayList.contains(calendarDay.getDate().getDayOfWeek().toString()))) {
+                        // System.out.println(">>>>>> day of week " + calendarDay.getDate().getDayOfWeek());
                         dateTxtView.setTextColor(getResources().getColor(R.color.example_4_grey_past));
+                        if (today.equals(calendarDay.getDate()))
+                            dateTxtView.setBackgroundResource(R.drawable.circle_bg_for_date);
+
                     } else {
                         LocalDate date = calendarDay.getDate();
                         if (selectedDate != null && selectedDate.equals(date)) {
@@ -211,11 +218,10 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
     @Override
     public void onItemClicked(Object item, View view) {
         if (item instanceof DoctorChamber) {
+            selectedChamber = (DoctorChamber) item;
             System.out.println(">>>>>>>>>>>> Chamber clicked " + ((DoctorChamber) item).getName());
-            appointmentTimeGridAdapter.clear();
-            appointmentTimeGridAdapter.notifyDataSetChanged();
-
-            setUpCalenderAndTimeForChamberClicked((DoctorChamber) item);
+            clearTimeRecyclerView();
+            setUpCalenderAndTimeForChamberClicked(selectedChamber);
         } else if (item instanceof String) {
             System.out.println("time clicked " + item);
         }
@@ -228,5 +234,24 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
         for (int i = 0; i < temp.size(); i++) {
             dayArrayList.add(temp.get(i).getDay().toUpperCase());
         }
+    }
+
+    private void getAllTimesFromDay(String day) {
+        System.out.println("<<<<<<<<<< day clicked " + day);
+        clearTimeRecyclerView();
+        ArrayList<CustomDayOfWeek> dayOfWeeks = selectedChamber.getCustomDayOfWeekArrayList();
+        for (int i = 0; i < dayOfWeeks.size(); i++) {
+            if (day.toLowerCase().equals(dayOfWeeks.get(i).getDay().toLowerCase())) {
+                appointmentTimeGridAdapter.setItems(dayOfWeeks.get(i).getTimes());
+                appointmentTimeGridAdapter.notifyDataSetChanged();
+                break;
+            }
+        }
+
+    }
+
+    private void clearTimeRecyclerView() {
+        appointmentTimeGridAdapter.clear();
+        appointmentTimeGridAdapter.notifyDataSetChanged();
     }
 }
