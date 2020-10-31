@@ -28,6 +28,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    // this for algolia
+    packagingOptions {
+        exclude 'META-INF/*.kotlin_module'
+    }
+
 }
 
 dependencies {
@@ -76,5 +82,13 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.0.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-messaging:21.0.0'
+
+
+    // algolia library
+    implementation 'com.algolia:instantsearch-android:2.6.0'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-common:2.2.0"
+
+
 
 }
