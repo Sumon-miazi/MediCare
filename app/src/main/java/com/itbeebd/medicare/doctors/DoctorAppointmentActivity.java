@@ -88,13 +88,19 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
 
 
         if (doctorChambers.size() > 0) {
-            getAllDaysFromChamber(doctorChambers.get(0));
-            initDayBinder();
+            setUpCalenderAndTimeForChamberClicked(doctorChambers.get(0));
+        }
 
-            if (doctorChambers.get(0).getCustomDayOfWeekArrayList().size() != 0) {
-                timeTable = doctorChambers.get(0).getCustomDayOfWeekArrayList().get(0).getTimes();
-                initTimeRecyclerView();
-            }
+    }
+
+    private void setUpCalenderAndTimeForChamberClicked(DoctorChamber doctorChamber) {
+
+        getAllDaysFromChamber(doctorChamber);
+        initDayBinder();
+
+        if (doctorChamber.getCustomDayOfWeekArrayList().size() != 0) {
+            timeTable = doctorChambers.get(0).getCustomDayOfWeekArrayList().get(0).getTimes();
+            initTimeRecyclerView();
         }
 
     }
@@ -206,6 +212,10 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
     public void onItemClicked(Object item, View view) {
         if (item instanceof DoctorChamber) {
             System.out.println(">>>>>>>>>>>> Chamber clicked " + ((DoctorChamber) item).getName());
+            appointmentTimeGridAdapter.clear();
+            appointmentTimeGridAdapter.notifyDataSetChanged();
+
+            setUpCalenderAndTimeForChamberClicked((DoctorChamber) item);
         } else if (item instanceof String) {
             System.out.println("time clicked " + item);
         }
