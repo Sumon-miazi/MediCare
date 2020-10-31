@@ -17,6 +17,7 @@ import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickList
 import com.itbeebd.medicare.api.ApiCalls;
 import com.itbeebd.medicare.doctors.customCalender.DayViewContainer;
 import com.itbeebd.medicare.doctors.customCalender.MonthViewContainer;
+import com.itbeebd.medicare.utils.CustomDayOfWeek;
 import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.DoctorChamber;
 import com.kizitonwose.calendarview.CalendarView;
@@ -47,6 +48,7 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
     private LocalDate selectedDate;
     private ArrayList<DoctorChamber> doctorChambers;
     private ArrayList<String> timeTable;
+    private ArrayList<String> dayArrayList;
     private Doctor doctor;
 
     @Override
@@ -66,13 +68,14 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
         if (getIntent().hasExtra("appointment")) {
             System.out.println(">>>>>>>>>>>>>> get intent code-block");
             doctorChambers = getIntent().getParcelableArrayListExtra("appointment");
-            timeTable = doctorChambers.get(0).getDayOfWeekArrayList().get(0).getTimes();
-            initChamberRecyclerView();
+
+            if (doctorChambers != null) initChamberRecyclerView();
+
         } else if (getIntent().hasExtra("doctorObj")) {
             doctor = getIntent().getParcelableExtra("doctorObj");
             callApiToGetDoctorChambers();
         }
-        initDayBinder();
+        // initDayBinder();
         // initTimeRecyclerView();
     }
 
@@ -82,7 +85,18 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
         appointmentChamberRecycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         appointmentChamberRecycler.setAdapter(doctorChamberListAdapter);
         chambersListInAppointment.setVisibility(View.VISIBLE);
-        initTimeRecyclerView();
+
+
+        if (doctorChambers.size() > 0) {
+            getAllDaysFromChamber(doctorChambers.get(0));
+            initDayBinder();
+
+            if (doctorChambers.get(0).getCustomDayOfWeekArrayList().size() != 0) {
+                timeTable = doctorChambers.get(0).getCustomDayOfWeekArrayList().get(0).getTimes();
+                initTimeRecyclerView();
+            }
+        }
+
     }
 
     private void callApiToGetDoctorChambers() {
@@ -90,7 +104,7 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
             if (doctorChambers != null) {
                 this.doctorChambers = doctorChambers;
                 if (!doctorChambers.isEmpty()) {
-                    timeTable = doctorChambers.get(0).getDayOfWeekArrayList().get(0).getTimes();
+                    timeTable = doctorChambers.get(0).getCustomDayOfWeekArrayList().get(0).getTimes();
                     initChamberRecyclerView();
                 }
             } else {
@@ -129,7 +143,8 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
 
                 if (calendarDay.getOwner() == DayOwner.THIS_MONTH) {
                     dateTxtView.setVisibility(View.VISIBLE);
-                    if (calendarDay.getDate().isBefore(today)) {
+                    if (calendarDay.getDate().isBefore(today) || dayArrayList.contains(calendarDay.getDate().getDayOfWeek().toString())) {
+                        System.out.println(">>>>>> day of week " + calendarDay.getDate().getDayOfWeek());
                         dateTxtView.setTextColor(getResources().getColor(R.color.example_4_grey_past));
                     } else {
                         LocalDate date = calendarDay.getDate();
@@ -193,6 +208,15 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
             System.out.println(">>>>>>>>>>>> Chamber clicked " + ((DoctorChamber) item).getName());
         } else if (item instanceof String) {
             System.out.println("time clicked " + item);
+        }
+    }
+
+    private void getAllDaysFromChamber(DoctorChamber doctorChamber) {
+        if (dayArrayList != null) dayArrayList.clear();
+        else dayArrayList = new ArrayList<>();
+        ArrayList<CustomDayOfWeek> temp = doctorChamber.getCustomDayOfWeekArrayList();
+        for (int i = 0; i < temp.size(); i++) {
+            dayArrayList.add(temp.get(i).getDay().toUpperCase());
         }
     }
 }

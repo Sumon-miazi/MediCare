@@ -15,7 +15,7 @@ public class DoctorChamber implements Parcelable {
     private String phone;
     private double lat;
     private double lon;
-    private ArrayList<DayOfWeek> dayOfWeekArrayList;
+    private ArrayList<CustomDayOfWeek> customDayOfWeekArrayList;
 
     public DoctorChamber() {
 
@@ -56,7 +56,7 @@ public class DoctorChamber implements Parcelable {
         this.phone = parcel.readString();
         this.lat = parcel.readDouble();
         this.lon = parcel.readDouble();
-        this.dayOfWeekArrayList = parcel.createTypedArrayList(DayOfWeek.CREATOR);
+        this.customDayOfWeekArrayList = parcel.createTypedArrayList(CustomDayOfWeek.CREATOR);
 
     }
 
@@ -76,7 +76,7 @@ public class DoctorChamber implements Parcelable {
         parcel.writeString(this.phone);
         parcel.writeDouble(this.lat);
         parcel.writeDouble(this.lon);
-        parcel.writeTypedList(this.dayOfWeekArrayList);
+        parcel.writeTypedList(this.customDayOfWeekArrayList);
     }
 
     public int getId() {
@@ -115,17 +115,17 @@ public class DoctorChamber implements Parcelable {
         return name;
     }
 
-    public ArrayList<DayOfWeek> getDayOfWeekArrayList() {
-        return dayOfWeekArrayList;
+    public ArrayList<CustomDayOfWeek> getCustomDayOfWeekArrayList() {
+        return customDayOfWeekArrayList;
     }
 
-    public void setDayOfWeekArrayList(ArrayList<DayOfWeek> dayOfWeekArrayList) {
-        this.dayOfWeekArrayList = dayOfWeekArrayList;
+    public void setCustomDayOfWeekArrayList(ArrayList<CustomDayOfWeek> customDayOfWeekArrayList) {
+        this.customDayOfWeekArrayList = customDayOfWeekArrayList;
     }
 
     public void printDays() {
-        for (int i = 0; i < this.dayOfWeekArrayList.size(); i++) {
-            System.out.println(dayOfWeekArrayList.get(i).getDay().toUpperCase());
+        for (int i = 0; i < this.customDayOfWeekArrayList.size(); i++) {
+            System.out.println(customDayOfWeekArrayList.get(i).getDay().toUpperCase());
         }
     }
 }

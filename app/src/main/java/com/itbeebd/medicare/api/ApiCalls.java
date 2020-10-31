@@ -2,7 +2,7 @@ package com.itbeebd.medicare.api;
 
 import com.itbeebd.medicare.api.allInterfaces.GetDataFromApiCall;
 import com.itbeebd.medicare.api.allInterfaces.GetPatientInfo;
-import com.itbeebd.medicare.utils.DayOfWeek;
+import com.itbeebd.medicare.utils.CustomDayOfWeek;
 import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.DoctorChamber;
 import com.itbeebd.medicare.utils.Hospital;
@@ -22,12 +22,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiCalls {
 
-    private Retrofit retrofit = new Retrofit.Builder()
+    private final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(ApiUrls.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    private RetrofitService service = retrofit.create(RetrofitService.class);
+    private final RetrofitService service = retrofit.create(RetrofitService.class);
 
 
     public void getAllHospital(final GetDataFromApiCall<Hospital> getAllHospital) {
@@ -184,7 +184,7 @@ public class ApiCalls {
                                         hospitalObj.getDouble("long"));
 
                                 JSONArray availableDays = object.getJSONArray("available_days");
-                                ArrayList<DayOfWeek> dayOfWeekArrayList = new ArrayList<>();
+                                ArrayList<CustomDayOfWeek> customDayOfWeekArrayList = new ArrayList<>();
 
                                 for (int j = 0; j < availableDays.length(); j++) {
                                     JSONObject dayObj = availableDays.getJSONObject(j);
@@ -195,10 +195,10 @@ public class ApiCalls {
                                         JSONObject obj = timesList.getJSONObject(k);
                                         times.add(obj.getString("time"));
                                     }
-                                    DayOfWeek dayOfWeek = new DayOfWeek(dayObj.getString("day"), times);
-                                    dayOfWeekArrayList.add(dayOfWeek);
+                                    CustomDayOfWeek customDayOfWeek = new CustomDayOfWeek(dayObj.getString("day"), times);
+                                    customDayOfWeekArrayList.add(customDayOfWeek);
                                 }
-                                doctorChamber.setDayOfWeekArrayList(dayOfWeekArrayList);
+                                doctorChamber.setCustomDayOfWeekArrayList(customDayOfWeekArrayList);
                                 doctorChamberArrayList.add(doctorChamber);
                             }
 
