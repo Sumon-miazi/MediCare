@@ -5,8 +5,7 @@
     android:id="@+id/dayViewLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp"
-    android:background="@color/colorAccent">
+    android:layout_margin="2dp">
 
     <TextView
         android:id="@+id/monthText"

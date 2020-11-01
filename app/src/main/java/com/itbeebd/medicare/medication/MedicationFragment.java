@@ -1,9 +1,12 @@
 package com.itbeebd.medicare.medication;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,6 +24,7 @@ import com.kizitonwose.calendarview.model.CalendarDay;
 import com.kizitonwose.calendarview.model.CalendarMonth;
 import com.kizitonwose.calendarview.ui.DayBinder;
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder;
+import com.kizitonwose.calendarview.utils.Size;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,8 +36,6 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import kotlin.jvm.internal.Intrinsics;
-
 public class MedicationFragment extends Fragment implements OnRecyclerObjectClickListener<Medication> {
 
     private CalendarView medicationCalendarView;
@@ -44,7 +46,7 @@ public class MedicationFragment extends Fragment implements OnRecyclerObjectClic
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd");
     private final DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("EEE");
     private final DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMM");
-    private LocalDate selectedDate;
+    private LocalDate selectedDate = LocalDate.now();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,8 +71,22 @@ public class MedicationFragment extends Fragment implements OnRecyclerObjectClic
         setUpMedicationRecyclerView();
     }
 
+    private void setDaySize() {
+        DisplayMetrics dm = new DisplayMetrics();
+        Object var10000 = this.requireContext().getSystemService(Context.WINDOW_SERVICE);
+        if (var10000 == null) {
+            throw new NullPointerException("null cannot be cast to non-null type android.view.WindowManager");
+        } else {
+            WindowManager wm = (WindowManager) var10000;
+            wm.getDefaultDisplay().getMetrics(dm);
+            int dayWidth = dm.widthPixels / 5;
+            int dayHeight = (int) ((double) dayWidth * 1.25D);
+            medicationCalendarView.setDaySize(new Size(dayWidth, dayHeight));
+        }
+    }
 
     private void initDayBinder() {
+        setDaySize();
         medicationCalendarView.setDayBinder(new DayBinder<MedicationDayViewContainer>() {
 
             @Override
@@ -80,73 +96,51 @@ public class MedicationFragment extends Fragment implements OnRecyclerObjectClic
 
             @Override
             public void bind(MedicationDayViewContainer dayViewContainer, CalendarDay calendarDay) {
-
                 ConstraintLayout dateView = dayViewContainer.getDayViewLayout();
-
                 dateView.setOnClickListener(view -> {
 
                     CalendarDay firstDay = medicationCalendarView.findFirstVisibleDay();
                     CalendarDay lastDay = medicationCalendarView.findLastVisibleDay();
 
-                    if (Intrinsics.areEqual(firstDay, calendarDay.getDay())) {
-                        medicationCalendarView.smoothScrollToDate(calendarDay.getDate(), null);
-                    } else if (Intrinsics.areEqual(lastDay, calendarDay.getDay())) {
-                        LocalDate localDate = calendarDay.getDate().minusDays(4L);
-                        Intrinsics.checkNotNullExpressionValue(localDate, "day.date.minusDays(4)");
-                        medicationCalendarView.smoothScrollToDate(localDate, null);
+                    assert firstDay != null;
+                    if (firstDay.getDay() == calendarDay.getDay()) {
+                        medicationCalendarView.smoothScrollToDate(calendarDay.getDate());
+                    } else {
+                        assert lastDay != null;
+                        if (lastDay.getDay() == calendarDay.getDay()) {
+                            medicationCalendarView.smoothScrollToDate(calendarDay.getDate().minusDays(2L));
+                        }
                     }
 
-                    if (selectedDate == calendarDay.getDate()) {
+
+                    if (selectedDate != calendarDay.getDate()) {
                         LocalDate oldDate = selectedDate;
                         selectedDate = calendarDay.getDate();
                         medicationCalendarView.notifyDateChanged(calendarDay.getDate());
                         if (oldDate != null) medicationCalendarView.notifyDateChanged(oldDate);
+                        //   getAllTimesFromDay(calendarDay.getDate().getDayOfWeek().toString());
                     }
+
+
                 });
 
                 LocalDate date = calendarDay.getDate();
-
 
                 dayViewContainer.getMonthTxt().setText(monthFormatter.format(date));
                 dayViewContainer.getDateTxt().setText(dateFormatter.format(date));
                 dayViewContainer.getDayTxt().setText(dayFormatter.format(date));
 
-                if (date == selectedDate) {
+                System.out.println(">>>>>>> selected day " + selectedDate.toString());
+                System.out.println(">>>>>>> date " + date.toString());
+                if (date.toString().equals(selectedDate.toString())) {
+                    System.out.println(">>>>>>> date clicked if");
                     dayViewContainer.getDateTxt().setTextColor(getResources().getColor(R.color.example_7_yellow));
                     dayViewContainer.getSelectedView().setVisibility(View.VISIBLE);
                 } else {
+                    System.out.println(">>>>>>> date clicked else");
                     dayViewContainer.getDateTxt().setTextColor(getResources().getColor(R.color.example_7_white));
                     dayViewContainer.getSelectedView().setVisibility(View.INVISIBLE);
                 }
-
-/*
-                if (calendarDay.getOwner() == DayOwner.THIS_MONTH) {
-                    dateTxtView.setVisibility(View.VISIBLE);
-                    if (calendarDay.getDate().isBefore(today)) {
-                        dateTxtView.setTextColor(getResources().getColor(R.color.example_4_grey_past));
-                    } else {
-                        LocalDate date = calendarDay.getDate();
-
-                        if (selectedDate != null && selectedDate.equals(date)) {
-                            dateTxtView.setTextColor(getResources().getColor(R.color.example_2_white));
-                            dateTxtView.setBackgroundResource(R.drawable.date_selected_bg);
-                        } else if (today.equals(date)) {
-                            dateTxtView.setTextColor(getResources().getColor(R.color.example_4_grey));
-                            dateTxtView.setBackgroundResource(R.drawable.circle_bg_for_date);
-                        } else {
-                            dateTxtView.setTextColor(getResources().getColor(R.color.example_2_black));
-                            dateTxtView.setBackground(null);
-                        }
-
-
-                    }
-
-                } else {
-                    dateTxtView.setVisibility(View.INVISIBLE);
-                }
-
- */
-
 
             }
         });
