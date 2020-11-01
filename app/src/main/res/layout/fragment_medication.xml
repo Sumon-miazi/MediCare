@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".medication.MedicationActivity">
+    tools:context=".medication.MedicationFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.kizitonwose.calendarview.CalendarView
-            android:id="@+id/medicationCalendarView"
+            android:id="@+id/medicationCalendarViewId"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:clipToPadding="false"

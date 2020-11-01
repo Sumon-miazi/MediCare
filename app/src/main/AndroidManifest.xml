@@ -22,7 +22,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".medication.MedicationActivity"></activity>
+        
         <activity android:name=".bloodBank.BloodDonorListActivity" />
         <activity android:name=".bloodBank.BloodRequestActivity" />
         <activity
