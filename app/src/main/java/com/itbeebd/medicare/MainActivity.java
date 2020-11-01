@@ -14,6 +14,7 @@ import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
 import com.itbeebd.medicare.bloodBank.BloodBankFragment;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.hospitals.HospitalListActivity;
+import com.itbeebd.medicare.medication.MedicationFragment;
 import com.itbeebd.medicare.userProfile.UserProfileActivity;
 import com.itbeebd.medicare.userProfile.UserSignInActivity;
 
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
 
             case R.id.l_item_notification:
                 System.out.println(">>>>>>>>>notification");
+                fragmentTransaction.replace(R.id.fragmentContainerId, new MedicationFragment());
+                fragmentTransaction.commit();
                 break;
 
             case R.id.l_item_profile:

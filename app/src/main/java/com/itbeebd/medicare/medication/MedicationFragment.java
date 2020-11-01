@@ -41,6 +41,12 @@ public class MedicationFragment extends Fragment implements OnRecyclerObjectClic
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        setUpMedicationRecyclerView();
+    }
+
     private void setUpMedicationRecyclerView() {
         ArrayList<Medication> medications = new ArrayList<>();
         medications.add(new Medication());
