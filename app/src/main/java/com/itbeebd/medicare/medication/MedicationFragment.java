@@ -1,6 +1,7 @@
 package com.itbeebd.medicare.medication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -199,6 +200,6 @@ public class MedicationFragment extends Fragment implements OnRecyclerObjectClic
     }
 
     private void addNewMedicine() {
-
+        startActivity(new Intent(getContext(), AddMedicationActivity.class));
     }
 }

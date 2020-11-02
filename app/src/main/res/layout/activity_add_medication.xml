@@ -1,8 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/example_1_bg"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
     tools:context=".medication.AddMedicationActivity">
+
+
+    <TextView
+        android:id="@+id/addMedicationYearText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/example_1_white_light"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="2019" />
+
+    <TextView
+        android:id="@+id/addMedicationCalendarMonthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/example_1_white"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="@+id/addMedicationYearText"
+        app:layout_constraintTop_toBottomOf="@+id/addMedicationYearText"
+        tools:text="April" />
+
+    <include
+        android:id="@+id/legendLayout"
+        layout="@layout/calendar_day_legend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addMedicationCalendarMonthText" />
+
+    <com.kizitonwose.calendarview.CalendarView
+        android:id="@+id/addMedicationCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cv_dayViewResource="@layout/calendar_day_layout"
+        app:cv_inDateStyle="allMonths"
+        app:cv_orientation="horizontal"
+        app:cv_outDateStyle="endOfRow"
+        app:cv_scrollMode="paged"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/legendLayout" />
+
+    <CheckBox
+        android:id="@+id/weekModeCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginEnd="16dp"
+        android:buttonTint="@color/example_1_white"
+        android:padding="2dp"
+        android:text="week mode"
+        android:textColor="@color/example_1_white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/addMedicationCalendarMonthText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/addMedicationCalendarMonthText" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
