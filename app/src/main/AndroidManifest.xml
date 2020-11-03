@@ -22,18 +22,20 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".medication.AddMedicationActivity"></activity>
-        <activity android:name=".bloodBank.BloodDonorListActivity" />
-        <activity android:name=".bloodBank.BloodRequestActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".medication.AddMedicationActivity" />
+        <activity android:name=".bloodBank.BloodDonorListActivity" />
+        <activity android:name=".bloodBank.BloodRequestActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".userProfile.UserSignInActivity" />
         <activity android:name=".userProfile.UserSignUpActivity" />
         <activity

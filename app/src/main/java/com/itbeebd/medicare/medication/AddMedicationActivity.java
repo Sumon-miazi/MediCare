@@ -30,7 +30,7 @@ import kotlin.ranges.RangesKt;
 
 public class AddMedicationActivity extends AppCompatActivity {
 
-    private final DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMM");
+    private final DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMMM");
     private final ArrayList<LocalDate> selectedDates = new ArrayList<>();
     private final LocalDate selectedDate = LocalDate.now();
     private final LocalDate today = LocalDate.now();
@@ -67,6 +67,10 @@ public class AddMedicationActivity extends AppCompatActivity {
         yearView = findViewById(R.id.addMedicationYearText);
 
         initDayBinder();
+
+        weekMode.setOnCheckedChangeListener((compoundButton, b) -> {
+            setWeekMode(b);
+        });
     }
 
     private void initDayBinder() {
@@ -120,12 +124,114 @@ public class AddMedicationActivity extends AppCompatActivity {
         });
 
         DayOfWeek[] daysOfWeek = daysOfWeekFromLocale();
-        
+
         YearMonth currentMonth = YearMonth.now();
-        YearMonth firstMonth = currentMonth.minusMonths(10);
-        YearMonth lastMonth = currentMonth.plusMonths(10);
-        DayOfWeek firstDayOfWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
         addMedicationCalendarView.setup(currentMonth, currentMonth.plusMonths(2), daysOfWeek[0]);
         addMedicationCalendarView.scrollToMonth(currentMonth);
+
+        monthScrollListener();
+    }
+
+    private void monthScrollListener() {
+        addMedicationCalendarView.setMonthScrollListener(calendarMonth -> {
+            if (addMedicationCalendarView.getMaxRowCount() == 6) {
+                yearView.setText(String.valueOf(calendarMonth.getYearMonth().getYear()));
+                monthView.setText(monthFormatter.format(calendarMonth.getYearMonth()));
+            } else {
+                // In week mode, we show the header a bit differently.
+                // We show indices with dates from different months since
+                // dates overflow and cells in one index can belong to different
+                // months/years.
+
+                LocalDate firstDate = calendarMonth.getWeekDays().get(0).get(0).getDate();
+                LocalDate lastDate = calendarMonth.getWeekDays()
+                        .get(calendarMonth.getWeekDays().size() - 1)
+                        .get(calendarMonth.getWeekDays().size() - 1)
+                        .getDate();
+
+                if (firstDate.getMonth() == lastDate.getMonth()) {
+                    yearView.setText(String.valueOf(firstDate.getYear()));
+                    monthView.setText(monthFormatter.format(firstDate));
+                } else {
+                    String monthName = monthFormatter.format(firstDate) + " - " + monthFormatter.format(lastDate);
+                    monthView.setText(monthName);
+                    if (firstDate.getYear() == lastDate.getYear()) {
+                        yearView.setText(String.valueOf(firstDate.getYear()));
+                    } else {
+                        String yearName = firstDate.getYear() + " - " + lastDate.getYear();
+                        yearView.setText(yearName);
+                    }
+                }
+            }
+            return null;
+        });
+    }
+
+    private void setWeekMode(boolean b) {
+        /*
+        binding.weekModeCheckBox.setOnCheckedChangeListener { _, monthToWeek ->
+                val firstDate = binding.exOneCalendar.findFirstVisibleDay()?.date ?: return@setOnCheckedChangeListener
+                val lastDate = binding.exOneCalendar.findLastVisibleDay()?.date ?: return@setOnCheckedChangeListener
+
+                val oneWeekHeight = binding.exOneCalendar.daySize.height
+            val oneMonthHeight = oneWeekHeight * 6
+
+            val oldHeight = if (monthToWeek) oneMonthHeight else oneWeekHeight
+            val newHeight = if (monthToWeek) oneWeekHeight else oneMonthHeight
+
+            // Animate calendar height changes.
+            val animator = ValueAnimator.ofInt(oldHeight, newHeight)
+            animator.addUpdateListener { animator ->
+                    binding.exOneCalendar.updateLayoutParams {
+                height = animator.animatedValue as Int
+            }
+            }
+
+            // When changing from month to week mode, we change the calendar's
+            // config at the end of the animation(doOnEnd) but when changing
+            // from week to month mode, we change the calendar's config at
+            // the start of the animation(doOnStart). This is so that the change
+            // in height is visible. You can do this whichever way you prefer.
+
+            animator.doOnStart {
+                if (!monthToWeek) {
+                    binding.exOneCalendar.updateMonthConfiguration(
+                            inDateStyle = InDateStyle.ALL_MONTHS,
+                            maxRowCount = 6,
+                            hasBoundaries = true
+                    )
+                }
+            }
+            animator.doOnEnd {
+                if (monthToWeek) {
+                    binding.exOneCalendar.updateMonthConfiguration(
+                            inDateStyle = InDateStyle.FIRST_MONTH,
+                            maxRowCount = 1,
+                            hasBoundaries = false
+                    )
+                }
+
+                if (monthToWeek) {
+                    // We want the first visible day to remain
+                    // visible when we change to week mode.
+                    binding.exOneCalendar.scrollToDate(firstDate)
+                } else {
+                    // When changing to month mode, we choose current
+                    // month if it is the only one in the current frame.
+                    // if we have multiple months in one frame, we prefer
+                    // the second one unless it's an outDate in the last index.
+                    if (firstDate.yearMonth == lastDate.yearMonth) {
+                        binding.exOneCalendar.scrollToMonth(firstDate.yearMonth)
+                    } else {
+                        // We compare the next with the last month on the calendar so we don't go over.
+                        binding.exOneCalendar.scrollToMonth(minOf(firstDate.yearMonth.next, endMonth))
+                    }
+                }
+            }
+            animator.duration = 250
+            animator.start()
+        }
+
+         */
     }
 }
