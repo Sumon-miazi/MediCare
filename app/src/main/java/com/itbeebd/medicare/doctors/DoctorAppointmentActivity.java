@@ -45,9 +45,12 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
     private ConstraintLayout chambersListInAppointment;
     private AppointmentTimeGridAdapter appointmentTimeGridAdapter;
     private DoctorChamberAdapter doctorChamberListAdapter;
-    private LocalDate selectedDate;
+
     private ArrayList<DoctorChamber> doctorChambers;
     private DoctorChamber selectedChamber;
+    private LocalDate selectedDate;
+    private String selectedTime;
+
     private ArrayList<String> timeTable;
     private ArrayList<String> dayArrayList;
     private Doctor doctor;
@@ -57,10 +60,10 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_appointment);
 
-        calendarView = findViewById(R.id.calendarView);
-        appointmentTimeGridRecycler = findViewById(R.id.appointmentTimeGridRecyclerId);
         chambersListInAppointment = findViewById(R.id.chambersListInAppointmentId);
         appointmentChamberRecycler = findViewById(R.id.appointmentChamberRecyclerId);
+        calendarView = findViewById(R.id.calendarView);
+        appointmentTimeGridRecycler = findViewById(R.id.appointmentTimeGridRecyclerId);
         chambersListInAppointment.setVisibility(View.GONE);
 
         appointmentTimeGridAdapter = new AppointmentTimeGridAdapter(this);
@@ -219,10 +222,21 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
     public void onItemClicked(Object item, View view) {
         if (item instanceof DoctorChamber) {
             selectedChamber = (DoctorChamber) item;
+
+            for(int i = 0; i < doctorChambers.size(); i++){
+                if(doctorChambers.get(i).equals(selectedChamber))
+                    doctorChambers.get(i).setClicked(1);
+                else doctorChambers.get(i).setClicked(0);
+            }
+
+            doctorChamberListAdapter.setItems(doctorChambers);
+            doctorChamberListAdapter.notifyDataSetChanged();
+
             System.out.println(">>>>>>>>>>>> Chamber clicked " + ((DoctorChamber) item).getName());
             clearTimeRecyclerView();
             setUpCalenderAndTimeForChamberClicked(selectedChamber);
         } else if (item instanceof String) {
+            selectedTime = (String) item;
             System.out.println("time clicked " + item);
         }
     }
@@ -253,5 +267,11 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
     private void clearTimeRecyclerView() {
         appointmentTimeGridAdapter.clear();
         appointmentTimeGridAdapter.notifyDataSetChanged();
+    }
+
+    public void bookNewAppointment(View view) {
+        System.out.println(">>>>>>>>chamber = " + selectedChamber.getName());
+        System.out.println(">>>>>>>>date = " + selectedDate);
+        System.out.println(">>>>>>>>time = " + selectedTime);
     }
 }

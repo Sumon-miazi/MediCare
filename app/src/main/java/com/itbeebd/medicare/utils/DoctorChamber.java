@@ -16,6 +16,7 @@ public class DoctorChamber implements Parcelable {
     private double lat;
     private double lon;
     private ArrayList<CustomDayOfWeek> customDayOfWeekArrayList;
+    private int clicked;
 
     public DoctorChamber() {
 
@@ -31,6 +32,7 @@ public class DoctorChamber implements Parcelable {
         this.phone = phone;
         this.lat = lat;
         this.lon = lon;
+        this.clicked = 0;
     }
 
 
@@ -56,6 +58,7 @@ public class DoctorChamber implements Parcelable {
         this.phone = parcel.readString();
         this.lat = parcel.readDouble();
         this.lon = parcel.readDouble();
+        this.clicked = parcel.readInt();
         this.customDayOfWeekArrayList = parcel.createTypedArrayList(CustomDayOfWeek.CREATOR);
 
     }
@@ -76,6 +79,7 @@ public class DoctorChamber implements Parcelable {
         parcel.writeString(this.phone);
         parcel.writeDouble(this.lat);
         parcel.writeDouble(this.lon);
+        parcel.writeInt(this.clicked);
         parcel.writeTypedList(this.customDayOfWeekArrayList);
     }
 
@@ -113,6 +117,14 @@ public class DoctorChamber implements Parcelable {
 
     public String getName() {
         return name;
+    }
+
+    public int getClicked() {
+        return clicked;
+    }
+
+    public void setClicked(int clicked) {
+        this.clicked = clicked;
     }
 
     public ArrayList<CustomDayOfWeek> getCustomDayOfWeekArrayList() {

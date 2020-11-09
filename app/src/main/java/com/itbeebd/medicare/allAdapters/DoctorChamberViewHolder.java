@@ -1,5 +1,6 @@
 package com.itbeebd.medicare.allAdapters;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,12 +14,14 @@ import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickList
 import com.itbeebd.medicare.utils.DoctorChamber;
 
 public class DoctorChamberViewHolder extends BaseViewHolder<DoctorChamber, OnRecyclerObjectClickListener<DoctorChamber>> {
-    private TextView chamberName;
-    private TextView chamberAddress;
-    private CardView chamberCardView;
+    private final TextView chamberName;
+    private final TextView chamberAddress;
+    private final CardView chamberCardView;
+    private final Context context;
 
-    public DoctorChamberViewHolder(@NonNull View itemView) {
+    public DoctorChamberViewHolder(@NonNull View itemView, Context context) {
         super(itemView);
+        this.context = context;
         chamberName = itemView.findViewById(R.id.singleDoctorChamberNameId);
         chamberAddress = itemView.findViewById(R.id.singleDoctorChamberAddressId);
         chamberCardView = itemView.findViewById(R.id.doctorChamberCardViewId);
@@ -28,6 +31,9 @@ public class DoctorChamberViewHolder extends BaseViewHolder<DoctorChamber, OnRec
     public void onBind(DoctorChamber item, @Nullable OnRecyclerObjectClickListener<DoctorChamber> listener) {
         chamberName.setText(item.getName());
         chamberAddress.setText(item.getAddress());
+
+        if(item.getClicked() == 1) chamberCardView.setBackgroundColor(context.getResources().getColor(R.color.green));
+        else chamberCardView.setBackgroundColor(context.getResources().getColor(R.color.white));
 
         chamberCardView.setOnClickListener(view -> {
             assert listener != null;
