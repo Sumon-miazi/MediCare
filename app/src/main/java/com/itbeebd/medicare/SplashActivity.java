@@ -49,6 +49,7 @@ public class SplashActivity extends AppCompatActivity {
                 goToSignInActivity();
             } else {
                 System.out.println(">>>>>. splash else");
+                CustomSharedPref.getInstance(this).setUserUid(firebaseUser.getUid());
                 goToMainActivity(firebaseUser);
             }
         });

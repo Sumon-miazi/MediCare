@@ -293,7 +293,7 @@ public class ApiCalls {
                     try {
                         jsonObject = new JSONObject(response.body().string());
                         System.out.println("checkUserExistOrNot>>>>>>>>>>> " + jsonObject.toString());
-                        getResponse.data(jsonObject.optString("success").equals("true"), jsonObject.optString("message"));
+                        getResponse.data(jsonObject.optString("status").equals("true"), jsonObject.optString("message"));
 
                     } catch (Exception ignore) {
                         System.out.println("checkUserExistOrNot>>>>>>>>>>> catch " + ignore.getMessage());
@@ -325,6 +325,7 @@ public class ApiCalls {
                         if (jsonObject.optString("status").equals("true")) {
                             JSONObject userObj = jsonObject.getJSONObject("data");
 
+                            userObj.optString("dob");
                             Patient patient = new Patient(
                                     userObj.getInt("id"),
                                     userObj.getString("name"),
@@ -338,8 +339,10 @@ public class ApiCalls {
                                     userObj.getString("phone"),
                                     userObj.getString("token")
                             );
+                            new Dao().savePatientProfile(patient);
 
                             getPatientInfo.data(patient, jsonObject.optString("message"));
+
                         } else getPatientInfo.data(null, jsonObject.optString("message"));
 
                     } catch (Exception ignore) {

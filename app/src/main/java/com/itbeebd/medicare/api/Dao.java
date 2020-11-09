@@ -10,14 +10,15 @@ public class Dao {
     public void savePatientProfile(Patient patient){
         List<Patient> patient1 = null;
         try {
-            patient1 = Patient.find(Patient.class,"patient_id = ?", String.valueOf(patient.getPatientId()));
+            patient1 = Patient.find(Patient.class,"PATIENTID = ?", String.valueOf(patient.getPatientId()));
         }
-        catch (Exception ignore){
+        catch (Exception exception){
+            System.out.println(">>>>>>>>. sugar = " + exception.getMessage());
             patient.save();
             return;
         }
 
-        if(patient1 != null){
+        if(patient1 != null && patient1.size() > 0){
             patient1.get(0).setName(patient.getName());
             patient1.get(0).setUid(patient.getUid());
             patient1.get(0).setGender(patient.getGender());
