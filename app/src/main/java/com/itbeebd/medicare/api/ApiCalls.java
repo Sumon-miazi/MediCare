@@ -2,6 +2,7 @@ package com.itbeebd.medicare.api;
 
 import com.itbeebd.medicare.api.allInterfaces.GetDataFromApiCall;
 import com.itbeebd.medicare.api.allInterfaces.GetPatientInfo;
+import com.itbeebd.medicare.api.allInterfaces.GetResponse;
 import com.itbeebd.medicare.utils.CustomDayOfWeek;
 import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.DoctorChamber;
@@ -265,6 +266,82 @@ public class ApiCalls {
 
                 System.out.println("signUpPatient>>>>>>>>>>> failed " + t.getMessage());
 
+                getPatientInfo.data(null, t.getMessage());
+            }
+        });
+    }
+
+    public void checkUserExistOrNot(String uid, GetResponse getResponse) {
+        System.out.println("checkUserExistOrNot>>>>>>>>>>> called ");
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.checkUserExistence(retrofitRequestBody.getPatientDetails(uid));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+                        System.out.println("checkUserExistOrNot>>>>>>>>>>> " + jsonObject.toString());
+                        getResponse.data(jsonObject.optString("success").equals("true"), jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("checkUserExistOrNot>>>>>>>>>>> catch " + ignore.getMessage());
+                        getResponse.data(false, jsonObject.optString("message"));
+                    }
+                } else getResponse.data(false, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("checkUserExistOrNot>>>>>>>>>>> failed " + t.getMessage());
+                getResponse.data(false, t.getMessage());
+            }
+        });
+    }
+
+    public void getUserData(String uid, GetPatientInfo getPatientInfo) {
+        System.out.println("getUserData>>>>>>>>>>> called ");
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.getPatientDetails(retrofitRequestBody.getPatientDetails(uid));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+                        System.out.println("getUserData>>>>>>>>>>> " + jsonObject.toString());
+                        if (jsonObject.optString("status").equals("true")) {
+                            JSONObject userObj = jsonObject.getJSONObject("data");
+
+                            Patient patient = new Patient(
+                                    userObj.getInt("id"),
+                                    userObj.getString("name"),
+                                    userObj.getString("uid"),
+                                    userObj.getString("gender"),
+                                    userObj.getString("dob"),
+                                    userObj.getDouble("weight"),
+                                    userObj.getString("blood_group"),
+                                    userObj.getInt("is_blood_donor"),
+                                    userObj.getString("address"),
+                                    userObj.getString("phone"),
+                                    userObj.getString("token")
+                            );
+
+                            getPatientInfo.data(patient, jsonObject.optString("message"));
+                        } else getPatientInfo.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("getUserData>>>>>>>>>>> catch " + ignore.getMessage());
+                        getPatientInfo.data(null, ignore.getMessage());
+                    }
+                } else getPatientInfo.data(null, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("getUserData>>>>>>>>>>> failed " + t.getMessage());
                 getPatientInfo.data(null, t.getMessage());
             }
         });

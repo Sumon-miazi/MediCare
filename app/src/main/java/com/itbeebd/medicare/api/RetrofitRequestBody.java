@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RetrofitRequestBody {
-    private String api_key = "jVO6EI4kLdaZ6EIXnfJnV54XJaZ6VOT";
+    private final String api_key = "jVO6EI4kLdaZ6EIXnfJnV54XJaZ6VOT";
 
     public RetrofitRequestBody() {
 
@@ -37,6 +37,13 @@ public class RetrofitRequestBody {
         Map<String, Object> map = new HashMap<>();
         map.put("name", patient.getName());
         map.put("uid", patient.getUid());
+        map.put("api_key", this.api_key);
+        return map;
+    }
+
+    Map<String, Object> getPatientDetails(String uid) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("uid", uid);
         map.put("api_key", this.api_key);
         return map;
     }

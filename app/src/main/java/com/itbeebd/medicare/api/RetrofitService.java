@@ -22,4 +22,10 @@ public interface RetrofitService {
     @POST(ApiUrls.SIGN_UP_PATIENT)
     Call<ResponseBody> signUpPatient(@Body Map<String, Object> body);
 
+    @POST(ApiUrls.GET_PATIENT_DETAILS)
+    Call<ResponseBody> getPatientDetails(@Body Map<String, Object> body);
+
+    @POST(ApiUrls.CHECK_USER_EXISTENCE)
+    Call<ResponseBody> checkUserExistence(@Body Map<String, Object> body);
+
 }

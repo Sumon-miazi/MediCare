@@ -12,11 +12,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView;
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
 import com.itbeebd.medicare.bloodBank.BloodBankFragment;
-import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.hospitals.HospitalListActivity;
 import com.itbeebd.medicare.medication.MedicationFragment;
 import com.itbeebd.medicare.userProfile.UserProfileActivity;
-import com.itbeebd.medicare.userProfile.UserSignInActivity;
 
 public class MainActivity extends AppCompatActivity implements BubbleNavigationChangeListener,
         DashBoardActivity.OnItemSelectedListener {
@@ -73,12 +71,12 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
                 break;
 
             case R.id.l_item_profile:
-                if (CustomSharedPref.getInstance(this).getUserSignedInOrNot()) {
-                    fragmentTransaction.replace(R.id.fragmentContainerId, new UserProfileActivity());
-                    fragmentTransaction.commit();
-                } else {
-                    startActivity(new Intent(this, UserSignInActivity.class));
-                }
+                // if (CustomSharedPref.getInstance(this).getUserSignedInOrNot()) {
+                fragmentTransaction.replace(R.id.fragmentContainerId, new UserProfileActivity());
+                fragmentTransaction.commit();
+                // } else {
+                //     startActivity(new Intent(this, UserSignInActivity.class));
+                //  }
 
 
                 break;
