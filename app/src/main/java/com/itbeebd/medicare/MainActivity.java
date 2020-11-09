@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView;
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
 import com.itbeebd.medicare.bloodBank.BloodBankFragment;
+import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.hospitals.HospitalListActivity;
 import com.itbeebd.medicare.medication.MedicationFragment;
 import com.itbeebd.medicare.userProfile.UserProfileActivity;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragmentContainerId, dashBoardActivity);
         fragmentTransaction.commit();
+
+        CustomSharedPref.getInstance(this).setUserSignedInOrNot(true);
     }
 
     @Override

@@ -3,7 +3,10 @@ package com.itbeebd.medicare.utils;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Patient implements Parcelable {
+import com.orm.SugarRecord;
+
+public class Patient extends SugarRecord implements Parcelable {
+
     public static final Creator<Patient> CREATOR = new Creator<Patient>() {
         @Override
         public Patient createFromParcel(Parcel in) {
@@ -15,8 +18,6 @@ public class Patient implements Parcelable {
             return new Patient[size];
         }
     };
-
-    private int id;
     private String name;
     private String uid;
     private String gender;
@@ -27,17 +28,27 @@ public class Patient implements Parcelable {
     private String address;
     private String phone;
     private String token;
-
-
-    public Patient() {
-    }
+    private int patient_id;
 
     public Patient(String name) {
         this.name = name;
         this.uid = "";
     }
 
-    public Patient(int id,
+    public Patient() {
+        this.name = "Anonymous";
+        this.uid = "";
+        this.gender = "";
+        this.dob = "";
+        this.weight = 0.0;
+        this.blood_group = "";
+        this.is_blood_donor = 0;
+        this.address = "";
+        this.phone = "";
+        this.token = "";
+    }
+
+    public Patient(int patient_id,
                    String name,
                    String uid,
                    String gender,
@@ -48,7 +59,7 @@ public class Patient implements Parcelable {
                    String address,
                    String phone,
                    String token) {
-        this.id = id;
+        this.patient_id = patient_id;
         this.name = name;
         this.uid = uid;
         this.gender = gender;
@@ -61,8 +72,9 @@ public class Patient implements Parcelable {
         this.token = token;
     }
 
+
     public Patient(Parcel parcel) {
-        this.id = parcel.readInt();
+        this.patient_id = parcel.readInt();
         this.name = parcel.readString();
         this.uid = parcel.readString();
         this.gender = parcel.readString();
@@ -82,7 +94,7 @@ public class Patient implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(this.id);
+        parcel.writeInt(this.patient_id);
         parcel.writeString(this.name);
         parcel.writeString(this.uid);
         parcel.writeString(this.gender);
@@ -95,12 +107,12 @@ public class Patient implements Parcelable {
         parcel.writeString(this.token);
     }
 
-    public int getId() {
-        return id;
+    public int getPatientId() {
+        return patient_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPatientId(int id) {
+        this.patient_id = id;
     }
 
     public String getName() {

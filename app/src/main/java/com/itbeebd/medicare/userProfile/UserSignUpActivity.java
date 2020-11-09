@@ -48,9 +48,8 @@ public class UserSignUpActivity extends AppCompatActivity {
         if (!CustomSharedPref.getInstance(this).getPushNotificationToken().equals(""))
             patientObj.setToken(CustomSharedPref.getInstance(this).getPushNotificationToken());
 
-        new ApiCalls().signUpPatient(patientObj, (patient, message) -> {
+        new ApiCalls(this).signUpPatient(patientObj, (patient, message) -> {
             if (patient != null) {
-                CustomSharedPref.getInstance(this).setUserSignedInOrNot(true);
                 // Intent intent = new Intent(this, UserProfileActivity.class);
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("patient", patient);

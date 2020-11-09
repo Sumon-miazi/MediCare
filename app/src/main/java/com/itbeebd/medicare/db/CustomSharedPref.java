@@ -7,7 +7,7 @@ import com.itbeebd.medicare.R;
 
 public class CustomSharedPref {
     private static CustomSharedPref customSharedPref;
-    private SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
     private CustomSharedPref(Context context) {
         sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.sharedPrefName), Context.MODE_PRIVATE);
@@ -18,6 +18,16 @@ public class CustomSharedPref {
             customSharedPref = new CustomSharedPref(context);
         }
         return customSharedPref;
+    }
+
+    public int getUserId() {
+        return sharedPreferences.getInt("patient_id", 0);
+    }
+
+    public void setUserId(int id) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("patient_id", id);
+        editor.apply();
     }
 
     public boolean getUserSignedInOrNot() {

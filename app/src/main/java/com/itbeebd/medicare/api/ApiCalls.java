@@ -1,8 +1,11 @@
 package com.itbeebd.medicare.api;
 
+import android.content.Context;
+
 import com.itbeebd.medicare.api.allInterfaces.GetDataFromApiCall;
 import com.itbeebd.medicare.api.allInterfaces.GetPatientInfo;
 import com.itbeebd.medicare.api.allInterfaces.GetResponse;
+import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.CustomDayOfWeek;
 import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.DoctorChamber;
@@ -23,6 +26,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiCalls {
 
+    private Context context;
+
     private final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(ApiUrls.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -30,6 +35,9 @@ public class ApiCalls {
 
     private final RetrofitService service = retrofit.create(RetrofitService.class);
 
+    public ApiCalls(){}
+
+    public ApiCalls(Context context){ this.context = context;}
 
     public void getAllHospital(final GetDataFromApiCall<Hospital> getAllHospital) {
 
@@ -246,10 +254,12 @@ public class ApiCalls {
                             JSONObject patientJsonObj = jsonObject.getJSONObject("data");
 
                             Patient patientInfo = new Patient();
-                            patientInfo.setId(patientJsonObj.getInt("id"));
+                            patientInfo.setPatientId(patientJsonObj.getInt("id"));
                             patientInfo.setName(patientJsonObj.getString("name"));
                             patientInfo.setUid(patientJsonObj.getString("uid"));
 
+                            CustomSharedPref.getInstance(context).setUserId(patientInfo.getPatientId());
+                            new Dao().savePatientProfile(patientInfo);
                             getPatientInfo.data(patientInfo, jsonObject.optString("message"));
                         } else getPatientInfo.data(null, jsonObject.optString("message"));
 

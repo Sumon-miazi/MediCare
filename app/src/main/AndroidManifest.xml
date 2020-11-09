@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.orm.SugarApp"
+        android:name=".utils.MyApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -26,7 +26,8 @@
         tools:targetApi="m">
 
         <!--Launcher activity-->
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,25 +35,36 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".medication.AddMedicationActivity" />
-        <activity android:name=".bloodBank.BloodDonorListActivity" />
-        <activity android:name=".bloodBank.BloodRequestActivity" />
+        <activity android:name=".medication.AddMedicationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".bloodBank.BloodDonorListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".bloodBank.BloodRequestActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".userProfile.UserSignInActivity" />
-        <activity android:name=".userProfile.UserSignUpActivity" />
+        <activity android:name=".userProfile.UserSignInActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".userProfile.UserSignUpActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".doctors.DoctorAppointmentActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".doctors.DoctorInfoActivity" />
-        <activity android:name=".doctors.DoctorListActivity" />
-        <activity android:name=".hospitals.HospitalListActivity" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".doctors.DoctorInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".doctors.DoctorListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".hospitals.HospitalListActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"/>
 
         <!--Service for firebase cloud messaging-->
         <service
@@ -99,7 +111,7 @@
             android:value="itbeebdMedicare.db" />
         <meta-data
             android:name="VERSION"
-            android:value="2" />
+            android:value="1.0.1" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
