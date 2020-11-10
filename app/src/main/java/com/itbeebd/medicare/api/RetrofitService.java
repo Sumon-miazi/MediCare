@@ -28,4 +28,8 @@ public interface RetrofitService {
     @POST(ApiUrls.CHECK_USER_EXISTENCE)
     Call<ResponseBody> checkUserExistence(@Body Map<String, Object> body);
 
+
+    @POST(ApiUrls.BOOK_NEW_APPOINTMENT)
+    Call<ResponseBody> bookNewAppointment(@Body Map<String, Object> body);
+
 }

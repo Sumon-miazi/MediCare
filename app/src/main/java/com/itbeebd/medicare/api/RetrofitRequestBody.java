@@ -1,5 +1,6 @@
 package com.itbeebd.medicare.api;
 
+import com.itbeebd.medicare.utils.Appointment;
 import com.itbeebd.medicare.utils.Patient;
 
 import java.util.HashMap;
@@ -41,9 +42,28 @@ public class RetrofitRequestBody {
         return map;
     }
 
+
+
     Map<String, Object> getPatientDetails(String uid) {
         Map<String, Object> map = new HashMap<>();
         map.put("uid", uid);
+        map.put("api_key", this.api_key);
+        return map;
+    }
+
+
+    Map<String, Object> bookNewAppointment(Appointment appointment) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("patient_id", appointment.getPatient_id());
+        map.put("doctor_id", appointment.getDoctor_id());
+        map.put("doctor_chamber_id", appointment.getDoctor_chamber_id());
+        map.put("hospital_id", appointment.getHospital_id());
+        map.put("year", appointment.getYear());
+        map.put("month", appointment.getMonth());
+        map.put("day", appointment.getDay());
+        map.put("hour", appointment.getHour());
+        map.put("minute", appointment.getMinute());
+        map.put("status", appointment.getStatus());
         map.put("api_key", this.api_key);
         return map;
     }

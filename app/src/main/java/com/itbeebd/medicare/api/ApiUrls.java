@@ -14,4 +14,8 @@ public class ApiUrls {
     public static final String SIGN_UP_PATIENT = "signUpPatient";
     public static final String GET_PATIENT_DETAILS = "getPatientDetailsByUid";
     public static final String CHECK_USER_EXISTENCE = "checkUserExistenceByUid";
+
+
+    public static final String BOOK_NEW_APPOINTMENT = "bookNewAppointment";
+
 }

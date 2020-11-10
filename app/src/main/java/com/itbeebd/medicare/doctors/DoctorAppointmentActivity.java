@@ -3,6 +3,7 @@ package com.itbeebd.medicare.doctors;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -15,8 +16,10 @@ import com.itbeebd.medicare.allAdapters.AppointmentTimeGridAdapter;
 import com.itbeebd.medicare.allAdapters.DoctorChamberAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.doctors.customCalender.DayViewContainer;
 import com.itbeebd.medicare.doctors.customCalender.MonthViewContainer;
+import com.itbeebd.medicare.utils.Appointment;
 import com.itbeebd.medicare.utils.CustomDayOfWeek;
 import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.DoctorChamber;
@@ -48,8 +51,8 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
 
     private ArrayList<DoctorChamber> doctorChambers;
     private DoctorChamber selectedChamber;
-    private LocalDate selectedDate;
-    private String selectedTime;
+    private LocalDate selectedDate = null;
+    private String selectedTime = null;
 
     private ArrayList<String> timeTable;
     private ArrayList<String> dayArrayList;
@@ -146,6 +149,7 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
                         } else {
                             LocalDate oldDate = selectedDate;
                             selectedDate = calendarDay.getDate();
+                            selectedTime = null;
                             calendarView.notifyDateChanged(calendarDay.getDate());
                             if (oldDate != null) calendarView.notifyDateChanged(oldDate);
                             getAllTimesFromDay(calendarDay.getDate().getDayOfWeek().toString());
@@ -222,7 +226,8 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
     public void onItemClicked(Object item, View view) {
         if (item instanceof DoctorChamber) {
             selectedChamber = (DoctorChamber) item;
-
+            selectedDate = null;
+            selectedTime = null;
             for(int i = 0; i < doctorChambers.size(); i++){
                 if(doctorChambers.get(i).equals(selectedChamber))
                     doctorChambers.get(i).setClicked(1);
@@ -273,5 +278,30 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
         System.out.println(">>>>>>>>chamber = " + selectedChamber.getName());
         System.out.println(">>>>>>>>date = " + selectedDate);
         System.out.println(">>>>>>>>time = " + selectedTime);
+
+        if(selectedChamber == null){
+            Toast.makeText(this, "Please select a chamber first",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(selectedDate == null){
+            Toast.makeText(this, "Please select a date first",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(selectedTime == null){
+            Toast.makeText(this, "Please select a time first",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Appointment appointment = new Appointment();
+        appointment.setPatient_id(CustomSharedPref.getInstance(this).getUserId());
+        appointment.setDoctor_id(selectedChamber.getDoctor_id());
+        appointment.setDoctor_chamber_id(selectedChamber.getId());
+        appointment.setHospital_id(selectedChamber.getHospital_id());
+        appointment.setDateTime(selectedDate, selectedTime);
+        appointment.setStatus(1);
+
+        new ApiCalls().bookNewAppointment(appointment, (status, message) -> {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        });
     }
 }

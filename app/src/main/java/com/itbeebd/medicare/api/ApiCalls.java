@@ -6,6 +6,7 @@ import com.itbeebd.medicare.api.allInterfaces.GetDataFromApiCall;
 import com.itbeebd.medicare.api.allInterfaces.GetPatientInfo;
 import com.itbeebd.medicare.api.allInterfaces.GetResponse;
 import com.itbeebd.medicare.db.CustomSharedPref;
+import com.itbeebd.medicare.utils.Appointment;
 import com.itbeebd.medicare.utils.CustomDayOfWeek;
 import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.DoctorChamber;
@@ -200,6 +201,8 @@ public class ApiCalls {
                                     ArrayList<String> times = new ArrayList<>();
 
                                     JSONArray timesList = dayObj.getJSONArray("available_times");
+                                    System.out.println(">>>>>>>> times = " + timesList);
+
                                     for (int k = 0; k < timesList.length(); k++) {
                                         JSONObject obj = timesList.getJSONObject(k);
                                         times.add(obj.getString("time"));
@@ -233,6 +236,8 @@ public class ApiCalls {
             }
         });
     }
+
+
 
     public void signUpPatient(Patient patient, GetPatientInfo getPatientInfo) {
 
@@ -356,6 +361,44 @@ public class ApiCalls {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 System.out.println("getUserData>>>>>>>>>>> failed " + t.getMessage());
                 getPatientInfo.data(null, t.getMessage());
+            }
+        });
+    }
+
+
+
+    public void bookNewAppointment(Appointment appointment, GetResponse getResponse) {
+
+        System.out.println("bookNewAppointment >>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.bookNewAppointment(retrofitRequestBody.bookNewAppointment(appointment));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("bookNewAppointment >>>>>>>>>>> " + jsonObject.toString());
+
+                        getResponse.data(jsonObject.optString("status").equals("true"), jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("bookNewAppointment >>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getResponse.data(false, ignore.getMessage());
+                    }
+                } else getResponse.data(false, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("bookNewAppointment >>>>>>>>>>> failed " + t.getMessage());
+
+                getResponse.data(false, t.getMessage());
             }
         });
     }
