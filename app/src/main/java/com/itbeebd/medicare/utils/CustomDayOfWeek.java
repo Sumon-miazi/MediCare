@@ -6,6 +6,14 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 public class CustomDayOfWeek implements Parcelable {
+    private final String day;
+    private final ArrayList<String> times;
+
+    public CustomDayOfWeek(String day, ArrayList<String> times) {
+        this.day = day;
+        this.times = times;
+    }
+
     public static final Creator<CustomDayOfWeek> CREATOR = new Creator<CustomDayOfWeek>() {
         @Override
         public CustomDayOfWeek createFromParcel(Parcel in) {
@@ -17,8 +25,6 @@ public class CustomDayOfWeek implements Parcelable {
             return new CustomDayOfWeek[size];
         }
     };
-    private final String day;
-    private final ArrayList<String> times;
 
     public String getDay() {
         return day;
@@ -26,11 +32,6 @@ public class CustomDayOfWeek implements Parcelable {
 
     public ArrayList<String> getTimes() {
         return times;
-    }
-
-    public CustomDayOfWeek(String day, ArrayList<String> times) {
-        this.day = day;
-        this.times = times;
     }
 
     public CustomDayOfWeek(Parcel parcel) {

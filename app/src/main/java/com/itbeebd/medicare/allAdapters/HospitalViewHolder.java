@@ -13,18 +13,21 @@ import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickList
 import com.itbeebd.medicare.utils.Hospital;
 
 public class HospitalViewHolder extends BaseViewHolder<Hospital, OnRecyclerObjectClickListener<Hospital>> {
-    private TextView hospitalName;
-    private ConstraintLayout hospitalInfoLayout;
+    private final TextView hospitalName;
+    private final TextView hospitalAddress;
+    private final ConstraintLayout hospitalInfoLayout;
 
     public HospitalViewHolder(@NonNull View itemView) {
         super(itemView);
         hospitalName = itemView.findViewById(R.id.hospitalNameTxtViewId);
+        hospitalAddress = itemView.findViewById(R.id.hospitalAddressTxtViewId);
         hospitalInfoLayout = itemView.findViewById(R.id.hospitalInfoLayoutId);
     }
 
     @Override
     public void onBind(Hospital item, @Nullable OnRecyclerObjectClickListener<Hospital> listener) {
         hospitalName.setText(item.getName());
+        hospitalAddress.setText(item.getAddress());
 
         hospitalInfoLayout.setOnClickListener(view -> {
             assert listener != null;
