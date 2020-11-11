@@ -97,4 +97,7 @@ dependencies {
     // this is for local database debugging
     // http://192.168.43.122:8080 <phoneIpAddress:port>
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+
+    // date picker
+    implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
 }

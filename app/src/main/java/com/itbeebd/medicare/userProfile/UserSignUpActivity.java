@@ -2,6 +2,7 @@ package com.itbeebd.medicare.userProfile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RadioGroup;
@@ -20,8 +21,11 @@ import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.api.ApiCalls;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.Patient;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-public class UserSignUpActivity extends AppCompatActivity {
+import java.util.Calendar;
+
+public class UserSignUpActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private TextInputEditText patientName;
     private TextInputEditText patientAddress;
@@ -29,6 +33,7 @@ public class UserSignUpActivity extends AppCompatActivity {
     private String gender = "male";
     private boolean signUpAsBloodDonor = false;
     private CheckBox signUpBloodDonor;
+    private TextView lastBloodDonateDateText;
 
     private CardView cardView_a;
     private CardView cardView_b;
@@ -48,6 +53,7 @@ public class UserSignUpActivity extends AppCompatActivity {
     private String bloodGroupFactor = "";
 
     private FirebaseUser firebaseUser;
+    private DatePickerDialog dpd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +65,16 @@ public class UserSignUpActivity extends AppCompatActivity {
         patientPhone = findViewById(R.id.patientPhoneEditTxtId);
         RadioGroup genderGroup = findViewById(R.id.genderId);
         signUpBloodDonor = findViewById(R.id.signUpBloodDonorId);
+        lastBloodDonateDateText = findViewById(R.id.lastBloodDonateDateTextId);
+
+        Calendar now = Calendar.getInstance();
+        dpd = DatePickerDialog.newInstance(
+                UserSignUpActivity.this,
+                now.get(Calendar.YEAR), // Initial year selection
+                now.get(Calendar.MONTH), // Initial month selection
+                now.get(Calendar.DAY_OF_MONTH) // Inital day selection
+        );
+        dpd.setTitle("Select last blood donation date");
 
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() != null) {
@@ -85,8 +101,12 @@ public class UserSignUpActivity extends AppCompatActivity {
                     Toast.makeText(this, "Please select your blood group first", Toast.LENGTH_SHORT).show();
                     signUpBloodDonor.setChecked(false);
                 }
-            }
+                lastBloodDonateDateText.setVisibility(View.VISIBLE);
+                dpd.show(getSupportFragmentManager(), "Datepickerdialog");
+            } else lastBloodDonateDateText.setVisibility(View.GONE);
         });
+
+        lastBloodDonateDateText.setOnClickListener(view -> dpd.show(getSupportFragmentManager(), "Datepickerdialog"));
     }
 
     private void initCardViewAndTxtView() {
@@ -230,5 +250,11 @@ public class UserSignUpActivity extends AppCompatActivity {
                 .backgroundColorRes(R.color.flash_bar)
                 .duration(3000)
                 .build();
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        String date = "Last blood donation date: <b>" + dayOfMonth + "-" + (monthOfYear + 1) + "-" + year + "</b>";
+        lastBloodDonateDateText.setText(Html.fromHtml(date));
     }
 }
