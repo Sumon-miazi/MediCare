@@ -43,6 +43,7 @@
         android:maxLength="22"
         android:text="Cumilla, kandirpar"
         android:textSize="10sp"
+        android:visibility="gone"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/bloodDonorNameTxtViewId"
         app:layout_constraintStart_toStartOf="@+id/bloodDonorNameTxtViewId"

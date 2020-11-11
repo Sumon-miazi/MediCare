@@ -47,6 +47,7 @@
             app:bt_colorActive="@color/blue_active"
             app:bt_colorInactive="@color/blue_inactive"
             app:bt_icon="@drawable/ic_search"
+            android:visibility="gone"
             app:bt_shape="@drawable/transition_background_drawable_search"
             app:bt_title="@string/search" />
 

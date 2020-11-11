@@ -30,7 +30,9 @@ public class BloodDonationRequestViewHolder extends BaseViewHolder<BloodDonation
     @Override
     public void onBind(BloodDonationRequest item, @Nullable OnRecyclerObjectClickListener<BloodDonationRequest> listener) {
         userName.setText(item.getName());
+        addressName.setText(item.getAddress());
         contactNumber.setText(item.getPhone());
+        bloodGroupName.setText(item.getBloodGroup());
 /*
         bloodBankInfoLayout.setOnClickListener(view -> {
             assert listener != null;

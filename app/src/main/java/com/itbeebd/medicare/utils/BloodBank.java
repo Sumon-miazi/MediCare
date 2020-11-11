@@ -11,10 +11,10 @@ public class BloodBank implements Parcelable {
     private String phone;
     private String about;
 
-    public BloodBank(String name) {
+    public BloodBank(String name, String address) {
         this.id = 0;
         this.name = name;
-        this.address = "Cumilla, Shovupur";
+        this.address = address;
         this.phone = "+8801311205352";
         this.about = "I am nothing but a server of allah";
     }

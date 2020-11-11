@@ -38,10 +38,17 @@ public class RetrofitRequestBody {
         Map<String, Object> map = new HashMap<>();
         map.put("name", patient.getName());
         map.put("uid", patient.getUid());
+        map.put("gender", patient.getGender());
+        map.put("is_blood_donor", patient.getIs_blood_donor());
+        map.put("dob", patient.getDob());
+        map.put("weight", patient.getWeight());
+        map.put("blood_group", patient.getBlood_group());
+        map.put("address", patient.getAddress());
+        map.put("phone", patient.getPhone());
+        map.put("token", patient.getToken());
         map.put("api_key", this.api_key);
         return map;
     }
-
 
 
     Map<String, Object> getPatientDetails(String uid) {

@@ -64,11 +64,10 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
 
     private void setBloodBankRecyclerView() {
         ArrayList<BloodBank> bloodBanks = new ArrayList<>();
-        bloodBanks.add(new BloodBank("Ashar alo Blood Bank"));
-        bloodBanks.add(new BloodBank("Ashar alo Blood Bank"));
-        bloodBanks.add(new BloodBank("Ashar alo Blood Bank"));
-        bloodBanks.add(new BloodBank("Ashar alo Blood Bank"));
-        bloodBanks.add(new BloodBank("Ashar alo Blood Bank"));
+        bloodBanks.add(new BloodBank("Voluntary Blood Donation Program, Quantum Foundation", "31/v Shilpacharya Zainul Abedin Sarak, Shantinagar. 1217, Dhaka"));
+        bloodBanks.add(new BloodBank("Rhythm Blood Bank", "Elephant Road, Hatirpool, Kancha Bazar, Dhaka 1205"));
+        bloodBanks.add(new BloodBank("নিরাপদ ব্লাড ব্যাংক এন্ড ট্রান্সফিউশন সেন্টার", "3rd Floor 36 Green Road, Above Olive Restora Dhaka, 1205"));
+        bloodBanks.add(new BloodBank("Oriental Blood Bank", "2B/30, SEL Green Centre, Green Road, Dhanmondi, Dhaka 1205"));
 
         bloodBankAdapter.setItems(bloodBanks);
         bloodBankAdapter.setListener(this);
@@ -78,12 +77,10 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
 
     private void setBloodDonationRequestAdapterRecyclerView() {
         ArrayList<BloodDonationRequest> bloodDonationRequests = new ArrayList<>();
-        bloodDonationRequests.add(new BloodDonationRequest("Sumon miazi", "O+"));
-        bloodDonationRequests.add(new BloodDonationRequest("Sumon miazi", "O+"));
-        bloodDonationRequests.add(new BloodDonationRequest("Sumon miazi", "O+"));
-        bloodDonationRequests.add(new BloodDonationRequest("Sumon miazi", "O+"));
-        bloodDonationRequests.add(new BloodDonationRequest("Sumon miazi", "O+"));
-        bloodDonationRequests.add(new BloodDonationRequest("Sumon miazi", "O+"));
+        bloodDonationRequests.add(new BloodDonationRequest("Sumon miazi", "O+", "Cumilla Central Hospital", "+8801311205352"));
+        bloodDonationRequests.add(new BloodDonationRequest("Al Hasan Arif", "A+", "LABAID, Green road, Dhanmondi", "+8801854678398"));
+        bloodDonationRequests.add(new BloodDonationRequest("Mohian ul islam", "AB-", "Central Hospital, Dhanmondi", "+8801976405439"));
+        bloodDonationRequests.add(new BloodDonationRequest("Abdullah Al Borhan", "B-", "Dhaka medical college and hospital", "+8801311206790"));
 
         bloodDonationRequestAdapter.setItems(bloodDonationRequests);
         bloodDonationRequestAdapter.setListener(this);

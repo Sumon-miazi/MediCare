@@ -7,17 +7,6 @@ import com.orm.SugarRecord;
 
 public class Patient extends SugarRecord implements Parcelable {
 
-    public static final Creator<Patient> CREATOR = new Creator<Patient>() {
-        @Override
-        public Patient createFromParcel(Parcel in) {
-            return new Patient(in);
-        }
-
-        @Override
-        public Patient[] newArray(int size) {
-            return new Patient[size];
-        }
-    };
     private String name;
     private String uid;
     private String gender;
@@ -29,11 +18,6 @@ public class Patient extends SugarRecord implements Parcelable {
     private String phone;
     private String token;
     private int patient_id;
-
-    public Patient(String name) {
-        this.name = name;
-        this.uid = "";
-    }
 
     public Patient() {
         this.name = "Anonymous";
@@ -72,6 +56,18 @@ public class Patient extends SugarRecord implements Parcelable {
         this.token = token;
     }
 
+
+    public static final Creator<Patient> CREATOR = new Creator<Patient>() {
+        @Override
+        public Patient createFromParcel(Parcel in) {
+            return new Patient(in);
+        }
+
+        @Override
+        public Patient[] newArray(int size) {
+            return new Patient[size];
+        }
+    };
 
     public Patient(Parcel parcel) {
         this.patient_id = parcel.readInt();

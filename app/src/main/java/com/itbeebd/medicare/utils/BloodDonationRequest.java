@@ -22,12 +22,12 @@ public class BloodDonationRequest implements Parcelable {
     private String address;
     private String phone;
 
-    public BloodDonationRequest(String name, String bloodGroup) {
+    public BloodDonationRequest(String name, String bloodGroup, String address, String phone) {
         this.id = 0;
         this.name = name;
         this.bloodGroup = bloodGroup;
-        this.address = "Cumilla, Shovupur";
-        this.phone = "+8801311205352";
+        this.address = address;
+        this.phone = phone;
     }
 
     public BloodDonationRequest(Parcel parcel) {

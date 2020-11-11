@@ -49,7 +49,8 @@ public class Doctor implements Parcelable {
         this.education_history = education_history;
         this.address = address;
         this.phone = phone;
-        this.about = "something";
+        this.about = "It is One of the best specialist Hospitals here in Dhaka,having virtually all facilities -consultation\n" +
+                "With Professors,treatment in emergency situation by duty doctors 24/7";
     }
 
     public static final Creator<Doctor> CREATOR = new Creator<Doctor>() {

@@ -15,13 +15,13 @@ public class BloodDonor implements Parcelable {
     private String phone;
     private String about;
 
-    public BloodDonor(String name, String bloodGroup) {
+    public BloodDonor(String name, String bloodGroup, String address) {
         this.id = 0;
         this.name = name;
         this.lastDonateDate = "21 May, 2020";
         this.totalBloodDonation = "9";
         this.bloodGroup = bloodGroup;
-        this.address = "Cumilla, Shovupur";
+        this.address = address;
         this.phone = "+8801311205352";
         this.about = "I am nothing but a server of allah";
     }

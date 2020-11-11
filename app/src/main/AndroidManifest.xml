@@ -24,9 +24,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="m">
-
-        <!--Launcher activity-->
-        <activity android:name=".SplashActivity"
+        <activity android:name=".userProfile.AllBookedAppointmentActivity"></activity>
+        <!-- Launcher activity -->
+        <activity
+            android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,39 +35,42 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".medication.AddMedicationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".bloodBank.BloodDonorListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".bloodBank.BloodRequestActivity"
-            android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".medication.AddMedicationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".bloodBank.BloodDonorListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".bloodBank.BloodRequestActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".userProfile.UserSignInActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".userProfile.UserSignUpActivity"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".userProfile.UserSignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".userProfile.UserSignUpActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".doctors.DoctorAppointmentActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".doctors.DoctorInfoActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".doctors.DoctorListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".hospitals.HospitalListActivity"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".doctors.DoctorInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".doctors.DoctorListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".hospitals.HospitalListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
-            android:screenOrientation="portrait"/>
-
-        <!--Service for firebase cloud messaging-->
+            android:screenOrientation="portrait" /> <!-- Service for firebase cloud messaging -->
         <service
             android:name=".service.CloudMessagingService"
             android:exported="false">
@@ -74,7 +78,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <!--
  Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more.
@@ -102,10 +105,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
-
-        <!--sugar orm settings-->
+            android:value="@string/google_maps_key" /> <!-- sugar orm settings -->
         <meta-data
             android:name="DATABASE"
             android:value="itbeebdMedicare.db" />

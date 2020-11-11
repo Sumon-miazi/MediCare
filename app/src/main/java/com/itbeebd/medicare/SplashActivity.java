@@ -72,6 +72,9 @@ public class SplashActivity extends AppCompatActivity {
                         intent.putExtra("user_info", user_data);
                         startActivity(intent);
                         finish();
+                    } else if (message.equals("patient not found")) {
+                        startActivity(new Intent(this, UserSignUpActivity.class));
+                        finish();
                     } else {
                         if (flashbar != null)
                             flashbar.dismiss();

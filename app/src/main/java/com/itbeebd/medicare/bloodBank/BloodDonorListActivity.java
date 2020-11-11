@@ -28,13 +28,11 @@ public class BloodDonorListActivity extends AppCompatActivity implements OnRecyc
         bloodDonorAdapter = new BloodDonorAdapter(this);
 
         ArrayList<BloodDonor> bloodDonors = new ArrayList<>();
-        bloodDonors.add(new BloodDonor("sumon", "O+"));
-        bloodDonors.add(new BloodDonor("sumon", "O+"));
-        bloodDonors.add(new BloodDonor("sumon", "O+"));
-        bloodDonors.add(new BloodDonor("sumon", "O+"));
-        bloodDonors.add(new BloodDonor("sumon", "O+"));
-        bloodDonors.add(new BloodDonor("sumon", "O+"));
-        bloodDonors.add(new BloodDonor("sumon", "O+"));
+        bloodDonors.add(new BloodDonor("Sumon miazi", "O+", "Cumilla, Sadar south"));
+        bloodDonors.add(new BloodDonor("Al Hasan Arif", "AB+", "Ashulia, savar"));
+        bloodDonors.add(new BloodDonor("Mohian Ul Islam", "A+", "Azimpur, Dhaka"));
+        bloodDonors.add(new BloodDonor("Abdullah Al Borhan", "A-", "Dhaka"));
+
 
         bloodDonorAdapter.setItems(bloodDonors);
         bloodDonorAdapter.setListener(this);
