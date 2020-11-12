@@ -24,6 +24,7 @@ import com.itbeebd.medicare.utils.Patient;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class UserSignUpActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -34,6 +35,7 @@ public class UserSignUpActivity extends AppCompatActivity implements DatePickerD
     private boolean signUpAsBloodDonor = false;
     private CheckBox signUpBloodDonor;
     private TextView lastBloodDonateDateText;
+    private Date lastBloodDonationDate = null;
 
     private CardView cardView_a;
     private CardView cardView_b;
@@ -193,6 +195,28 @@ public class UserSignUpActivity extends AppCompatActivity implements DatePickerD
         two_txt.setTextColor(getResources().getColor(R.color.pink_700));
     }
 
+    public static Date getDate(int year, int month, int day) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
+
+    private Flashbar showFlash(String title, String message) {
+        return new Flashbar.Builder(this)
+                .gravity(Flashbar.Gravity.BOTTOM)
+                .title(title)
+                .message(message)
+                .backgroundColorRes(R.color.flash_bar)
+                .duration(3000)
+                .build();
+    }
+
     public void signUpBtnClicked(View view) {
         String name = patientName.getText().toString();
         String address = patientAddress.getText().toString();
@@ -230,7 +254,7 @@ public class UserSignUpActivity extends AppCompatActivity implements DatePickerD
         patientObj.setToken(CustomSharedPref.getInstance(this).getPushNotificationToken());
 
 
-        new ApiCalls(this).signUpPatient(patientObj, (patient, message) -> {
+        new ApiCalls(this).signUpPatient(patientObj, lastBloodDonationDate, (patient, message) -> {
             if (patient != null) {
                 // Intent intent = new Intent(this, UserProfileActivity.class);
                 Intent intent = new Intent(this, MainActivity.class);
@@ -242,19 +266,10 @@ public class UserSignUpActivity extends AppCompatActivity implements DatePickerD
         });
     }
 
-    private Flashbar showFlash(String title, String message) {
-        return new Flashbar.Builder(this)
-                .gravity(Flashbar.Gravity.BOTTOM)
-                .title(title)
-                .message(message)
-                .backgroundColorRes(R.color.flash_bar)
-                .duration(3000)
-                .build();
-    }
-
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         String date = "Last blood donation date: <b>" + dayOfMonth + "-" + (monthOfYear + 1) + "-" + year + "</b>";
         lastBloodDonateDateText.setText(Html.fromHtml(date));
+        lastBloodDonationDate = getDate(year,monthOfYear, dayOfMonth);
     }
 }

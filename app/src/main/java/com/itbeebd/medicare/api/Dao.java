@@ -35,7 +35,7 @@ public class Dao {
         else patient.save();
     }
 
-    private Patient getPatientDetails(int id){
+    public Patient getPatientDetails(int id){
         return Patient.findById(Patient.class, id);
     }
 }

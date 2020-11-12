@@ -18,4 +18,9 @@ public class ApiUrls {
 
     public static final String BOOK_NEW_APPOINTMENT = "bookNewAppointment";
 
+
+    public static final String ADD_BLOOD_DONOR = "addBloodDonor";
+
+
+
 }

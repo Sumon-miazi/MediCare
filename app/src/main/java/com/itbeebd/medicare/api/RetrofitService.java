@@ -32,4 +32,7 @@ public interface RetrofitService {
     @POST(ApiUrls.BOOK_NEW_APPOINTMENT)
     Call<ResponseBody> bookNewAppointment(@Body Map<String, Object> body);
 
+
+    @POST(ApiUrls.ADD_BLOOD_DONOR)
+    Call<ResponseBody> addBloodDonor(@Body Map<String, Object> body);
 }

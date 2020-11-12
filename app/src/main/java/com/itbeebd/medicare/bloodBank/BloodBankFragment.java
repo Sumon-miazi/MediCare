@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -15,8 +16,11 @@ import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.blood.BloodBankAdapter;
 import com.itbeebd.medicare.allAdapters.blood.BloodDonationRequestAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
+import com.itbeebd.medicare.api.Dao;
+import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.BloodBank;
 import com.itbeebd.medicare.utils.BloodDonationRequest;
+import com.itbeebd.medicare.utils.Patient;
 
 import java.util.ArrayList;
 
@@ -25,6 +29,7 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
 
     private TextView findDonorBtn;
     private TextView addReqBtn;
+    private Button signUpBloodDonorBtn;
     private RecyclerView bloodBankRecyclerView;
     private RecyclerView recentBloodReqRecyclerView;
     private BloodBankAdapter bloodBankAdapter;
@@ -42,6 +47,7 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
 
         findDonorBtn = view.findViewById(R.id.findDonorBtnId);
         addReqBtn = view.findViewById(R.id.addReqBtnId);
+        signUpBloodDonorBtn = view.findViewById(R.id.signUpBloodDonorBtnId);
 
         bloodBankRecyclerView = view.findViewById(R.id.bloodBankRecyclerViewId);
         recentBloodReqRecyclerView = view.findViewById(R.id.recentBloodReqRecyclerViewId);
@@ -51,6 +57,7 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
 
         findDonorBtn.setOnClickListener(this);
         addReqBtn.setOnClickListener(this);
+        signUpBloodDonorBtn.setOnClickListener(this);
 
         return view;
     }
@@ -60,6 +67,11 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
         super.onStart();
         setBloodBankRecyclerView();
         setBloodDonationRequestAdapterRecyclerView();
+
+        Patient patient = new Dao().getPatientDetails(CustomSharedPref.getInstance(getContext()).getUserId());
+        if(patient.getIs_blood_donor() != 1){
+            signUpBloodDonorBtn.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setBloodBankRecyclerView() {
@@ -97,8 +109,11 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
     public void onClick(View view) {
         if (view.getId() == R.id.findDonorBtnId) {
             startActivity(new Intent(getContext(), BloodDonorListActivity.class));
-        } else {
+        } else if(view.getId() == R.id.addReqBtnId){
             startActivity(new Intent(getContext(), BloodRequestActivity.class));
+        }
+        else if(view.getId() == R.id.signUpBloodDonorBtnId){
+            startActivity(new Intent(getContext(), BloodDonarRegistrationActivity.class));
         }
     }
 }

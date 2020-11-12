@@ -3,6 +3,7 @@ package com.itbeebd.medicare.api;
 import com.itbeebd.medicare.utils.Appointment;
 import com.itbeebd.medicare.utils.Patient;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,12 +35,13 @@ public class RetrofitRequestBody {
         return map;
     }
 
-    Map<String, Object> signUpPatient(Patient patient) {
+    Map<String, Object> signUpPatient(Patient patient, Date lastBloodDonationDate) {
         Map<String, Object> map = new HashMap<>();
         map.put("name", patient.getName());
         map.put("uid", patient.getUid());
         map.put("gender", patient.getGender());
         map.put("is_blood_donor", patient.getIs_blood_donor());
+        map.put("lastDonate", lastBloodDonationDate);
         map.put("dob", patient.getDob());
         map.put("weight", patient.getWeight());
         map.put("blood_group", patient.getBlood_group());
@@ -74,6 +76,16 @@ public class RetrofitRequestBody {
         map.put("api_key", this.api_key);
         return map;
     }
+
+    Map<String, Object> addBloodDonor(int id, Date lastDonate, boolean currentlyAvailable) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("patient_id", id);
+        map.put("lastDonate", lastDonate);
+        map.put("currentlyAvailable", currentlyAvailable);
+        map.put("api_key", this.api_key);
+        return map;
+    }
+
 
     String getApi_key() {
         return this.api_key;

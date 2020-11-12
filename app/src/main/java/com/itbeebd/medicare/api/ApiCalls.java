@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -239,12 +240,12 @@ public class ApiCalls {
 
 
 
-    public void signUpPatient(Patient patient, GetPatientInfo getPatientInfo) {
+    public void signUpPatient(Patient patient, Date lastBloodDonationDate, GetPatientInfo getPatientInfo) {
 
         System.out.println("signUpPatient>>>>>>>>>>> called ");
 
         final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
-        Call<ResponseBody> responseBodyCall = service.signUpPatient(retrofitRequestBody.signUpPatient(patient));
+        Call<ResponseBody> responseBodyCall = service.signUpPatient(retrofitRequestBody.signUpPatient(patient, lastBloodDonationDate));
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -397,6 +398,44 @@ public class ApiCalls {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                 System.out.println("bookNewAppointment >>>>>>>>>>> failed " + t.getMessage());
+
+                getResponse.data(false, t.getMessage());
+            }
+        });
+    }
+
+    public void addBloodDonor(int id, Date lastDonate, boolean currentlyAvailable, GetResponse getResponse) {
+
+        System.out.println("addBloodDonor>>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.addBloodDonor(retrofitRequestBody.addBloodDonor(id, lastDonate, currentlyAvailable));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("addBloodDonor>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+                            getResponse.data(true, jsonObject.optString("message"));
+                        } else getResponse.data(false, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("addBloodDonor>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getResponse.data(false, ignore.getMessage());
+                    }
+                } else getResponse.data(false, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("addBloodDonor>>>>>>>>>>> failed " + t.getMessage());
 
                 getResponse.data(false, t.getMessage());
             }
