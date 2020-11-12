@@ -64,9 +64,9 @@ public class SplashActivity extends AppCompatActivity {
     private void goToMainActivity(FirebaseUser user) {
         if (CustomSharedPref.getInstance(this).getUserSignedInOrNot()) {
             if (alreadyNotCalledMainActivity) {
-                //System.out.println(">>>>>>>>>>>>>>>>> getUserSignedInOrNot true");
+                System.out.println(">>>>>>>>>>>>>>>>> getUserSignedInOrNot true");
                 alreadyNotCalledMainActivity = false;
-                new ApiCalls().getUserData(firebaseUser.getUid(), (user_data, message) -> {
+                new ApiCalls(this).getUserData(firebaseUser.getUid(), (user_data, message) -> {
                     if (user_data != null) {
                         Intent intent = new Intent(this, MainActivity.class);
                         intent.putExtra("user_info", user_data);
@@ -86,7 +86,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         } else {
             if (alreadyNotCalledCheckUserExistOrNot) {
-                //System.out.println(">>>>>>>>>>>>>>>>> getUserSignedInOrNot false");
+                System.out.println(">>>>>>>>>>>>>>>>> getUserSignedInOrNot false");
                 alreadyNotCalledCheckUserExistOrNot = false;
                 new ApiCalls().checkUserExistOrNot(user.getUid(), (status, message) -> {
                     // System.out.println("goToMainActivity>>>>>>>>>>>>>>>>>" + message);

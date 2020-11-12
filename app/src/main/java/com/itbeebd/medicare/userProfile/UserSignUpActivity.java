@@ -76,6 +76,7 @@ public class UserSignUpActivity extends AppCompatActivity implements DatePickerD
                 now.get(Calendar.MONTH), // Initial month selection
                 now.get(Calendar.DAY_OF_MONTH) // Inital day selection
         );
+        dpd.setMaxDate(now);
         dpd.setTitle("Select last blood donation date");
 
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {

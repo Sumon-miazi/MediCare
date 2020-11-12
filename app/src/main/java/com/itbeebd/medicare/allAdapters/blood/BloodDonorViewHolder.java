@@ -41,7 +41,6 @@ public class BloodDonorViewHolder extends BaseViewHolder<BloodDonor, OnRecyclerO
             assert listener != null;
             listener.onItemClicked(item, view);
         });
-
  */
     }
 }

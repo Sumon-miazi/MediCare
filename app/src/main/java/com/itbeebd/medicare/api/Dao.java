@@ -10,6 +10,7 @@ public class Dao {
     public void savePatientProfile(Patient patient){
         List<Patient> patient1 = null;
         try {
+            System.out.println(">>>>>>>>. sugar = " + patient.getIs_blood_donor());
             patient1 = Patient.find(Patient.class,"PATIENTID = ?", String.valueOf(patient.getPatientId()));
         }
         catch (Exception exception){
@@ -36,6 +37,12 @@ public class Dao {
     }
 
     public Patient getPatientDetails(int id){
-        return Patient.findById(Patient.class, id);
+        try {
+            List<Patient> patients = Patient.find(Patient.class,"PATIENTID = ?", String.valueOf(id));
+            return patients != null? patients.get(0) : null;
+        }
+        catch (Exception exception){
+            return null;
+        }
     }
 }

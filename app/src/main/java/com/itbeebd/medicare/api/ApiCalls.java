@@ -241,7 +241,9 @@ public class ApiCalls {
 
 
 
-    public void signUpPatient(Patient patient, Date lastBloodDonationDate, GetPatientInfo getPatientInfo) {
+    public void signUpPatient(Patient patient,
+                              Date lastBloodDonationDate,
+                              GetPatientInfo getPatientInfo) {
 
         System.out.println("signUpPatient>>>>>>>>>>> called ");
 
@@ -356,6 +358,7 @@ public class ApiCalls {
                                     userObj.getString("token")
                             );
                             new Dao().savePatientProfile(patient);
+                            CustomSharedPref.getInstance(context).setUserId(patient.getPatientId());
 
                             getPatientInfo.data(patient, jsonObject.optString("message"));
 
@@ -416,7 +419,10 @@ public class ApiCalls {
 
 
 
-    public void addBloodDonor(int id, Date lastDonate, boolean currentlyAvailable, GetResponse getResponse) {
+    public void addBloodDonor(int id,
+                              Date lastDonate,
+                              boolean currentlyAvailable,
+                              GetResponse getResponse) {
 
         System.out.println("addBloodDonor>>>>>>>>>>> called ");
 
@@ -454,7 +460,8 @@ public class ApiCalls {
         });
     }
 
-    public void getBloodDonor(String bloodGroup, GetDataFromApiCall<BloodDonor> getDataFromApiCall) {
+    public void getBloodDonor(String bloodGroup,
+                              GetDataFromApiCall<BloodDonor> getDataFromApiCall) {
 
         System.out.println("getBloodDonor>>>>>>>>>>> called ");
 
@@ -527,6 +534,54 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
                 System.out.println("getBloodDonor>>>>>>>>>>> failed " + t.getMessage());
 
                 getDataFromApiCall.data(null, t.getMessage());
+            }
+        });
+    }
+
+    public void addNewBloodRequest(int userId,
+                                   String bloodFor,
+                                   String city,
+                                   String hospital,
+                                   String amount,
+                                   Date date,
+                                   String bloodGroup,
+                                   GetResponse getResponse) {
+
+        System.out.println("addNewBloodRequest>>>>>>>>>>> called " + date);
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.addNewBloodRequest(retrofitRequestBody.addNewBloodRequest(userId, bloodFor, city, hospital, amount, date, bloodGroup));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("addNewBloodRequest>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+                            getResponse.data(true, jsonObject.optString("message"));
+                        } else getResponse.data(false, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("addNewBloodRequest>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getResponse.data(false, ignore.getMessage());
+                    }
+                } else {
+                    System.out.println("addNewBloodRequest>>>>>>>>." + response.errorBody());
+                    getResponse.data(false, response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("addNewBloodRequest>>>>>>>>>>> failed " + t.getMessage());
+
+                getResponse.data(false, t.getMessage());
             }
         });
     }

@@ -55,6 +55,7 @@ public class BloodDonarRegistrationActivity extends AppCompatActivity implements
                 now.get(Calendar.MONTH), // Initial month selection
                 now.get(Calendar.DAY_OF_MONTH) // Inital day selection
         );
+        dpd.setMaxDate(now);
         dpd.setTitle("Select last blood donation date");
 
         lastDate.setOnClickListener(view -> {
@@ -80,6 +81,8 @@ public class BloodDonarRegistrationActivity extends AppCompatActivity implements
             Toast.makeText(this,"Select your last blood donation date", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        System.out.println(">>>>>>.. last donate " + lastDonateDate);
 
         new ApiCalls().addBloodDonor(CustomSharedPref.getInstance(this).getUserId(),
                 lastDonateDate,
