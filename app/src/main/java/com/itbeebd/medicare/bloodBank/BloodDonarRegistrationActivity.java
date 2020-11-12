@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.Dao;
 import com.itbeebd.medicare.db.CustomSharedPref;
+import com.itbeebd.medicare.utils.Patient;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
@@ -83,6 +85,12 @@ public class BloodDonarRegistrationActivity extends AppCompatActivity implements
                 lastDonateDate,
                 currentlyAvailable,
                 (status, message) -> {
+            if(status){
+                Patient patient = new Dao().getPatientDetails(CustomSharedPref.getInstance(this).getUserId());
+                patient.setIs_blood_donor(1);
+                patient.save();
+                finish();
+            }
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 });
     }

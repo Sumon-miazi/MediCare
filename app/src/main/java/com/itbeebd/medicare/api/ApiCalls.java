@@ -257,13 +257,22 @@ public class ApiCalls {
                         System.out.println("signUpPatient>>>>>>>>>>> " + jsonObject.toString());
 
                         if (jsonObject.optString("status").equals("true")) {
-                            JSONObject patientJsonObj = jsonObject.getJSONObject("data");
+                            JSONObject userObj = jsonObject.getJSONObject("data");
 
-                            Patient patientInfo = new Patient();
-                            patientInfo.setPatientId(patientJsonObj.getInt("id"));
-                            patientInfo.setName(patientJsonObj.getString("name"));
-                            patientInfo.setUid(patientJsonObj.getString("uid"));
-
+                            userObj.optString("dob");
+                            Patient patientInfo = new Patient(
+                                    userObj.getInt("id"),
+                                    userObj.getString("name"),
+                                    userObj.getString("uid"),
+                                    userObj.getString("gender"),
+                                    userObj.getString("dob"),
+                                    userObj.getDouble("weight"),
+                                    userObj.getString("blood_group"),
+                                    userObj.getInt("is_blood_donor"),
+                                    userObj.getString("address"),
+                                    userObj.getString("phone"),
+                                    userObj.getString("token")
+                            );
                             CustomSharedPref.getInstance(context).setUserId(patientInfo.getPatientId());
                             new Dao().savePatientProfile(patientInfo);
                             getPatientInfo.data(patientInfo, jsonObject.optString("message"));

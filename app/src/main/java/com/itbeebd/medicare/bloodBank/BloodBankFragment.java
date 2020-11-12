@@ -69,9 +69,10 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
         setBloodDonationRequestAdapterRecyclerView();
 
         Patient patient = new Dao().getPatientDetails(CustomSharedPref.getInstance(getContext()).getUserId());
-        if(patient.getIs_blood_donor() != 1){
-            signUpBloodDonorBtn.setVisibility(View.VISIBLE);
-        }
+        System.out.println("<<<<<<< is blood donor = " + patient.getIs_blood_donor());
+
+        if(patient.getIs_blood_donor() != 1) signUpBloodDonorBtn.setVisibility(View.VISIBLE);
+        else  signUpBloodDonorBtn.setVisibility(View.GONE);
     }
 
     private void setBloodBankRecyclerView() {

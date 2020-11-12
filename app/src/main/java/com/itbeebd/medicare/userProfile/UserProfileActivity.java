@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.utils.NavigationView;
-import com.itbeebd.medicare.utils.Patient;
 
 public class UserProfileActivity extends Fragment {
 
