@@ -7,6 +7,7 @@ import com.itbeebd.medicare.api.allInterfaces.GetPatientInfo;
 import com.itbeebd.medicare.api.allInterfaces.GetResponse;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.Appointment;
+import com.itbeebd.medicare.utils.BloodDonor;
 import com.itbeebd.medicare.utils.CustomDayOfWeek;
 import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.DoctorChamber;
@@ -413,6 +414,8 @@ public class ApiCalls {
         });
     }
 
+
+
     public void addBloodDonor(int id, Date lastDonate, boolean currentlyAvailable, GetResponse getResponse) {
 
         System.out.println("addBloodDonor>>>>>>>>>>> called ");
@@ -447,6 +450,83 @@ public class ApiCalls {
                 System.out.println("addBloodDonor>>>>>>>>>>> failed " + t.getMessage());
 
                 getResponse.data(false, t.getMessage());
+            }
+        });
+    }
+
+    public void getBloodDonor(String bloodGroup, GetDataFromApiCall<BloodDonor> getDataFromApiCall) {
+
+        System.out.println("getBloodDonor>>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.getBloodDonor(retrofitRequestBody.getBloodDonor(bloodGroup));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("getBloodDonor>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+
+                            JSONArray donorJsonArray = jsonObject.getJSONArray("data");
+/* "data":[
+{"id":2,
+"patient_id":2,
+"lastDonate":"2020-12-19T00:00:00.000000Z",
+"currentlyAvailable":1,
+
+"patient":{"id":2,
+"uid":"Knv98LIRMPfPpsfnJpAfagBeffw1",
+"name":"Sumon",
+"gender":"male",
+"is_blood_donor":1,
+"dob":null,
+"weight":0,
+"blood_group":"O+",
+"address":"Cumilla",
+"phone":"+8801311200000",
+"token":'"}}]
+int id, String name, String lastDonateDate,  String bloodGroup, String address, String phone*/
+
+                            ArrayList<BloodDonor> bloodDonors = new ArrayList<>();
+
+                            for (int i = 0; i < donorJsonArray.length(); i++) {
+
+                                JSONObject object = donorJsonArray.getJSONObject(i);
+                                JSONObject userDetails = object.getJSONObject("patient");
+
+                                BloodDonor bloodDonor = new BloodDonor(object.getInt("id"),
+                                        object.getInt("patient_id"),
+                                        userDetails.getString("name"),
+                                        object.getString("lastDonate"),
+                                        userDetails.getString("blood_group"),
+                                        userDetails.getString("address"),
+                                        userDetails.getString("phone"),
+                                        userDetails.getString("token"));
+
+                                bloodDonors.add(bloodDonor);
+                            }
+                            getDataFromApiCall.data(bloodDonors, jsonObject.optString("message"));
+                        } else getDataFromApiCall.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("getBloodDonor>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getDataFromApiCall.data(null, ignore.getMessage());
+                    }
+                } else getDataFromApiCall.data(null, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("getBloodDonor>>>>>>>>>>> failed " + t.getMessage());
+
+                getDataFromApiCall.data(null, t.getMessage());
             }
         });
     }

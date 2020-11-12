@@ -32,6 +32,10 @@ public class BloodDonorViewHolder extends BaseViewHolder<BloodDonor, OnRecyclerO
     @Override
     public void onBind(BloodDonor item, @Nullable OnRecyclerObjectClickListener<BloodDonor> listener) {
         bloodDonorName.setText(item.getName());
+        bloodDonorAddress.setText(item.getAddress());
+        lastBloodDonateDate.setText(item.getLastDonateDate());
+        contactDonorTxt.setText(item.getPhone());
+        bloodGroupNameTxtView.setText(item.getBloodGroup());
 /*
         bloodBankInfoLayout.setOnClickListener(view -> {
             assert listener != null;

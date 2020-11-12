@@ -20,6 +20,7 @@ public class ApiUrls {
 
 
     public static final String ADD_BLOOD_DONOR = "addBloodDonor";
+    public static final String GET_BLOOD_DONOR_LIST = "getDonorList";
 
 
 

@@ -2,6 +2,7 @@ package com.itbeebd.medicare.bloodBank;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,9 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.blood.BloodDonorAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
+import com.itbeebd.medicare.api.ApiCalls;
 import com.itbeebd.medicare.utils.BloodDonor;
-
-import java.util.ArrayList;
 
 public class BloodDonorListActivity extends AppCompatActivity implements OnRecyclerObjectClickListener<BloodDonor> {
 
@@ -27,17 +27,29 @@ public class BloodDonorListActivity extends AppCompatActivity implements OnRecyc
         allBloodDonorRecycler = findViewById(R.id.bloodDonorListRecyclerViewId);
         bloodDonorAdapter = new BloodDonorAdapter(this);
 
+        getBloodDonor("all");
+
+/*
         ArrayList<BloodDonor> bloodDonors = new ArrayList<>();
         bloodDonors.add(new BloodDonor("Sumon miazi", "O+", "Cumilla, Sadar south"));
         bloodDonors.add(new BloodDonor("Al Hasan Arif", "AB+", "Ashulia, savar"));
         bloodDonors.add(new BloodDonor("Mohian Ul Islam", "A+", "Azimpur, Dhaka"));
         bloodDonors.add(new BloodDonor("Abdullah Al Borhan", "A-", "Dhaka"));
 
+ */
 
-        bloodDonorAdapter.setItems(bloodDonors);
-        bloodDonorAdapter.setListener(this);
-        allBloodDonorRecycler.setLayoutManager(new LinearLayoutManager(this));
-        allBloodDonorRecycler.setAdapter(bloodDonorAdapter);
+    }
+
+    private void getBloodDonor(String bloodGroup){
+        new ApiCalls().getBloodDonor(bloodGroup, (bloodDonors, message) -> {
+            if(bloodDonors != null){
+                bloodDonorAdapter.setItems(bloodDonors);
+                bloodDonorAdapter.setListener(this);
+                allBloodDonorRecycler.setLayoutManager(new LinearLayoutManager(this));
+                allBloodDonorRecycler.setAdapter(bloodDonorAdapter);
+            }
+            else Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        });
     }
 
     public void sortBloodGroup(View view) {

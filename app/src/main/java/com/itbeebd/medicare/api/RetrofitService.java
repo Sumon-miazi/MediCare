@@ -35,4 +35,7 @@ public interface RetrofitService {
 
     @POST(ApiUrls.ADD_BLOOD_DONOR)
     Call<ResponseBody> addBloodDonor(@Body Map<String, Object> body);
+
+    @POST(ApiUrls.GET_BLOOD_DONOR_LIST)
+    Call<ResponseBody> getBloodDonor(@Body Map<String, Object> body);
 }

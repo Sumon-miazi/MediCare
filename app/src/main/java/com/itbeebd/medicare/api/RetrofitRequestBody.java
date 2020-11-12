@@ -86,6 +86,12 @@ public class RetrofitRequestBody {
         return map;
     }
 
+    Map<String, Object> getBloodDonor(String bloodGroup) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("bloodGroup", bloodGroup);
+        map.put("api_key", this.api_key);
+        return map;
+    }
 
     String getApi_key() {
         return this.api_key;

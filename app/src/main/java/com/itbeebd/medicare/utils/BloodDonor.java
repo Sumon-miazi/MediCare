@@ -7,6 +7,7 @@ public class BloodDonor implements Parcelable {
 
 
     private int id;
+    private int userId;
     private String name;
     private String lastDonateDate;
     private String totalBloodDonation;
@@ -14,6 +15,18 @@ public class BloodDonor implements Parcelable {
     private String address;
     private String phone;
     private String about;
+    private String Token;
+
+    public BloodDonor(int id, int userId, String name, String lastDonateDate,  String bloodGroup, String address, String phone, String token) {
+        this.id = id;
+        this.userId = userId;
+        this.name = name;
+        this.lastDonateDate = lastDonateDate;
+        this.bloodGroup = bloodGroup;
+        this.address = address;
+        this.phone = phone;
+        this.Token = token;
+    }
 
     public BloodDonor(String name, String bloodGroup, String address) {
         this.id = 0;
