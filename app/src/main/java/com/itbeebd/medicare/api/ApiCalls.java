@@ -7,6 +7,7 @@ import com.itbeebd.medicare.api.allInterfaces.GetPatientInfo;
 import com.itbeebd.medicare.api.allInterfaces.GetResponse;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.Appointment;
+import com.itbeebd.medicare.utils.BloodBank;
 import com.itbeebd.medicare.utils.BloodDonationRequest;
 import com.itbeebd.medicare.utils.BloodDonor;
 import com.itbeebd.medicare.utils.BloodRequest;
@@ -636,6 +637,63 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                 System.out.println("getBloodRequest>>>>>>>>>>> failed " + t.getMessage());
+
+                getDataFromApiCall.data(null, t.getMessage());
+            }
+        });
+    }
+
+    public void getAllBloodBank(GetDataFromApiCall<BloodBank> getDataFromApiCall) {
+
+        System.out.println("getAllBloodBank>>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.getAllBloodBank(retrofitRequestBody.getApiKey());
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("getAllBloodBank>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+
+                            JSONArray bloodBankArray = jsonObject.getJSONArray("data");
+
+                            ArrayList<BloodBank> bloodBanks = new ArrayList<>();
+
+                            for (int i = 0; i < bloodBankArray.length(); i++) {
+                                JSONObject object = bloodBankArray.getJSONObject(i);
+
+                                BloodBank bloodBank = new BloodBank(
+                                        object.getInt("id"),
+                                        object.getString("name"),
+                                        object.getString("address"),
+                                        object.getString("phone"),
+                                        object.getString("about"),
+                                        object.getDouble("lat"),
+                                        object.getDouble("lon"));
+
+                                bloodBanks.add(bloodBank);
+                            }
+                            getDataFromApiCall.data(bloodBanks, jsonObject.optString("message"));
+                        } else getDataFromApiCall.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("getAllBloodBank>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getDataFromApiCall.data(null, ignore.getMessage());
+                    }
+                } else getDataFromApiCall.data(null, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("getAllBloodBank>>>>>>>>>>> failed " + t.getMessage());
 
                 getDataFromApiCall.data(null, t.getMessage());
             }

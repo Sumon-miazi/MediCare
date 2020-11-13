@@ -45,4 +45,6 @@ public interface RetrofitService {
     @POST(ApiUrls.GET_BLOOD_REQUEST)
     Call<ResponseBody> getBloodRequest(@Body Map<String, Object> body);
 
+    @POST(ApiUrls.GET_ALL_BLOOD_BANK)
+    Call<ResponseBody> getAllBloodBank(@Body Map<String, Object> body);
 }

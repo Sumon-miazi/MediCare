@@ -23,6 +23,7 @@ public class ApiUrls {
     public static final String GET_BLOOD_DONOR_LIST = "getDonorList";
     public static final String NEW_BLOOD_REQUEST = "addNewBloodRequest";
     public static final String GET_BLOOD_REQUEST = "getBloodRequest";
+    public static final String GET_ALL_BLOOD_BANK = "getAllBloodBank";
 
 
 

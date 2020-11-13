@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,10 +20,7 @@ import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickList
 import com.itbeebd.medicare.api.ApiCalls;
 import com.itbeebd.medicare.api.Dao;
 import com.itbeebd.medicare.db.CustomSharedPref;
-import com.itbeebd.medicare.utils.BloodBank;
 import com.itbeebd.medicare.utils.Patient;
-
-import java.util.ArrayList;
 
 
 public class BloodBankFragment extends Fragment implements OnRecyclerObjectClickListener, View.OnClickListener {
@@ -59,13 +57,14 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
         addReqBtn.setOnClickListener(this);
         signUpBloodDonorBtn.setOnClickListener(this);
 
+        setBloodBankRecyclerView();
+
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        setBloodBankRecyclerView();
         setBloodDonationRequestAdapterRecyclerView();
 
         Patient patient = new Dao().getPatientDetails(CustomSharedPref.getInstance(getContext()).getUserId());
@@ -75,16 +74,16 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
     }
 
     private void setBloodBankRecyclerView() {
-        ArrayList<BloodBank> bloodBanks = new ArrayList<>();
-        bloodBanks.add(new BloodBank("Voluntary Blood Donation Program, Quantum Foundation", "31/v Shilpacharya Zainul Abedin Sarak, Shantinagar. 1217, Dhaka"));
-        bloodBanks.add(new BloodBank("Rhythm Blood Bank", "Elephant Road, Hatirpool, Kancha Bazar, Dhaka 1205"));
-        bloodBanks.add(new BloodBank("নিরাপদ ব্লাড ব্যাংক এন্ড ট্রান্সফিউশন সেন্টার", "3rd Floor 36 Green Road, Above Olive Restora Dhaka, 1205"));
-        bloodBanks.add(new BloodBank("Oriental Blood Bank", "2B/30, SEL Green Centre, Green Road, Dhanmondi, Dhaka 1205"));
+        new ApiCalls().getAllBloodBank((bloodBanks, message) -> {
+            if(bloodBanks != null){
+                bloodBankAdapter.setItems(bloodBanks);
+                bloodBankAdapter.setListener(this);
+                bloodBankRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+                bloodBankRecyclerView.setAdapter(bloodBankAdapter);
+            }
+            else Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
+        });
 
-        bloodBankAdapter.setItems(bloodBanks);
-        bloodBankAdapter.setListener(this);
-        bloodBankRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        bloodBankRecyclerView.setAdapter(bloodBankAdapter);
     }
 
     private void setBloodDonationRequestAdapterRecyclerView() {
@@ -97,10 +96,13 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
          */
 
         new ApiCalls().getBloodRequest((bloodDonationRequests, message) ->{
-            bloodDonationRequestAdapter.setItems(bloodDonationRequests);
-            bloodDonationRequestAdapter.setListener(this);
-            recentBloodReqRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recentBloodReqRecyclerView.setAdapter(bloodDonationRequestAdapter);
+            if(bloodDonationRequests != null){
+                bloodDonationRequestAdapter.setItems(bloodDonationRequests);
+                bloodDonationRequestAdapter.setListener(this);
+                recentBloodReqRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recentBloodReqRecyclerView.setAdapter(bloodDonationRequestAdapter);
+            }
+            else Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
         });
 
     }

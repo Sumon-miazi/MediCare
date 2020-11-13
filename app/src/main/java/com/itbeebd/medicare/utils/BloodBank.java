@@ -10,13 +10,17 @@ public class BloodBank implements Parcelable {
     private String address;
     private String phone;
     private String about;
+    private double lat;
+    private double lon;
 
-    public BloodBank(String name, String address) {
-        this.id = 0;
+    public BloodBank(int id, String name, String address, String phone, String about, double lat, double lon) {
+        this.id = id;
         this.name = name;
         this.address = address;
-        this.phone = "+8801311205352";
-        this.about = "I am nothing but a server of allah";
+        this.phone = phone;
+        this.about = about;
+        this.lat = lat;
+        this.lon = lon;
     }
 
     public static final Creator<BloodBank> CREATOR = new Creator<BloodBank>() {
@@ -42,6 +46,8 @@ public class BloodBank implements Parcelable {
         this.address = parcel.readString();
         this.phone = parcel.readString();
         this.about = parcel.readString();
+        this.lat = parcel.readDouble();
+        this.lon = parcel.readDouble();
     }
 
     @Override
@@ -51,26 +57,63 @@ public class BloodBank implements Parcelable {
         parcel.writeString(this.address);
         parcel.writeString(this.phone);
         parcel.writeString(this.about);
+        parcel.writeDouble(this.lat);
+        parcel.writeDouble(this.lon);
     }
-
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getAddress() {
         return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhone() {
         return phone;
     }
 
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public String getAbout() {
         return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 }
