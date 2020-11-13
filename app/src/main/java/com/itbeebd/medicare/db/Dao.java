@@ -1,7 +1,10 @@
-package com.itbeebd.medicare.api;
+package com.itbeebd.medicare.db;
 
+import com.itbeebd.medicare.utils.Medication;
+import com.itbeebd.medicare.utils.MedicationDate;
 import com.itbeebd.medicare.utils.Patient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Dao {
@@ -44,5 +47,23 @@ public class Dao {
         catch (Exception exception){
             return null;
         }
+    }
+
+    public ArrayList<Medication> getAllMedicationByDate(String date){
+        ArrayList<Medication> medications = new ArrayList<>();
+
+        try {
+            List<MedicationDate> medicationDateList = new ArrayList<>();
+            medicationDateList = MedicationDate.find(MedicationDate.class,"DATE = ?", date);
+
+            if(medicationDateList != null){
+                for(int i = 0; i < medicationDateList.size(); i++){
+                    medications.add(medicationDateList.get(i).getMedication());
+                }
+            }
+        }
+        catch (Exception ignore){ }
+
+        return medications;
     }
 }

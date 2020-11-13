@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.api.ApiCalls;
-import com.itbeebd.medicare.api.Dao;
 import com.itbeebd.medicare.db.CustomSharedPref;
+import com.itbeebd.medicare.db.Dao;
 import com.itbeebd.medicare.utils.Patient;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 

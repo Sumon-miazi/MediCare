@@ -6,6 +6,7 @@ import com.itbeebd.medicare.api.allInterfaces.GetDataFromApiCall;
 import com.itbeebd.medicare.api.allInterfaces.GetPatientInfo;
 import com.itbeebd.medicare.api.allInterfaces.GetResponse;
 import com.itbeebd.medicare.db.CustomSharedPref;
+import com.itbeebd.medicare.db.Dao;
 import com.itbeebd.medicare.utils.Appointment;
 import com.itbeebd.medicare.utils.BloodBank;
 import com.itbeebd.medicare.utils.BloodDonationRequest;

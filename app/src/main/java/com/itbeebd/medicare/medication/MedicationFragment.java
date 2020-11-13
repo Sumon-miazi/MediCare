@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.MedicationAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
+import com.itbeebd.medicare.db.Dao;
 import com.itbeebd.medicare.doctors.customCalender.MonthViewContainer;
 import com.itbeebd.medicare.utils.Medication;
 import com.kizitonwose.calendarview.CalendarView;
@@ -43,7 +44,6 @@ public class MedicationFragment extends Fragment implements OnRecyclerObjectClic
     private RecyclerView medicationRecyclerView;
     private Button addNewMedicineBtn;
     private MedicationAdapter medicationAdapter;
-    private final LocalDate today = LocalDate.now();
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd");
     private final DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("EEE");
     private final DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMM");
@@ -131,14 +131,15 @@ public class MedicationFragment extends Fragment implements OnRecyclerObjectClic
                 dayViewContainer.getDateTxt().setText(dateFormatter.format(date));
                 dayViewContainer.getDayTxt().setText(dayFormatter.format(date));
 
-                System.out.println(">>>>>>> selected day " + selectedDate.toString());
-                System.out.println(">>>>>>> date " + date.toString());
+              //  System.out.println(">>>>>>> selected day " + selectedDate.toString());
+              //  System.out.println(">>>>>>> date " + date.toString());
                 if (date.toString().equals(selectedDate.toString())) {
-                    System.out.println(">>>>>>> date clicked if");
+                    //System.out.println(">>>>>>> date clicked if");
+                    changeMedicineDataSet(selectedDate.toString());
                     dayViewContainer.getDateTxt().setTextColor(getResources().getColor(R.color.example_7_yellow));
                     dayViewContainer.getSelectedView().setVisibility(View.VISIBLE);
                 } else {
-                    System.out.println(">>>>>>> date clicked else");
+                  //  System.out.println(">>>>>>> date clicked else");
                     dayViewContainer.getDateTxt().setTextColor(getResources().getColor(R.color.example_7_white));
                     dayViewContainer.getSelectedView().setVisibility(View.INVISIBLE);
                 }
@@ -178,22 +179,19 @@ public class MedicationFragment extends Fragment implements OnRecyclerObjectClic
 
 
     private void setUpMedicationRecyclerView() {
-        ArrayList<Medication> medications = new ArrayList<>();
-        medications.add(new Medication());
-        medications.add(new Medication());
-        medications.add(new Medication());
-        medications.add(new Medication());
-        medications.add(new Medication());
-        medications.add(new Medication());
-        medications.add(new Medication());
-
+        ArrayList<Medication> medications = new Dao().getAllMedicationByDate(selectedDate.toString());
         medicationAdapter.setItems(medications);
         medicationAdapter.setListener(this);
         medicationRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         medicationRecyclerView.setAdapter(medicationAdapter);
     }
 
-
+    private void changeMedicineDataSet(String date){
+        System.out.println(">>>>>>.date " + date);
+        ArrayList<Medication> medications = new Dao().getAllMedicationByDate(date);
+        medicationAdapter.setItems(medications);
+        medicationAdapter.notifyDataSetChanged();
+    }
     @Override
     public void onItemClicked(Medication item, View view) {
 

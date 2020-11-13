@@ -18,8 +18,8 @@ import com.itbeebd.medicare.allAdapters.blood.BloodBankAdapter;
 import com.itbeebd.medicare.allAdapters.blood.BloodDonationRequestAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.api.ApiCalls;
-import com.itbeebd.medicare.api.Dao;
 import com.itbeebd.medicare.db.CustomSharedPref;
+import com.itbeebd.medicare.db.Dao;
 import com.itbeebd.medicare.utils.Patient;
 
 
