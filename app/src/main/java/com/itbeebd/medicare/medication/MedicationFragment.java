@@ -152,7 +152,7 @@ public class MedicationFragment extends Fragment implements OnRecyclerObjectClic
         DayOfWeek firstDayOfWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
         // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
         medicationCalendarView.setup(currentMonth, currentMonth.plusMonths(2), firstDayOfWeek);
-        medicationCalendarView.scrollToMonth(YearMonth.from(LocalDate.now()));
+        medicationCalendarView.scrollToDate(LocalDate.now());
 
 
         //  initMonthBinder();

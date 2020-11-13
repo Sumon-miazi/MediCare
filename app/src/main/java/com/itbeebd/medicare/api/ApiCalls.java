@@ -7,7 +7,9 @@ import com.itbeebd.medicare.api.allInterfaces.GetPatientInfo;
 import com.itbeebd.medicare.api.allInterfaces.GetResponse;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.Appointment;
+import com.itbeebd.medicare.utils.BloodDonationRequest;
 import com.itbeebd.medicare.utils.BloodDonor;
+import com.itbeebd.medicare.utils.BloodRequest;
 import com.itbeebd.medicare.utils.CustomDayOfWeek;
 import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.DoctorChamber;
@@ -538,19 +540,10 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
         });
     }
 
-    public void addNewBloodRequest(int userId,
-                                   String bloodFor,
-                                   String city,
-                                   String hospital,
-                                   String amount,
-                                   Date date,
-                                   String bloodGroup,
-                                   GetResponse getResponse) {
-
-        System.out.println("addNewBloodRequest>>>>>>>>>>> called " + date);
+    public void addNewBloodRequest(BloodRequest bloodRequest, GetResponse getResponse) {
 
         final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
-        Call<ResponseBody> responseBodyCall = service.addNewBloodRequest(retrofitRequestBody.addNewBloodRequest(userId, bloodFor, city, hospital, amount, date, bloodGroup));
+        Call<ResponseBody> responseBodyCall = service.addNewBloodRequest(retrofitRequestBody.addNewBloodRequest(bloodRequest));
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -586,4 +579,66 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
         });
     }
 
+    public void getBloodRequest(GetDataFromApiCall<BloodDonationRequest> getDataFromApiCall) {
+
+        System.out.println("getBloodRequest>>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.getBloodRequest(retrofitRequestBody.getApiKey());
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("getBloodRequest>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+
+                            JSONArray bloodRequestArray = jsonObject.getJSONArray("data");
+
+                            ArrayList<BloodDonationRequest> bloodRequests = new ArrayList<>();
+
+                            for (int i = 0; i < bloodRequestArray.length(); i++) {
+
+                                JSONObject object = bloodRequestArray.getJSONObject(i);
+                                JSONObject userDetails = object.getJSONObject("patient");
+
+                                BloodDonationRequest bloodRequest = new BloodDonationRequest(
+                                        object.getInt("id"),
+                                        object.getInt("patient_id"),
+                                        userDetails.getString("name"),
+                                        object.getString("bloodFor"),
+                                        object.getString("city"),
+                                        object.getString("hospital"),
+                                        object.getString("amount"),
+                                        object.getString("bloodGroup"),
+                                        object.getString("date"),
+                                        userDetails.getString("phone"),
+                                        userDetails.getString("token"));
+
+                                bloodRequests.add(bloodRequest);
+                            }
+                            getDataFromApiCall.data(bloodRequests, jsonObject.optString("message"));
+                        } else getDataFromApiCall.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("getBloodRequest>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getDataFromApiCall.data(null, ignore.getMessage());
+                    }
+                } else getDataFromApiCall.data(null, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("getBloodRequest>>>>>>>>>>> failed " + t.getMessage());
+
+                getDataFromApiCall.data(null, t.getMessage());
+            }
+        });
+    }
 }

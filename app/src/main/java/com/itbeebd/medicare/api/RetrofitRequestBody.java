@@ -1,6 +1,7 @@
 package com.itbeebd.medicare.api;
 
 import com.itbeebd.medicare.utils.Appointment;
+import com.itbeebd.medicare.utils.BloodRequest;
 import com.itbeebd.medicare.utils.Patient;
 
 import java.util.Date;
@@ -93,15 +94,15 @@ public class RetrofitRequestBody {
         return map;
     }
 
-    Map<String, Object> addNewBloodRequest( int userId, String bloodFor, String city, String hospital, String amount, Date date, String bloodGroup) {
+    Map<String, Object> addNewBloodRequest(BloodRequest bloodRequest) {
         Map<String, Object> map = new HashMap<>();
-        map.put("patient_id", userId);
-        map.put("bloodFor", bloodFor);
-        map.put("city", city);
-        map.put("hospital", hospital);
-        map.put("amount", amount);
-        map.put("date", date);
-        map.put("bloodGroup", bloodGroup);
+        map.put("patient_id", bloodRequest.getUserId());
+        map.put("bloodFor", bloodRequest.getBloodFor());
+        map.put("city", bloodRequest.getCity());
+        map.put("hospital", bloodRequest.getHospital());
+        map.put("amount", bloodRequest.getAmount());
+        map.put("date", bloodRequest.getBloodNeededDateTime());
+        map.put("bloodGroup", bloodRequest.getBloodGroup());
         map.put("api_key", this.api_key);
         return map;
     }

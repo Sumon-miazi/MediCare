@@ -22,7 +22,6 @@
             android:id="@+id/medicationCalendarViewId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             app:cv_dayViewResource="@layout/calender_day_view_medication"
             app:cv_hasBoundaries="false"
             app:cv_inDateStyle="none"

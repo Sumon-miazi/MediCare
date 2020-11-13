@@ -4,7 +4,6 @@ package com.itbeebd.medicare.medication;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,9 +34,20 @@ public class AddMedicationActivity extends AppCompatActivity {
     private final LocalDate selectedDate = LocalDate.now();
     private final LocalDate today = LocalDate.now();
     private CalendarView addMedicationCalendarView;
-    private CheckBox weekMode;
     private TextView monthView;
     private TextView yearView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_medication);
+
+        addMedicationCalendarView = findViewById(R.id.addMedicationCalendar);
+        monthView = findViewById(R.id.addMedicationCalendarMonthText);
+        yearView = findViewById(R.id.addMedicationYearText);
+
+        initDayBinder();
+    }
 
     public static DayOfWeek[] daysOfWeekFromLocale() {
 
@@ -54,23 +64,6 @@ public class AddMedicationActivity extends AppCompatActivity {
         }
 
         return daysOfWeek;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_medication);
-
-        addMedicationCalendarView = findViewById(R.id.addMedicationCalendar);
-        weekMode = findViewById(R.id.weekModeCheckBox);
-        monthView = findViewById(R.id.addMedicationCalendarMonthText);
-        yearView = findViewById(R.id.addMedicationYearText);
-
-        initDayBinder();
-
-        weekMode.setOnCheckedChangeListener((compoundButton, b) -> {
-            setWeekMode(b);
-        });
     }
 
     private void initDayBinder() {
@@ -165,73 +158,5 @@ public class AddMedicationActivity extends AppCompatActivity {
             }
             return null;
         });
-    }
-
-    private void setWeekMode(boolean b) {
-        /*
-        binding.weekModeCheckBox.setOnCheckedChangeListener { _, monthToWeek ->
-                val firstDate = binding.exOneCalendar.findFirstVisibleDay()?.date ?: return@setOnCheckedChangeListener
-                val lastDate = binding.exOneCalendar.findLastVisibleDay()?.date ?: return@setOnCheckedChangeListener
-
-                val oneWeekHeight = binding.exOneCalendar.daySize.height
-            val oneMonthHeight = oneWeekHeight * 6
-
-            val oldHeight = if (monthToWeek) oneMonthHeight else oneWeekHeight
-            val newHeight = if (monthToWeek) oneWeekHeight else oneMonthHeight
-
-            // Animate calendar height changes.
-            val animator = ValueAnimator.ofInt(oldHeight, newHeight)
-            animator.addUpdateListener { animator ->
-                    binding.exOneCalendar.updateLayoutParams {
-                height = animator.animatedValue as Int
-            }
-            }
-
-            // When changing from month to week mode, we change the calendar's
-            // config at the end of the animation(doOnEnd) but when changing
-            // from week to month mode, we change the calendar's config at
-            // the start of the animation(doOnStart). This is so that the change
-            // in height is visible. You can do this whichever way you prefer.
-
-            animator.doOnStart {
-                if (!monthToWeek) {
-                    binding.exOneCalendar.updateMonthConfiguration(
-                            inDateStyle = InDateStyle.ALL_MONTHS,
-                            maxRowCount = 6,
-                            hasBoundaries = true
-                    )
-                }
-            }
-            animator.doOnEnd {
-                if (monthToWeek) {
-                    binding.exOneCalendar.updateMonthConfiguration(
-                            inDateStyle = InDateStyle.FIRST_MONTH,
-                            maxRowCount = 1,
-                            hasBoundaries = false
-                    )
-                }
-
-                if (monthToWeek) {
-                    // We want the first visible day to remain
-                    // visible when we change to week mode.
-                    binding.exOneCalendar.scrollToDate(firstDate)
-                } else {
-                    // When changing to month mode, we choose current
-                    // month if it is the only one in the current frame.
-                    // if we have multiple months in one frame, we prefer
-                    // the second one unless it's an outDate in the last index.
-                    if (firstDate.yearMonth == lastDate.yearMonth) {
-                        binding.exOneCalendar.scrollToMonth(firstDate.yearMonth)
-                    } else {
-                        // We compare the next with the last month on the calendar so we don't go over.
-                        binding.exOneCalendar.scrollToMonth(minOf(firstDate.yearMonth.next, endMonth))
-                    }
-                }
-            }
-            animator.duration = 250
-            animator.start()
-        }
-
-         */
     }
 }

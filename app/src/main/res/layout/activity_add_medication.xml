@@ -57,20 +57,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/legendLayout" />
 
-    <CheckBox
-        android:id="@+id/weekModeCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginEnd="16dp"
-        android:buttonTint="@color/example_1_white"
-        android:padding="2dp"
-        android:text="week mode"
-        android:textColor="@color/example_1_white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/addMedicationCalendarMonthText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/addMedicationCalendarMonthText" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

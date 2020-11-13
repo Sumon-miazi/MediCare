@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.api.ApiCalls;
 import com.itbeebd.medicare.db.CustomSharedPref;
+import com.itbeebd.medicare.utils.BloodRequest;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -192,15 +193,15 @@ public class BloodRequestActivity extends AppCompatActivity implements DatePicke
             return;
         }
 
-        new ApiCalls().addNewBloodRequest(
-                CustomSharedPref.getInstance(this).getUserId(),
+        BloodRequest bloodRequest = new BloodRequest(CustomSharedPref.getInstance(this).getUserId(),
                 bloodFor,
                 city,
                 hospital,
                 amount,
-                bloodNeededDateTime,
-                (bloodGroupName + bloodGroupFactor),
-                (status, message) -> {
+                (bloodGroupName+bloodGroupFactor));
+        bloodRequest.setBloodNeededDateTime(bloodNeededDateTime);
+
+        new ApiCalls().addNewBloodRequest(bloodRequest, (status, message) -> {
                 if(status) finish();
                 else Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         });

@@ -16,10 +16,10 @@ import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.blood.BloodBankAdapter;
 import com.itbeebd.medicare.allAdapters.blood.BloodDonationRequestAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
+import com.itbeebd.medicare.api.ApiCalls;
 import com.itbeebd.medicare.api.Dao;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.BloodBank;
-import com.itbeebd.medicare.utils.BloodDonationRequest;
 import com.itbeebd.medicare.utils.Patient;
 
 import java.util.ArrayList;
@@ -88,16 +88,21 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
     }
 
     private void setBloodDonationRequestAdapterRecyclerView() {
+        /*
         ArrayList<BloodDonationRequest> bloodDonationRequests = new ArrayList<>();
         bloodDonationRequests.add(new BloodDonationRequest("Sumon miazi", "O+", "Cumilla Central Hospital", "+8801311205352"));
         bloodDonationRequests.add(new BloodDonationRequest("Al Hasan Arif", "A+", "LABAID, Green road, Dhanmondi", "+8801854678398"));
         bloodDonationRequests.add(new BloodDonationRequest("Mohian ul islam", "AB-", "Central Hospital, Dhanmondi", "+8801976405439"));
         bloodDonationRequests.add(new BloodDonationRequest("Abdullah Al Borhan", "B-", "Dhaka medical college and hospital", "+8801311206790"));
+         */
 
-        bloodDonationRequestAdapter.setItems(bloodDonationRequests);
-        bloodDonationRequestAdapter.setListener(this);
-        recentBloodReqRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recentBloodReqRecyclerView.setAdapter(bloodDonationRequestAdapter);
+        new ApiCalls().getBloodRequest((bloodDonationRequests, message) ->{
+            bloodDonationRequestAdapter.setItems(bloodDonationRequests);
+            bloodDonationRequestAdapter.setListener(this);
+            recentBloodReqRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recentBloodReqRecyclerView.setAdapter(bloodDonationRequestAdapter);
+        });
+
     }
 
     @Override
