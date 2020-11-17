@@ -28,6 +28,7 @@ public class SplashActivity extends AppCompatActivity {
     private Flashbar flashbar;
     private boolean alreadyNotCalledMainActivity = true;
     private boolean alreadyNotCalledCheckUserExistOrNot = true;
+    private boolean alreadyNotCalledSignInActivity = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,11 @@ public class SplashActivity extends AppCompatActivity {
         splash_message = findViewById(R.id.splash_text);
         networkIndicate = findViewById(R.id.networkIndicateId);
         animationView = findViewById(R.id.route_animation);
+
+        if(!CustomSharedPref.getInstance(this).getAppIntroShownOrNot()){
+            startActivity(new Intent(this, AppGuideActivity.class));
+            finish();
+        }
     }
 
     private void goToActivityAsRequired() {
@@ -57,8 +63,11 @@ public class SplashActivity extends AppCompatActivity {
 
     private void goToSignInActivity() {
         animationView.setRepeatCount(0);
-        startActivity(new Intent(this, UserSignInActivity.class));
-        finish();
+        if(alreadyNotCalledSignInActivity){
+            alreadyNotCalledSignInActivity = false;
+            startActivity(new Intent(this, UserSignInActivity.class));
+            finish();
+        }
     }
 
     private void goToMainActivity(FirebaseUser user) {
@@ -106,7 +115,6 @@ public class SplashActivity extends AppCompatActivity {
                     animationView.setRepeatCount(0);
                 });
             }
-
         }
 
 
@@ -116,6 +124,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        if(CustomSharedPref.getInstance(this).getAppIntroShownOrNot())
         try {
             Tovuti.from(SplashActivity.this).monitor((connectionType, isConnected, isFast) -> {
                 if (!isConnected) {

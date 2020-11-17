@@ -101,4 +101,14 @@ public class CustomSharedPref {
         editor.apply();
     }
 
+
+    public boolean getAppIntroShownOrNot() {
+        return sharedPreferences.getBoolean("AppIntroShownOrNot", false);
+    }
+
+    public void setAppIntroShownOrNot(boolean b) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("AppIntroShownOrNot", b);
+        editor.apply();
+    }
 }

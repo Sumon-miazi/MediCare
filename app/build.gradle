@@ -104,5 +104,6 @@ dependencies {
 
 
     // intro library
+    // https://github.com/AppIntro/AppIntro
     implementation 'com.github.AppIntro:AppIntro:6.0.0'
 }
