@@ -120,7 +120,7 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
             startActivity(new Intent(getContext(), BloodRequestActivity.class));
         }
         else if(view.getId() == R.id.signUpBloodDonorBtnId){
-            startActivity(new Intent(getContext(), BloodDonarRegistrationActivity.class));
+            startActivity(new Intent(getContext(), BloodDonorRegistrationActivity.class));
         }
     }
 }
