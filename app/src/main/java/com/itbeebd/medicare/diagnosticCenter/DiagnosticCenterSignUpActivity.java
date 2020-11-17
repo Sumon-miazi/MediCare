@@ -14,3 +14,13 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diagnostic_center_sign_up);
     }
 }
+
+/*
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->nullable();
+            $table->string('name');
+            $table->mediumText('services');
+            $table->string('address');
+            $table->string('phone');
+            $table->decimal('lat', 10, 7);
+            $table->decimal('long', 10, 7);
+ */

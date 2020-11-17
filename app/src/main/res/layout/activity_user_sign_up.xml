@@ -13,21 +13,27 @@
         android:layout_height="match_parent"
         android:padding="10dp">
 
-        <TextView
-            android:id="@+id/textView24"
+        <ImageView
+            android:id="@+id/profileImageId"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="80sp"
-            android:text="SIGN UP"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/result_color"
-            android:textSize="30sp"
-            android:textStyle="bold"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/guideline12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/profileChangeBtnId"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/profileImageId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileImageId"
+            app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
@@ -37,8 +43,8 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView24"
-            app:startIconContentDescription="tring/content_description_end_icon"
+            app:layout_constraintTop_toBottomOf="@+id/profileChangeBtnId"
+            app:startIconContentDescription="content_description_end_icon"
             app:startIconDrawable="@drawable/ic_person">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -200,5 +206,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lastBloodDonateDateTextId" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.21" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.core.widget.NestedScrollView>

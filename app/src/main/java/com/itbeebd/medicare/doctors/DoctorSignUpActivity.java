@@ -19,3 +19,15 @@ public class DoctorSignUpActivity extends AppCompatActivity {
 
     }
 }
+
+/*
+            $table->string('name');
+            $table->string('gender');
+            $table->foreignId('hospital_id')->constrained('hospitals')->onDelete('cascade')->nullable();
+            $table->string('about');
+            $table->string('review')->nullable();
+            $table->date('dob')->nullable();
+            $table->longText('education_history');
+            $table->mediumText('address');
+            $table->string('phone');
+ */

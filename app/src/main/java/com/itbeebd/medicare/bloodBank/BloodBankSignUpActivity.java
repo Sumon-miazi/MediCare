@@ -14,3 +14,13 @@ public class BloodBankSignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blood_bank_sign_up);
     }
 }
+
+/*
+            $table->string('name');
+            $table->string('image')->nullable();
+            $table->mediumText('about');
+            $table->mediumText('address');
+            $table->string('phone');
+            $table->decimal('lat', 10, 7);
+            $table->decimal('long', 10, 7);
+ */
