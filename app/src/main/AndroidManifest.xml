@@ -25,7 +25,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="m">
-        <activity android:name=".AppGuideActivity"/>
+        <activity android:name=".userProfile.UserRegistrationOptionActivity"></activity>
+        <activity android:name=".AppGuideActivity" />
         <activity android:name=".doctors.DoctorSignUpActivity" />
         <activity android:name=".bloodBank.BloodDonarRegistrationActivity" />
         <activity android:name=".userProfile.AllBookedAppointmentActivity" />
