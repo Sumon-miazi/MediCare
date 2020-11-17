@@ -24,7 +24,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="m">
-        <activity android:name=".bloodBank.BloodDonarRegistrationActivity"></activity>
+        <activity android:name=".doctors.DoctorSignUpActivity"></activity>
+        <activity android:name=".bloodBank.BloodDonarRegistrationActivity" />
         <activity android:name=".userProfile.AllBookedAppointmentActivity" /> <!-- Launcher activity -->
         <activity
             android:name=".SplashActivity"

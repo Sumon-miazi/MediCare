@@ -101,4 +101,8 @@ dependencies {
     // date time picker
     // https://github.com/wdullaer/MaterialDateTimePicker
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
+
+
+    // intro library
+    implementation 'com.github.AppIntro:AppIntro:6.0.0'
 }

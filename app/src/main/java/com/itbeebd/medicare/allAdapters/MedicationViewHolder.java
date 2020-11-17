@@ -16,7 +16,6 @@ public class MedicationViewHolder extends BaseViewHolder<Medication, OnRecyclerO
      private TextView medicationTime;
      private TextView medicationCondition;
      private TextView medicationAmount;
-    // private ConstraintLayout hospitalInfoLayout;
 
     public MedicationViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -24,7 +23,6 @@ public class MedicationViewHolder extends BaseViewHolder<Medication, OnRecyclerO
         medicationTime = itemView.findViewById(R.id.medicationTimeId);
         medicationCondition = itemView.findViewById(R.id.medicationConditionId);
         medicationAmount = itemView.findViewById(R.id.medicationAmountId);
-        //    hospitalInfoLayout = itemView.findViewById(R.id.hospitalInfoLayoutId);
     }
 
     @Override
@@ -33,10 +31,5 @@ public class MedicationViewHolder extends BaseViewHolder<Medication, OnRecyclerO
         medicationTime.setText(item.getTime());
         medicationCondition.setText(item.getNote());
         medicationAmount.setText(item.getMedicationAmount());
-
-        //    hospitalInfoLayout.setOnClickListener(view -> {
-        //         assert listener != null;
-        //        listener.onItemClicked(item, view);
-        //    });
     }
 }
