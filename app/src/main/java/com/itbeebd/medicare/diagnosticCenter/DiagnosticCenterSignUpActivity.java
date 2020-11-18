@@ -40,6 +40,7 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
     private Boolean imageSelectOrNot = false; // true means this intent for update.
     private Image imagePath;
     private Uri filePath;
+    private String imageUrl = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,7 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
         diagnosticCenter.setLon(0.0);
         diagnosticCenter.setUid(firebaseUser.getUid());
         diagnosticCenter.setToken(CustomSharedPref.getInstance(this).getPushNotificationToken());
+        diagnosticCenter.setImage(imageUrl);
 
         new ApiCalls().signUpDiagnosticCenter(diagnosticCenter, (data, message) -> {
             if(data != null){
@@ -158,6 +160,10 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
             assert images != null;
             for (Image image : images) {
                 filePath = Uri.fromFile(new File(image.getPath()));
+                imageUrl = image.getPath();
+                System.out.println(">>>>>>>. filepath " + filePath);
+                System.out.println(">>>>>>>. imageUrl " + imageUrl);
+
                 imageSelectOrNot = true;
                 imagePath = image;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

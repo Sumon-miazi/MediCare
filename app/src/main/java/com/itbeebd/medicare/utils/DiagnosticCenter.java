@@ -6,6 +6,7 @@ public class DiagnosticCenter extends SugarRecord {
     private int diagnosticId;
     private String uid;
     private String name;
+    private String image;
     private String address;
     private String services;
     private String email;
@@ -16,6 +17,14 @@ public class DiagnosticCenter extends SugarRecord {
 
     public DiagnosticCenter(){
 
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getDiagnosticId() {

@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RetrofitRequestBody {
-    private final String api_key = "jVO6EI4kLdaZ6EIXnfJnV54XJaZ6VOT";
+    private String api_key = "jVO6EI4kLdaZ6EIXnfJnV54XJaZ6VOT";
 
     public RetrofitRequestBody() {
 

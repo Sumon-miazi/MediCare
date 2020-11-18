@@ -25,15 +25,19 @@ import com.itbeebd.medicare.utils.Specialist;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class ApiCalls {
 
@@ -41,6 +45,7 @@ public class ApiCalls {
 
     private final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(ApiUrls.BASE_URL)
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -734,6 +739,7 @@ public class ApiCalls {
 
                             DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
                             diagnosticCenter.setName(userObj.getString("name"));
+                            diagnosticCenter.setImage(userObj.optString("image"));
                             diagnosticCenter.setAddress(userObj.getString("address"));
                             diagnosticCenter.setServices(userObj.getString("services"));
                             diagnosticCenter.setEmail(userObj.getString("email"));
@@ -1255,7 +1261,7 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
             }
         });
     }
-
+/*
     public void signUpDiagnosticCenter(DiagnosticCenter diagnosticCenter, GetData<DiagnosticCenter> getData) {
 
         System.out.println("signUpDiagnosticCenter>>>>>>>>>>> called ");
@@ -1309,4 +1315,84 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
             }
         });
     }
+ */
+
+    public void signUpDiagnosticCenter(DiagnosticCenter diagnosticCenter, GetData<DiagnosticCenter> getData) {
+
+        System.out.println("signUpDiagnosticCenter>>>>>>>>>>> called " + new RetrofitRequestBody().getApi_key());
+
+        Call<ResponseBody> responseBodyCall = service.signUpDiagnosticCenter(
+                getImageFile(diagnosticCenter.getImage()),
+                diagnosticCenter.getUid(),
+                diagnosticCenter.getName(),
+                diagnosticCenter.getServices(),
+                diagnosticCenter.getAddress(),
+                diagnosticCenter.getPhone(),
+                diagnosticCenter.getEmail(),
+                diagnosticCenter.getToken(),
+                diagnosticCenter.getLat(),
+                diagnosticCenter.getLon(),
+                new RetrofitRequestBody().getApi_key());
+
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("signUpDiagnosticCenter>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+                            JSONObject userObj = jsonObject.getJSONObject("data");
+
+                            DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
+                            diagnosticCenter.setName(userObj.getString("name"));
+                            diagnosticCenter.setAddress(userObj.getString("address"));
+                            diagnosticCenter.setServices(userObj.getString("services"));
+                            diagnosticCenter.setEmail(userObj.getString("email"));
+                            diagnosticCenter.setPhone(userObj.getString("phone"));
+                            diagnosticCenter.setLat(userObj.getDouble("lat"));
+                            diagnosticCenter.setLon(userObj.getDouble("long"));
+                            diagnosticCenter.setUid(userObj.getString("uid"));
+                            diagnosticCenter.setDiagnosticId(userObj.getInt("id"));
+
+                            CustomSharedPref.getInstance(context).setUserId(diagnosticCenter.getDiagnosticId());
+
+                            new Dao().saveDiagnosticCenterProfile(diagnosticCenter);
+
+                            getData.data(diagnosticCenter, jsonObject.optString("message"));
+
+                        } else getData.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("signUpDiagnosticCenter>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getData.data(null, ignore.getMessage());
+                    }
+                }
+                else{
+                    System.out.println("signUpDiagnosticCenter>>>>>>>>>>> res " + response.body());
+                    getData.data(null, response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("signUpDiagnosticCenter>>>>>>>>>>> failed " + t.getMessage());
+                getData.data(null, t.getMessage());
+            }
+        });
+    }
+
+    private MultipartBody.Part getImageFile(String imageFilePath){
+        if(imageFilePath == null || imageFilePath.isEmpty())
+            return null;
+        File file = new File(imageFilePath); // initialize file here
+        System.out.println(">>>>>>>>> file " + file.toString());
+        String imageName = imageFilePath.substring(imageFilePath.lastIndexOf("/")+1);
+        return MultipartBody.Part.createFormData("image", imageName, okhttp3.RequestBody.create(MediaType.parse("image/*"), file));
+    }
+
 }

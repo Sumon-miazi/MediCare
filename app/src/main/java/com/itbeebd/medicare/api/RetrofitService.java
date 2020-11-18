@@ -2,10 +2,13 @@ package com.itbeebd.medicare.api;
 
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 
 public interface RetrofitService {
@@ -76,12 +79,25 @@ public interface RetrofitService {
     Call<ResponseBody> getDoctorData(@Body Map<String, Object> body);
 
 
-    @POST(ApiUrls.SIGN_UP_DIAGNOSTIC)
-    Call<ResponseBody> signUpDiagnosticCenter(@Body Map<String, Object> body);
+   // @POST(ApiUrls.SIGN_UP_DIAGNOSTIC)
+  //  Call<ResponseBody> signUpDiagnosticCenter(@Body Map<String, Object> body);
 
     @POST(ApiUrls.GET_DIAGNOSTIC_DATA)
     Call<ResponseBody> getDiagnosticCenterData(@Body Map<String, Object> body);
 
+    @Multipart
+    @POST(ApiUrls.SIGN_UP_DIAGNOSTIC)
+    Call<ResponseBody> signUpDiagnosticCenter(@Part MultipartBody.Part image,
+                                       @Part("uid") String uid,
+                                       @Part("name") String name,
+                                       @Part("services") String services,
+                                       @Part("address") String address,
+                                       @Part("phone") String phone,
+                                       @Part("email") String email,
+                                       @Part("token") String token,
+                                       @Part("lat") double lat,
+                                       @Part("long") double lon,
+                                       @Part("api_key") String api_key);
 
 
 }
