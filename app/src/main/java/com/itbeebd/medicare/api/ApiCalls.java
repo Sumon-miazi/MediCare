@@ -20,6 +20,7 @@ import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.DoctorChamber;
 import com.itbeebd.medicare.utils.Hospital;
 import com.itbeebd.medicare.utils.Patient;
+import com.itbeebd.medicare.utils.Specialist;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -168,6 +169,63 @@ public class ApiCalls {
             }
         });
     }
+
+    public void getAllSpecialist(final GetDataFromApiCall<Specialist> getDataFromApiCall) {
+
+        System.out.println("getAllSpecialist>>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.getAllSpecialist(retrofitRequestBody.getApiKey());
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("getAllSpecialist>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+                            JSONArray JsonArray = jsonObject.getJSONArray("data");
+
+                            ArrayList<Specialist> specialists = new ArrayList<>();
+
+                            for (int i = 0; i < JsonArray.length(); i++) {
+
+                                JSONObject object = JsonArray.getJSONObject(i);
+
+                                Specialist specialist = new Specialist(object.getInt("id"),
+                                        object.getString("type"),
+                                        object.getString("icon"));
+
+                                specialists.add(specialist);
+                            }
+
+                            // Collections.shuffle(questionArrayList);
+
+                            getDataFromApiCall.data(specialists, jsonObject.optString("message"));
+
+                        } else getDataFromApiCall.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("getAllSpecialist>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getDataFromApiCall.data(null, ignore.getMessage());
+                    }
+                } else getDataFromApiCall.data(null, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("getAllSpecialist>>>>>>>>>>> failed " + t.getMessage());
+
+                getDataFromApiCall.data(null, t.getMessage());
+            }
+        });
+    }
+
 
     public void getAllDoctorByHospitalId(int hospitalId, final GetDataFromApiCall<Doctor> getAllDoctor) {
 

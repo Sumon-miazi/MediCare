@@ -16,6 +16,8 @@ public interface RetrofitService {
     @POST(ApiUrls.ALL_DIAGNOSTIC)
     Call<ResponseBody> getAllDiagnosticCenter(@Body Map<String, Object> body);
 
+    @POST(ApiUrls.ALL_SPECIALIST)
+    Call<ResponseBody> getAllSpecialist(@Body Map<String, Object> body);
 
     @POST(ApiUrls.ALL_DOCTOR)
     Call<ResponseBody> getAllDoctorByHospitalId(@Body Map<String, Object> body);

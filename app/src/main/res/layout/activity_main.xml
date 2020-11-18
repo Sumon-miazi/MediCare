@@ -33,7 +33,7 @@
             app:bt_colorActive="@color/blue_grey_active"
             app:bt_colorInactive="@color/blue_grey_inactive"
             app:bt_icon="@drawable/ic_home"
-            app:bt_shape="@drawable/transition_background_drawable_home"
+            app:bt_shape="@drawable/transition_background_drawable_like"
             app:bt_title="@string/home"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
             app:bt_colorActive="@color/red_active"
             app:bt_colorInactive="@color/red_inactive"
             app:bt_icon="@drawable/ic_like"
-            app:bt_shape="@drawable/transition_background_drawable_like"
+            app:bt_shape="@drawable/transition_background_drawable_home"
             app:bt_title="@string/likes" />
 
         <com.gauravk.bubblenavigation.BubbleToggleView
