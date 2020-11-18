@@ -24,6 +24,7 @@
     <string name="slow_internet">slow internet connection</string>
     <string name="slow_internet_connection">SLOW INTERNET CONNECTION</string>
     <string name="no_internet">NO INTERNET</string>
+    <string name="medication">Medication</string>
 
     <string-array name="blood_for_list">
         <item>Mercury</item>

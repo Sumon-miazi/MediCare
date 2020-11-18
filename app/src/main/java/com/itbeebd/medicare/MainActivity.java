@@ -13,6 +13,7 @@ import com.gauravk.bubblenavigation.BubbleNavigationLinearView;
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
 import com.itbeebd.medicare.bloodBank.BloodBankFragment;
 import com.itbeebd.medicare.db.CustomSharedPref;
+import com.itbeebd.medicare.diagnosticCenter.DiagnosticCenterListActivity;
 import com.itbeebd.medicare.hospitals.HospitalListActivity;
 import com.itbeebd.medicare.medication.MedicationFragment;
 import com.itbeebd.medicare.userProfile.UserProfileActivity;
@@ -88,7 +89,15 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
 
     @Override
     public void onItemSelectedOnDashBoard(View view) {
-        startActivity(new Intent(this, HospitalListActivity.class));
+        if(view.getId() == R.id.hospitalCardViewId){
+            startActivity(new Intent(this, HospitalListActivity.class));
+        }
+        else if(view.getId() == R.id.diagnosticCardViewId){
+            startActivity(new Intent(this, DiagnosticCenterListActivity.class));
+        }
+        else if(view.getId() == R.id.pharmacyCardViewId){
+            startActivity(new Intent(this, DiagnosticCenterListActivity.class));
+        }
     }
 
     @Override

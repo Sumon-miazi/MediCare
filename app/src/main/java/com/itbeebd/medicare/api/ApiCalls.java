@@ -108,6 +108,67 @@ public class ApiCalls {
         });
     }
 
+    public void getAllDiagnosticCenter(final GetDataFromApiCall<DiagnosticCenter> getAllDiagnostic) {
+
+        System.out.println("getAllDiagnosticCenter>>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.getAllDiagnosticCenter(retrofitRequestBody.getApiKey());
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("getAllDiagnosticCenter>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+                            JSONArray hospitalsJsonArray = jsonObject.getJSONArray("data");
+
+                            ArrayList<DiagnosticCenter> diagnosticCenters = new ArrayList<>();
+
+                            for (int i = 0; i < hospitalsJsonArray.length(); i++) {
+
+                                JSONObject object = hospitalsJsonArray.getJSONObject(i);
+
+                                DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
+                                diagnosticCenter.setDiagnosticId(object.getInt("id"));
+                                diagnosticCenter.setName(object.getString("name"));
+                                diagnosticCenter.setAddress(object.getString("address"));
+                                diagnosticCenter.setPhone(object.getString("phone"));
+                                diagnosticCenter.setServices(object.getString("services"));
+                                diagnosticCenter.setLat(object.getDouble("lat"));
+                                diagnosticCenter.setLon(object.getDouble("long"));
+
+                                diagnosticCenters.add(diagnosticCenter);
+                            }
+
+                            // Collections.shuffle(questionArrayList);
+
+                            getAllDiagnostic.data(diagnosticCenters, jsonObject.optString("message"));
+
+                        } else getAllDiagnostic.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("getAllDiagnosticCenter>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getAllDiagnostic.data(null, ignore.getMessage());
+                    }
+                } else getAllDiagnostic.data(null, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("getAllDiagnosticCenter>>>>>>>>>>> failed " + t.getMessage());
+
+                getAllDiagnostic.data(null, t.getMessage());
+            }
+        });
+    }
+
     public void getAllDoctorByHospitalId(int hospitalId, final GetDataFromApiCall<Doctor> getAllDoctor) {
 
         System.out.println("getAllDoctorByHospitalId>>>>>>>>>>> called ");

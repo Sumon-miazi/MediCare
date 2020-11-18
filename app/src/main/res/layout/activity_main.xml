@@ -30,8 +30,8 @@
             android:id="@+id/l_item_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:bt_colorActive="@color/red_active"
-            app:bt_colorInactive="@color/red_inactive"
+            app:bt_colorActive="@color/blue_grey_active"
+            app:bt_colorInactive="@color/blue_grey_inactive"
             app:bt_icon="@drawable/ic_home"
             app:bt_shape="@drawable/transition_background_drawable_home"
             app:bt_title="@string/home"
@@ -55,8 +55,8 @@
             android:id="@+id/l_item_profile_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:bt_colorActive="@color/blue_grey_active"
-            app:bt_colorInactive="@color/blue_grey_inactive"
+            app:bt_colorActive="@color/red_active"
+            app:bt_colorInactive="@color/red_inactive"
             app:bt_icon="@drawable/ic_like"
             app:bt_shape="@drawable/transition_background_drawable_like"
             app:bt_title="@string/likes" />
@@ -69,7 +69,7 @@
             app:bt_colorInactive="@color/green_inactive"
             app:bt_icon="@drawable/ic_playlist"
             app:bt_shape="@drawable/transition_background_drawable_list"
-            app:bt_title="@string/notification" />
+            app:bt_title="@string/medication" />
 
         <com.gauravk.bubblenavigation.BubbleToggleView
             android:id="@+id/l_item_profile"

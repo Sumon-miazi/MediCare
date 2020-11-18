@@ -51,6 +51,7 @@
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_search"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintStart_toStartOf="@+id/imageView2"
@@ -219,6 +220,7 @@
                 app:layout_constraintStart_toEndOf="@+id/textView3" />
 
             <ImageView
+                android:id="@+id/calenderIconId"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"

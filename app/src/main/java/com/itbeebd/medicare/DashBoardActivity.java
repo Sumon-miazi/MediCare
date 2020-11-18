@@ -16,6 +16,7 @@ public class DashBoardActivity extends Fragment {
     private OnItemSelectedListener listener;
     private CircularImageView main_doctorImageView;
     private CardView hospitalCardView;
+    private CardView diagnosticCardView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,8 +25,10 @@ public class DashBoardActivity extends Fragment {
         View view = inflater.inflate(R.layout.activity_dash_board, container, false);
         main_doctorImageView = view.findViewById(R.id.main_doctorImageViewId);
         hospitalCardView = view.findViewById(R.id.hospitalCardViewId);
+        diagnosticCardView = view.findViewById(R.id.diagnosticCardViewId);
 
         hospitalCardView.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
+        diagnosticCardView.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
 
         return view;
     }
