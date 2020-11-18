@@ -232,7 +232,7 @@ public class ApiCalls {
         System.out.println("getAllDoctorByHospitalId>>>>>>>>>>> called ");
 
         final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
-        Call<ResponseBody> responseBodyCall = service.getAllDoctorByHospitalId(retrofitRequestBody.getAllDoctorByHospitalId(hospitalId));
+        Call<ResponseBody> responseBodyCall = service.getAllDoctorByHospitalId(retrofitRequestBody.getDataById(hospitalId));
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -280,6 +280,65 @@ public class ApiCalls {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                 System.out.println("getAllDoctorByHospitalId>>>>>>>>>>> failed " + t.getMessage());
+
+                getAllDoctor.data(null, t.getMessage());
+            }
+        });
+    }
+
+    public void getAllDoctorBySpecialistId(int specialistId, final GetDataFromApiCall<Doctor> getAllDoctor) {
+
+        System.out.println("getAllDoctorBySpecialistId>>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.getAllDoctorBySpecialistId(retrofitRequestBody.getDataById(specialistId));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("getAllDoctorBySpecialistId>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+                            JSONArray doctorJsonArray = jsonObject.getJSONArray("data");
+
+                            ArrayList<Doctor> doctorArrayList = new ArrayList<>();
+
+                            for (int i = 0; i < doctorJsonArray.length(); i++) {
+
+                                JSONObject object = doctorJsonArray.getJSONObject(i);
+
+                                Doctor doctor = new Doctor(object.getInt("id"),
+                                        object.optInt("hospital_id"),
+                                        object.getString("name"),
+                                        object.optString("dob"),
+                                        object.getString("educationHistory"),
+                                        object.getString("address"),
+                                        object.getString("phone"));
+
+                                doctorArrayList.add(doctor);
+                            }
+
+                            // Collections.shuffle(questionArrayList);
+
+                            getAllDoctor.data(doctorArrayList, jsonObject.optString("message"));
+                        } else getAllDoctor.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("getAllDoctorBySpecialistId>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getAllDoctor.data(null, ignore.getMessage());
+                    }
+                } else getAllDoctor.data(null, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("getAllDoctorBySpecialistId>>>>>>>>>>> failed " + t.getMessage());
 
                 getAllDoctor.data(null, t.getMessage());
             }

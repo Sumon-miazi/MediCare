@@ -39,6 +39,17 @@ public class DoctorListActivity extends AppCompatActivity implements OnRecyclerO
                 } else Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             });
         }
+        else if (getIntent().hasExtra("specialistId")) {
+            int id = getIntent().getIntExtra("specialistId", 0);
+            new ApiCalls().getAllDoctorBySpecialistId(id, (doctors, message) -> {
+                if (doctors != null) {
+                    doctorListAdapter.setItems(doctors);
+                    doctorListAdapter.setListener(this);
+                    allDoctorRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                    allDoctorRecyclerView.setAdapter(doctorListAdapter);
+                } else Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            });
+        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.itbeebd.medicare;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.itbeebd.medicare.allAdapters.SpecialistAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.doctors.DoctorListActivity;
 import com.itbeebd.medicare.utils.Specialist;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -77,7 +79,10 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
 
     @Override
     public void onItemClicked(Specialist item, View view) {
-
+        Intent intent = new Intent(getContext(), DoctorListActivity.class);
+        intent.putExtra("specialistId", item.getId());
+        intent.putExtra("source", "DashBoardActivity");
+        startActivity(intent);
     }
 
     public interface OnItemSelectedListener {

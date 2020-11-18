@@ -45,6 +45,7 @@ public class HospitalListActivity extends AppCompatActivity implements OnRecycle
         System.out.println(">>>>>>>>>>. clicked");
         Intent intent = new Intent(this, DoctorListActivity.class);
         intent.putExtra("hospitalId", item.getId());
+        intent.putExtra("source", "HospitalListActivity");
         startActivity(intent);
     }
 }
