@@ -8,6 +8,7 @@ import com.orm.SugarRecord;
 public class Patient extends SugarRecord implements Parcelable {
 
     private String name;
+    private String image;
     private String uid;
     private String gender;
     private String dob;
@@ -30,6 +31,7 @@ public class Patient extends SugarRecord implements Parcelable {
         this.address = "";
         this.phone = "";
         this.token = "";
+        this.image = null;
     }
 
     public Patient(int patient_id,
@@ -81,6 +83,7 @@ public class Patient extends SugarRecord implements Parcelable {
         this.address = parcel.readString();
         this.phone = parcel.readString();
         this.token = parcel.readString();
+        this.image = parcel.readString();
     }
 
     @Override
@@ -101,6 +104,7 @@ public class Patient extends SugarRecord implements Parcelable {
         parcel.writeString(this.address);
         parcel.writeString(this.phone);
         parcel.writeString(this.token);
+        parcel.writeString(this.image);
     }
 
     public int getPatientId() {
@@ -189,5 +193,13 @@ public class Patient extends SugarRecord implements Parcelable {
 
     public void setIs_blood_donor(int is_blood_donor) {
         this.is_blood_donor = is_blood_donor;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

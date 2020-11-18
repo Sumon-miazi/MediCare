@@ -1,5 +1,6 @@
 package com.itbeebd.medicare.api;
 
+import java.util.Date;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -31,8 +32,25 @@ public interface RetrofitService {
     @POST(ApiUrls.ALL_CHAMBER_OF_A_DOCTOR)
     Call<ResponseBody> getAllDoctorChambersByDoctorId(@Body Map<String, Object> body);
 
+   // @POST(ApiUrls.SIGN_UP_PATIENT)
+   // Call<ResponseBody> signUpPatient(@Body Map<String, Object> body);
+
+    @Multipart
     @POST(ApiUrls.SIGN_UP_PATIENT)
-    Call<ResponseBody> signUpPatient(@Body Map<String, Object> body);
+    Call<ResponseBody> signUpPatient(@Part MultipartBody.Part image,
+                                              @Part("uid") String uid,
+                                              @Part("name") String name,
+                                              @Part("gender") String services,
+                                              @Part("is_blood_donor") int is_blood_donor,
+                                              @Part("lastDonate") Date lastDonate,
+                                              @Part("dob") String  dob,
+                                              @Part("weight") double  weight,
+                                              @Part("blood_group") String blood_group,
+                                              @Part("address") String address,
+                                              @Part("phone") String phone,
+                                              @Part("token") String token,
+                                              @Part("api_key") String api_key);
+
 
     @POST(ApiUrls.GET_PATIENT_DETAILS)
     Call<ResponseBody> getPatientDetails(@Body Map<String, Object> body);

@@ -437,8 +437,21 @@ public class ApiCalls {
 
         System.out.println("signUpPatient>>>>>>>>>>> called ");
 
-        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
-        Call<ResponseBody> responseBodyCall = service.signUpPatient(retrofitRequestBody.signUpPatient(patient, lastBloodDonationDate));
+        Call<ResponseBody> responseBodyCall = service.signUpPatient(
+                getImageFile(patient.getImage()),
+                patient.getUid(),
+                patient.getName(),
+                patient.getGender(),
+                patient.getIs_blood_donor(),
+                lastBloodDonationDate,
+                patient.getDob(),
+                patient.getWeight(),
+                patient.getBlood_group(),
+                patient.getAddress(),
+                patient.getPhone(),
+                patient.getToken(),
+                new RetrofitRequestBody().getApi_key()
+        );
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -466,6 +479,8 @@ public class ApiCalls {
                                     userObj.getString("phone"),
                                     userObj.getString("token")
                             );
+                            patientInfo.setImage(userObj.optString("image"));
+
                             CustomSharedPref.getInstance(context).setUserId(patientInfo.getPatientId());
                             new Dao().savePatientProfile(patientInfo);
                             getPatientInfo.data(patientInfo, jsonObject.optString("message"));
@@ -526,6 +541,7 @@ public class ApiCalls {
                                             userObj.getString("phone"),
                                             userObj.getString("token")
                                     );
+                                    patient.setImage(userObj.optString("image"));
                                     new Dao().savePatientProfile(patient);
                                     CustomSharedPref.getInstance(context).setUserId(patient.getPatientId());
                                     break;
@@ -586,7 +602,7 @@ public class ApiCalls {
                         System.out.println("getUserData>>>>>>>>>>> " + jsonObject.toString());
                         if (jsonObject.optString("status").equals("true")) {
                             JSONObject userObj = jsonObject.getJSONObject("data");
-                            Patient patient = patient = new Patient(
+                            Patient patient = new Patient(
                                         userObj.getInt("id"),
                                         userObj.getString("name"),
                                         userObj.getString("uid"),
@@ -599,6 +615,7 @@ public class ApiCalls {
                                         userObj.getString("phone"),
                                         userObj.getString("token")
                                 );
+                            patient.setImage(userObj.optString("image"));
                                 new Dao().savePatientProfile(patient);
 
                             CustomSharedPref.getInstance(context).setUserId(patient.getPatientId());

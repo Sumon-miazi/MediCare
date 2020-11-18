@@ -1,10 +1,14 @@
 package com.itbeebd.medicare.userProfile;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Html;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.andrognito.flashbar.Flashbar;
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,8 +26,13 @@ import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.api.ApiCalls;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.Patient;
+import com.nguyenhoanglam.imagepicker.model.Config;
+import com.nguyenhoanglam.imagepicker.model.Image;
+import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -56,6 +66,12 @@ public class UserSignUpActivity extends AppCompatActivity implements DatePickerD
 
     private FirebaseUser firebaseUser;
     private DatePickerDialog dpd;
+    public static final int PICK_IMAGE = 1;
+    private Image imagePath;
+    private Uri filePath;
+    private String imageUrl = null;
+    private ImageView profileImage;
+    private ImageView profileChangeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +84,8 @@ public class UserSignUpActivity extends AppCompatActivity implements DatePickerD
         RadioGroup genderGroup = findViewById(R.id.genderId);
         signUpBloodDonor = findViewById(R.id.signUpBloodDonorId);
         lastBloodDonateDateText = findViewById(R.id.lastBloodDonateDateTextId);
+        profileImage = findViewById(R.id.profileImageId);
+        profileChangeBtn = findViewById(R.id.profileChangeBtnId);
 
         Calendar now = Calendar.getInstance();
         dpd = DatePickerDialog.newInstance(
@@ -110,6 +128,24 @@ public class UserSignUpActivity extends AppCompatActivity implements DatePickerD
         });
 
         lastBloodDonateDateText.setOnClickListener(view -> dpd.show(getSupportFragmentManager(), "Datepickerdialog"));
+
+        Glide.with(getApplicationContext())
+                .load(this.getResources().getString(R.string.lurem))
+                .into(profileImage);
+
+
+        profileChangeBtn.setOnClickListener(v -> {
+            ImagePicker.with(this)
+                    .setFolderMode(true)
+                    .setFolderTitle("Album")
+                    .setDirectoryName("Image Picker")
+                    .setMultipleMode(false)
+                    .setShowNumberIndicator(true)
+                    .setMaxSize(1)
+                    .setLimitMessage("You can select up to 1 images")
+                    .setRequestCode(PICK_IMAGE)
+                    .start();
+        });
     }
 
     private void initCardViewAndTxtView() {
@@ -253,6 +289,7 @@ public class UserSignUpActivity extends AppCompatActivity implements DatePickerD
         patientObj.setGender(gender);
         patientObj.setIs_blood_donor(signUpAsBloodDonor ? 1 : 0);
         patientObj.setToken(CustomSharedPref.getInstance(this).getPushNotificationToken());
+        patientObj.setImage(imageUrl);
 
 
         new ApiCalls(this).signUpPatient(patientObj, lastBloodDonationDate, (patient, message) -> {
@@ -272,5 +309,36 @@ public class UserSignUpActivity extends AppCompatActivity implements DatePickerD
         String date = "Last blood donation date: <b>" + dayOfMonth + "-" + (monthOfYear + 1) + "-" + year + "</b>";
         lastBloodDonateDateText.setText(Html.fromHtml(date));
         lastBloodDonationDate = getDate(year,monthOfYear, dayOfMonth);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
+            ArrayList<Image> images = data.getParcelableArrayListExtra(Config.EXTRA_IMAGES);
+            // Do stuff with image's path or id. For example:
+            //      imageOfTheContent.setVisibility(View.VISIBLE);
+            //      chooseBtn.setVisibility(View.GONE);
+            //      cancel_image_selection.setVisibility(View.VISIBLE);
+            assert images != null;
+            for (Image image : images) {
+                filePath = Uri.fromFile(new File(image.getPath()));
+                imageUrl = image.getPath();
+                System.out.println(">>>>>>>. filepath " + filePath);
+                System.out.println(">>>>>>>. imageUrl " + imageUrl);
+
+                imagePath = image;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    Uri uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, String.valueOf(image.getId()));
+                    Glide.with(getApplicationContext())
+                            .load(uri)
+                            .into(profileImage);
+                } else {
+                    Glide.with(getApplicationContext())
+                            .load(image.getPath())
+                            .into(profileImage);
+                }
+            }
+        }
     }
 }
