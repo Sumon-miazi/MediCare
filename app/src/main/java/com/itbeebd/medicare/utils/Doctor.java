@@ -10,6 +10,7 @@ public class Doctor extends SugarRecord implements Parcelable {
     private String uid;
     private int hospital_id;
     private String name;
+    private String image;
     private String gender;
     private String dob;
     private String bmdcRegNo;
@@ -57,6 +58,7 @@ public class Doctor extends SugarRecord implements Parcelable {
         this.educationHistory = parcel.readString();
         this.address = parcel.readString();
         this.phone = parcel.readString();
+        this.image = parcel.readString();
     }
 
     @Override
@@ -74,6 +76,7 @@ public class Doctor extends SugarRecord implements Parcelable {
         parcel.writeString(this.educationHistory);
         parcel.writeString(this.address);
         parcel.writeString(this.phone);
+        parcel.writeString(this.image);
     }
 
 
@@ -187,5 +190,13 @@ public class Doctor extends SugarRecord implements Parcelable {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

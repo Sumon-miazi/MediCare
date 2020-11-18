@@ -264,7 +264,7 @@ public class ApiCalls {
                                         object.getString("education_history"),
                                         object.getString("address"),
                                         object.getString("phone"));
-
+                                doctor.setImage(object.optString("image"));
                                 doctorArrayList.add(doctor);
                             }
 
@@ -323,7 +323,7 @@ public class ApiCalls {
                                         object.getString("educationHistory"),
                                         object.getString("address"),
                                         object.getString("phone"));
-
+                                doctor.setImage(object.optString("image"));
                                 doctorArrayList.add(doctor);
                             }
 
@@ -665,6 +665,7 @@ public class ApiCalls {
                             doctor.setSpecialist(userObj.getString("specialist"));
                             doctor.setEducationHistory(userObj.getString("educationHistory"));
                             doctor.setGender(userObj.getString("gender"));
+                            doctor.setImage(userObj.optString("image"));
 
                             new Dao().saveDoctorProfile(doctor);
 
@@ -1114,11 +1115,21 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
 
 
     public void signUpBloodBank(BloodBank bloodBank, GetData<BloodBank> getData) {
-
         System.out.println("signUpBloodBank>>>>>>>>>>> called ");
 
-        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
-        Call<ResponseBody> responseBodyCall = service.signUpBloodBank(retrofitRequestBody.signUpBloodBank(bloodBank));
+        Call<ResponseBody> responseBodyCall = service.signUpBloodBank(
+                getImageFile(bloodBank.getImage()),
+                bloodBank.getUid(),
+                bloodBank.getName(),
+                bloodBank.getAddress(),
+                bloodBank.getAbout(),
+                bloodBank.getPhone(),
+                bloodBank.getEmail(),
+                bloodBank.getToken(),
+                bloodBank.getLat(),
+                bloodBank.getLon(),
+                new RetrofitRequestBody().getApi_key()
+        );
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -1228,8 +1239,21 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
 
         System.out.println("signUpDoctor>>>>>>>>>>> called ");
 
-        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
-        Call<ResponseBody> responseBodyCall = service.signUpDoctor(retrofitRequestBody.signUpDoctor(doctor));
+        Call<ResponseBody> responseBodyCall = service.signUpDoctor(
+                getImageFile(doctor.getImage()),
+                doctor.getUid(),
+                doctor.getName(),
+                doctor.getBmdcRegNo(),
+                doctor.getSpecialist(),
+                doctor.getGender(),
+                doctor.getAddress(),
+                doctor.getAbout(),
+                doctor.getEducationHistory(),
+                doctor.getPhone(),
+                doctor.getEmail(),
+                doctor.getToken(),
+                new RetrofitRequestBody().getApi_key()
+        );
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -1254,6 +1278,7 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
                             doc.setEducationHistory(userObj.getString("educationHistory"));
                             doc.setSpecialist(userObj.getString("specialist"));
                             doc.setBmdcRegNo(userObj.getString("bmdcRegNo"));
+                            doc.setImage(userObj.optString("image"));
 
                             CustomSharedPref.getInstance(context).setUserId(doc.getDoctorId());
 

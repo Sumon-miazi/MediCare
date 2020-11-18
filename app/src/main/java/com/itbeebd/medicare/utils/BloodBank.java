@@ -9,6 +9,7 @@ public class BloodBank extends SugarRecord implements Parcelable {
 
     private int blood_bank_id;
     private String name;
+    private String image;
     private String uid;
     private String address;
     private String phone;
@@ -24,6 +25,7 @@ public class BloodBank extends SugarRecord implements Parcelable {
 
     public BloodBank(String name, String address, String phone, String about, String email) {
         this.name = name;
+        this.image = null;
         this.address = address;
         this.phone = phone;
         this.about = about;
@@ -40,6 +42,7 @@ public class BloodBank extends SugarRecord implements Parcelable {
         this.about = about;
         this.lat = lat;
         this.lon = lon;
+        this.image = null;
     }
 
     public static final Creator<BloodBank> CREATOR = new Creator<BloodBank>() {
@@ -62,6 +65,7 @@ public class BloodBank extends SugarRecord implements Parcelable {
     public BloodBank(Parcel parcel) {
         this.blood_bank_id = parcel.readInt();
         this.name = parcel.readString();
+        this.image = parcel.readString();
         this.address = parcel.readString();
         this.phone = parcel.readString();
         this.about = parcel.readString();
@@ -73,6 +77,7 @@ public class BloodBank extends SugarRecord implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(this.blood_bank_id);
         parcel.writeString(this.name);
+        parcel.writeString(this.image);
         parcel.writeString(this.address);
         parcel.writeString(this.phone);
         parcel.writeString(this.about);
@@ -158,5 +163,13 @@ public class BloodBank extends SugarRecord implements Parcelable {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

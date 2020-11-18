@@ -79,8 +79,22 @@ public interface RetrofitService {
     Call<ResponseBody> getAllBloodBank(@Body Map<String, Object> body);
 
 
+   // @POST(ApiUrls.SIGN_UP_BLOOD_BANK)
+   // Call<ResponseBody> signUpBloodBank(@Body Map<String, Object> body);
+
+    @Multipart
     @POST(ApiUrls.SIGN_UP_BLOOD_BANK)
-    Call<ResponseBody> signUpBloodBank(@Body Map<String, Object> body);
+    Call<ResponseBody> signUpBloodBank(@Part MultipartBody.Part image,
+                                    @Part("uid") String uid,
+                                    @Part("name") String name,
+                                    @Part("address") String address,
+                                    @Part("about") String about,
+                                    @Part("phone") String phone,
+                                    @Part("email") String email,
+                                    @Part("token") String token,
+                                    @Part("lat") double lat,
+                                    @Part("long") double lon,
+                                    @Part("api_key") String api_key);
 
     @POST(ApiUrls.GET_BLOOD_BANK_DATA)
     Call<ResponseBody> getBloodBankData(@Body Map<String, Object> body);
@@ -90,8 +104,25 @@ public interface RetrofitService {
 
 
 
+   // @POST(ApiUrls.SIGN_UP_DOCTOR)
+   // Call<ResponseBody> signUpDoctor(@Body Map<String, Object> body);
+
+    @Multipart
     @POST(ApiUrls.SIGN_UP_DOCTOR)
-    Call<ResponseBody> signUpDoctor(@Body Map<String, Object> body);
+    Call<ResponseBody> signUpDoctor(@Part MultipartBody.Part image,
+                                              @Part("uid") String uid,
+                                              @Part("name") String name,
+                                              @Part("bmdcRegNo") String bmdcRegNo,
+                                              @Part("specialist") String specialist,
+                                              @Part("gender") String gender,
+                                              @Part("address") String address,
+                                              @Part("about") String about,
+                                              @Part("educationHistory") String educationHistory,
+                                              @Part("phone") String phone,
+                                              @Part("email") String email,
+                                              @Part("token") String token,
+                                              @Part("api_key") String api_key);
+
 
     @POST(ApiUrls.GET_DOCTOR_DATA)
     Call<ResponseBody> getDoctorData(@Body Map<String, Object> body);

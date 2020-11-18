@@ -128,11 +128,15 @@ public class SplashActivity extends AppCompatActivity {
     private void getUserDataAsUserType() {
         ApiCalls apiCalls = new ApiCalls();
         String userType = CustomSharedPref.getInstance(this).getUserType();
-        System.out.println("<<<<<<<<< " + userType);
+
         if(userType.equals("patient")) apiCalls.getUserData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
-        if(userType.equals("doctor")) apiCalls.getDoctorData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
-        if(userType.equals("bloodBank")) apiCalls.getBloodBankData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
-        if(userType.equals("diagnosticCenter")) apiCalls.getDiagnosticCenterData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+        else if(userType.equals("doctor")) apiCalls.getDoctorData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+        else if(userType.equals("bloodBank")) apiCalls.getBloodBankData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+        else if(userType.equals("diagnosticCenter")) apiCalls.getDiagnosticCenterData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+        else {
+            startActivity(new Intent(this, RegistrationOptionActivity.class));
+            finish();
+        }
     }
 
     private void gotoDashBoardAsRequires(Object object, String message){

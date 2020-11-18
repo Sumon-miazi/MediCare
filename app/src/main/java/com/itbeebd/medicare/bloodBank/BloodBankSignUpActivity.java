@@ -41,6 +41,7 @@ public class BloodBankSignUpActivity extends AppCompatActivity {
     private Boolean imageSelectOrNot = false; // true means this intent for update.
     private Image imagePath;
     private Uri filePath;
+    private String imageUrl = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,7 @@ public class BloodBankSignUpActivity extends AppCompatActivity {
         BloodBank bloodBank = new BloodBank(name, address , number, about, email);
         bloodBank.setUid(firebaseUser.getUid());
         bloodBank.setToken(CustomSharedPref.getInstance(this).getPushNotificationToken());
+        bloodBank.setImage(imageUrl);
 
         new ApiCalls().signUpBloodBank(bloodBank, (data, message) -> {
             if(data != null){
@@ -152,6 +154,7 @@ public class BloodBankSignUpActivity extends AppCompatActivity {
                 filePath = Uri.fromFile(new File(image.getPath()));
                 imageSelectOrNot = true;
                 imagePath = image;
+                imageUrl = image.getPath();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     Uri uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, String.valueOf(image.getId()));
                     Glide.with(getApplicationContext())
