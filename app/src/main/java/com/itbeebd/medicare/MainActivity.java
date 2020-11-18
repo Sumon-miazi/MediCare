@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView;
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
 import com.itbeebd.medicare.bloodBank.BloodBankFragment;
+import com.itbeebd.medicare.bloodBank.BloodBankListActivity;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.diagnosticCenter.DiagnosticCenterListActivity;
 import com.itbeebd.medicare.hospitals.HospitalListActivity;
@@ -95,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
         else if(view.getId() == R.id.diagnosticCardViewId){
             startActivity(new Intent(this, DiagnosticCenterListActivity.class));
         }
-        else if(view.getId() == R.id.pharmacyCardViewId){
-            startActivity(new Intent(this, DiagnosticCenterListActivity.class));
+        else if(view.getId() == R.id.bloodBankCardViewId){
+            startActivity(new Intent(this, BloodBankListActivity.class));
         }
     }
 

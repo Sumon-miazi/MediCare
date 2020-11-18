@@ -57,7 +57,7 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
         addReqBtn.setOnClickListener(this);
         signUpBloodDonorBtn.setOnClickListener(this);
 
-        setBloodBankRecyclerView();
+       // setBloodBankRecyclerView();
 
         return view;
     }
@@ -83,7 +83,6 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
             }
             else Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
         });
-
     }
 
     private void setBloodDonationRequestAdapterRecyclerView() {

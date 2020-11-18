@@ -1063,7 +1063,7 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
                                         object.getString("phone"),
                                         object.getString("about"),
                                         object.getDouble("lat"),
-                                        object.getDouble("lon"));
+                                        object.getDouble("long"));
 
                                 bloodBanks.add(bloodBank);
                             }

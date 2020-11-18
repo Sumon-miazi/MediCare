@@ -19,6 +19,6 @@ public class BloodBankAdapter extends GenericRecyclerAdapter<BloodBank, OnRecycl
     @NonNull
     @Override
     public BloodBankViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new BloodBankViewHolder(inflate(R.layout.single_blood_bank, parent));
+        return new BloodBankViewHolder(inflate(R.layout.single_blood_bank_view, parent));
     }
 }

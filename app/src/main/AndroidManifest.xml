@@ -26,7 +26,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="m">
-        <activity android:name=".diagnosticCenter.DiagnosticCenterListActivity"></activity>
+        <activity android:name=".bloodBank.BloodBankListActivity"></activity>
+        <activity android:name=".diagnosticCenter.DiagnosticCenterListActivity" />
         <activity android:name=".diagnosticCenter.DiagnosticCenterDashBoardActivity" />
         <activity android:name=".doctors.DoctorDashBoardActivity" />
         <activity android:name=".bloodBank.BloodBankDashBoardActivity" />

@@ -26,6 +26,7 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
     private CircularImageView main_doctorImageView;
     private CardView hospitalCardView;
     private CardView diagnosticCardView;
+    private CardView bloodBankCardView;
     private RecyclerView allSpecialistView;
     private SpecialistAdapter specialistAdapter;
 
@@ -37,12 +38,14 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
         main_doctorImageView = view.findViewById(R.id.main_doctorImageViewId);
         hospitalCardView = view.findViewById(R.id.hospitalCardViewId);
         diagnosticCardView = view.findViewById(R.id.diagnosticCardViewId);
+        bloodBankCardView = view.findViewById(R.id.bloodBankCardViewId);
         allSpecialistView = view.findViewById(R.id.allSpecialistViewId);
 
         specialistAdapter = new SpecialistAdapter(getContext());
 
         hospitalCardView.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
         diagnosticCardView.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
+        bloodBankCardView.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
 
         setUpAllSpecialist();
 

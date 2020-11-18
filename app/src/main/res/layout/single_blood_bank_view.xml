@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bloodBankLayoutId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/bloodBankImageViewId"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/demo"
+            app:civ_border_width="0dp"
+            app:civ_shadow="false"
+            app:layout_constraintBottom_toTopOf="@+id/bbCallBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/bloodBankNameTxtViewId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:maxLength="20"
+            android:text="Ashar alo blood bank"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/bloodBankImageViewId"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/bloodBankAddressTxtViewId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="22"
+            android:text="Cumilla, kandirpar"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/bloodBankNameTxtViewId"
+            app:layout_constraintTop_toBottomOf="@+id/bloodBankNameTxtViewId" />
+
+        <TextView
+            android:id="@+id/bloodBankPhoneTxtViewId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="22"
+            android:text="+88011123456"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/bloodBankNameTxtViewId"
+            app:layout_constraintTop_toBottomOf="@+id/bloodBankAddressTxtViewId" />
+
+        <Button
+            android:id="@+id/bbOrderBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="@color/deep_blue"
+            android:text="Order"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/bbLocationBtn"
+            app:layout_constraintTop_toBottomOf="@+id/bloodBankPhoneTxtViewId"
+            app:layout_constraintVertical_bias="0.01" />
+
+        <Button
+            android:id="@+id/bbCallBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="@color/deep_blue"
+            android:text="Call"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bbLocationBtn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bloodBankPhoneTxtViewId"
+            app:layout_constraintVertical_bias="0.01" />
+
+        <Button
+            android:id="@+id/bbLocationBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/deep_blue"
+            android:text="Map"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bbOrderBtn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/bbCallBtn"
+            app:layout_constraintTop_toBottomOf="@+id/bloodBankPhoneTxtViewId"
+            app:layout_constraintVertical_bias="0.01" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
