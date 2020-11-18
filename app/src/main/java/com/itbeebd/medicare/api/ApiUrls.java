@@ -2,7 +2,7 @@ package com.itbeebd.medicare.api;
 
 public class ApiUrls {
 
-    public static final String IP_ADDRESS = "http://192.168.43.182";
+    public static final String IP_ADDRESS = "http://192.168.43.77";
 
     public static final String BASE_URL = IP_ADDRESS + "/MediCare/public/api/";
 
@@ -24,6 +24,10 @@ public class ApiUrls {
     public static final String NEW_BLOOD_REQUEST = "addNewBloodRequest";
     public static final String GET_BLOOD_REQUEST = "getBloodRequest";
     public static final String GET_ALL_BLOOD_BANK = "getAllBloodBank";
+
+    public static final String SIGN_UP_BLOOD_BANK = "signUpBloodBank";
+    public static final String GET_BLOOD_BANK_DATA = "getBloodBankDataByUid";
+    public static final String GET_BLOOD_REQUEST_OF_BLOOD_BANK = "getAllBloodRequestOfABloodBankById";
 
 
 

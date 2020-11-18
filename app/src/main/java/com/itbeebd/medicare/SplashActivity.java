@@ -14,9 +14,13 @@ import com.androidstudy.networkmanager.Tovuti;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.bloodBank.BloodBankDashBoardActivity;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.userProfile.UserSignInActivity;
-import com.itbeebd.medicare.userProfile.UserSignUpActivity;
+import com.itbeebd.medicare.utils.BloodBank;
+import com.itbeebd.medicare.utils.DiagnosticCenter;
+import com.itbeebd.medicare.utils.Doctor;
+import com.itbeebd.medicare.utils.Patient;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -75,36 +79,37 @@ public class SplashActivity extends AppCompatActivity {
             if (alreadyNotCalledMainActivity) {
                 System.out.println(">>>>>>>>>>>>>>>>> getUserSignedInOrNot true");
                 alreadyNotCalledMainActivity = false;
-                new ApiCalls(this).getUserData(firebaseUser.getUid(), (user_data, message) -> {
-                    if (user_data != null) {
-                        Intent intent = new Intent(this, MainActivity.class);
-                        intent.putExtra("user_info", user_data);
-                        startActivity(intent);
-                        finish();
-                    } else if (message != null && message.equals("patient not found")) {
-                        startActivity(new Intent(this, UserSignUpActivity.class));
-                        finish();
-                    } else {
-                        if (flashbar != null)
-                            flashbar.dismiss();
-                        flashbar = showFlash("Loading failed", "দুঃখিত এই মূহর্তে এপ্সটি ওপেন করা যাচ্ছে না। কিছুক্ষণ পর আবার চেষ্টা করুন। ধন্যবাদ ");
-                        flashbar.show();
-                    }
-                    animationView.setRepeatCount(0);
-                });
+                getUserDataAsUserType();
             }
         } else {
             if (alreadyNotCalledCheckUserExistOrNot) {
-                System.out.println(">>>>>>>>>>>>>>>>> getUserSignedInOrNot false");
+                System.out.println(">>>>>>>>>>>>>>>>> getUserSignedInOrNot false " + user.getUid());
                 alreadyNotCalledCheckUserExistOrNot = false;
-                new ApiCalls().checkUserExistOrNot(user.getUid(), (status, message) -> {
-                    // System.out.println("goToMainActivity>>>>>>>>>>>>>>>>>" + message);
-                    if (status) {
-                        Intent intent = new Intent(this, MainActivity.class);
+                new ApiCalls().checkUserExistOrNot(user.getUid(), (patient, doctor, bloodBank, diagnosticCenter, message, userType) -> {
+                     System.out.println("checkUserExistOrNot>>>>>>>>>>>>>>>>>" + message + " " + userType);
+                    if (userType != null) {
+                        Intent intent = null;
+                        switch (userType) {
+                            case "patient":
+                                intent = new Intent(this, MainActivity.class);
+                                intent.putExtra("user_info", patient);
+                                break;
+                            case "doctor":
+                              //  intent = new Intent(this, BloodBankDashBoardActivity.class);
+                                break;
+                            case "bloodBank":
+                                intent = new Intent(this, BloodBankDashBoardActivity.class);
+                                break;
+                            case "diagnosticCenter":
+                              //  intent = new Intent(this, BloodBankDashBoardActivity.class);
+                                break;
+                        }
+                        CustomSharedPref.getInstance(this).setUserType(userType);
+                        CustomSharedPref.getInstance(this).setUserSignedInOrNot(true);
                         startActivity(intent);
                         finish();
-                    } else if (message.equals("patient not found")) {
-                        startActivity(new Intent(this, UserSignUpActivity.class));
+                    } else if (message != null && message.equals("user not found")) {
+                        startActivity(new Intent(this, RegistrationOptionActivity.class));
                         finish();
                     } else {
                         if (flashbar != null)
@@ -116,8 +121,47 @@ public class SplashActivity extends AppCompatActivity {
                 });
             }
         }
+    }
 
+    private void getUserDataAsUserType() {
+        ApiCalls apiCalls = new ApiCalls();
+        String userType = CustomSharedPref.getInstance(this).getUserType();
+        if(userType.equals("patient")) apiCalls.getUserData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+        if(userType.equals("doctor")) apiCalls.getUserData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+        if(userType.equals("bloodBank")) apiCalls.getBloodBankData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+        if(userType.equals("diagnosticCenter")) apiCalls.getUserData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+    }
 
+    private void gotoDashBoardAsRequires(Object object, String message){
+        if (object != null) {
+            Intent intent = null;
+            if(object instanceof Patient){
+                intent = new Intent(this, MainActivity.class);
+                intent.putExtra("user_info", (Patient)object);
+            }
+            else if(object instanceof Doctor){
+             //   intent = new Intent(this, MainActivity.class);
+            }
+            if(object instanceof BloodBank){
+                intent = new Intent(this, BloodBankDashBoardActivity.class);
+            }
+            if(object instanceof DiagnosticCenter){
+             //   intent = new Intent(this, MainActivity.class);
+            }
+            CustomSharedPref.getInstance(this).setUserSignedInOrNot(true);
+            startActivity(intent);
+            finish();
+
+        } else if (message != null && message.equals("user not found")) {
+            startActivity(new Intent(this, RegistrationOptionActivity.class));
+            finish();
+        } else {
+            if (flashbar != null)
+                flashbar.dismiss();
+            flashbar = showFlash("Loading failed", "দুঃখিত এই মূহর্তে এপ্সটি ওপেন করা যাচ্ছে না। কিছুক্ষণ পর আবার চেষ্টা করুন। ধন্যবাদ ");
+            flashbar.show();
+        }
+        animationView.setRepeatCount(0);
     }
 
 

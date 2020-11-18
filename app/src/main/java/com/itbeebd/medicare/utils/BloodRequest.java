@@ -14,6 +14,13 @@ public class BloodRequest {
     private String bloodGroup;
     private String bloodNeededDateTimeString;
 
+    private String name;
+    private String phone;
+
+    public BloodRequest(){
+
+    }
+
     public BloodRequest(int userId, String bloodFor, String city, String hospital, String amount, String bloodGroup) {
         this.userId = userId;
         this.bloodFor = bloodFor;
@@ -25,6 +32,10 @@ public class BloodRequest {
 
     public int getUserId() {
         return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getRecordId() {
@@ -39,16 +50,32 @@ public class BloodRequest {
         return bloodFor;
     }
 
+    public void setBloodFor(String bloodFor) {
+        this.bloodFor = bloodFor;
+    }
+
     public String getCity() {
         return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getHospital() {
         return hospital;
     }
 
+    public void setHospital(String hospital) {
+        this.hospital = hospital;
+    }
+
     public String getAmount() {
         return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 
     public Date getBloodNeededDateTime() {
@@ -63,11 +90,31 @@ public class BloodRequest {
         return bloodGroup;
     }
 
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
     public String getBloodNeededDateTimeString() {
         return bloodNeededDateTimeString;
     }
 
     public void setBloodNeededDateTimeString(String bloodNeededDateTimeString) {
         this.bloodNeededDateTimeString = bloodNeededDateTimeString;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

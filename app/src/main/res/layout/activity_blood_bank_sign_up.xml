@@ -36,7 +36,7 @@
             app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/user_name_institute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,9 +91,9 @@
                     android:id="@+id/bbAddressId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
+                    android:inputType="textMultiLine"
                     android:maxLength="100"
-                    android:maxLines="3"
+                    android:maxLines="2"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -115,7 +115,7 @@
                     android:id="@+id/bbAboutId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
+                    android:inputType="textMultiLine"
                     android:maxLength="300"
                     android:maxLines="4"
                     android:textSize="16sp" />
@@ -144,7 +144,30 @@
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout50"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your email"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
+                app:startIconContentDescription="content_description_end_icon"
+                app:startIconDrawable="@drawable/ic_baseline_alternate_email_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/bbEmailId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="300"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
 
         <ImageView
@@ -175,6 +198,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/blue_bg"
             android:text="Sign up"
+            android:onClick="registerBloodBank"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

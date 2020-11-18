@@ -1,6 +1,7 @@
 package com.itbeebd.medicare.api;
 
 import com.itbeebd.medicare.utils.Appointment;
+import com.itbeebd.medicare.utils.BloodBank;
 import com.itbeebd.medicare.utils.BloodRequest;
 import com.itbeebd.medicare.utils.Patient;
 
@@ -106,6 +107,29 @@ public class RetrofitRequestBody {
         map.put("api_key", this.api_key);
         return map;
     }
+
+    Map<String, Object> signUpBloodBank(BloodBank bloodBank) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("uid", bloodBank.getUid());
+        map.put("name", bloodBank.getName());
+        map.put("about", bloodBank.getAbout());
+        map.put("address", bloodBank.getAddress());
+        map.put("phone", bloodBank.getPhone());
+        map.put("email", bloodBank.getEmail());
+        map.put("token", bloodBank.getToken());
+        map.put("lat", bloodBank.getLat());
+        map.put("long", bloodBank.getLon());
+        map.put("api_key", this.api_key);
+        return map;
+    }
+
+    Map<String, Object> getAllBloodRequestOfABloodBankById(int id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("api_key", this.api_key);
+        return map;
+    }
+
 
     String getApi_key() {
         return this.api_key;

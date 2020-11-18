@@ -20,6 +20,20 @@ public class CustomSharedPref {
         return customSharedPref;
     }
 
+
+
+    public String getUserType() {
+        return sharedPreferences.getString("UserType", "");
+    }
+
+    public void setUserType(String type) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("UserType", type);
+        editor.apply();
+    }
+
+
+
     public int getUserId() {
         return sharedPreferences.getInt("patient_id", 0);
     }

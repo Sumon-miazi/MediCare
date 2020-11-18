@@ -1,5 +1,6 @@
 package com.itbeebd.medicare.db;
 
+import com.itbeebd.medicare.utils.BloodBank;
 import com.itbeebd.medicare.utils.Medication;
 import com.itbeebd.medicare.utils.MedicationDate;
 import com.itbeebd.medicare.utils.Patient;
@@ -65,5 +66,27 @@ public class Dao {
         catch (Exception ignore){ }
 
         return medications;
+    }
+
+
+    public void saveBloodBankProfile(BloodBank bloodBank){
+        BloodBank bb = null;
+        try {
+            bb = BloodBank.findById(BloodBank.class, bloodBank.getId());
+        }
+        catch (Exception exception){
+            System.out.println(">>>>>>>>. saveBloodBankProfile = " + exception.getMessage());
+            bloodBank.save();
+            return;
+        }
+
+        if(bb != null){
+            bb.setName(bloodBank.getName());
+            bb.setAddress(bloodBank.getAddress());
+            bb.setPhone(bloodBank.getPhone());
+            bb.setAbout(bloodBank.getAbout());
+            bb.save();
+        }
+        else bloodBank.save();
     }
 }

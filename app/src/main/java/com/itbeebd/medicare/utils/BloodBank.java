@@ -3,15 +3,34 @@ package com.itbeebd.medicare.utils;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class BloodBank implements Parcelable {
+import com.orm.SugarRecord;
+
+public class BloodBank extends SugarRecord implements Parcelable {
 
     private int id;
     private String name;
+    private String uid;
     private String address;
     private String phone;
     private String about;
+    private String email;
+    private String token;
     private double lat;
     private double lon;
+
+    public BloodBank(){
+
+    }
+
+    public BloodBank(String name, String address, String phone, String about, String email) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.about = about;
+        this.email = email;
+        this.lat = 0.0;
+        this.lon = 0.0;
+    }
 
     public BloodBank(int id, String name, String address, String phone, String about, double lat, double lon) {
         this.id = id;
@@ -61,11 +80,11 @@ public class BloodBank implements Parcelable {
         parcel.writeDouble(this.lon);
     }
 
-    public int getId() {
+    public int getBloodBankId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setBloodBankId(int id) {
         this.id = id;
     }
 
@@ -115,5 +134,29 @@ public class BloodBank implements Parcelable {
 
     public void setLon(double lon) {
         this.lon = lon;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

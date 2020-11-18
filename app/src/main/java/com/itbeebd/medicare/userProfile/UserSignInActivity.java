@@ -25,6 +25,10 @@ import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.itbeebd.medicare.MainActivity;
 import com.itbeebd.medicare.R;
+import com.itbeebd.medicare.RegistrationOptionActivity;
+import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.bloodBank.BloodBankDashBoardActivity;
+import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.CheckNetworkConnection;
 
 import org.jetbrains.annotations.NotNull;
@@ -208,17 +212,19 @@ public class UserSignInActivity extends AppCompatActivity implements View.OnClic
                         Intent intent;
                         if (isNewUser) {
                             //  Toast.makeText(UserSignInActivity.this, "Is New User!",Toast.LENGTH_SHORT).show();
-                            intent = new Intent(this, UserSignUpActivity.class);
-                            intent.putExtra("user", user);
+                            intent = new Intent(this, RegistrationOptionActivity.class);
+                            startActivity(intent);
+                            finish();
                         } else {
                             if (user != null) {
-                                intent = new Intent(this, MainActivity.class);
+                                gotoToDashBoardAsRequired(user);
                             } else {
-                                intent = new Intent(this, UserSignUpActivity.class);
+                                intent = new Intent(this, RegistrationOptionActivity.class);
+                                startActivity(intent);
+                                finish();
                             }
                         }
-                        startActivity(intent);
-                        finish();
+
                     } else {
                         // If the Sign-In fails, it will display a message and also update the UI
                         if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
@@ -230,6 +236,42 @@ public class UserSignInActivity extends AppCompatActivity implements View.OnClic
                     }
                 });
         // progressDialogSignIn.dismiss();
+    }
+
+    private void gotoToDashBoardAsRequired(FirebaseUser user) {
+        new ApiCalls().checkUserExistOrNot(user.getUid(), (patient, doctor, bloodBank, diagnosticCenter, message, userType) -> {
+            System.out.println("checkUserExistOrNot>>>>>>>>>>>>>>>>>" + message);
+            if (userType != null) {
+                Intent intent = null;
+                switch (userType) {
+                    case "patient":
+                        intent = new Intent(this, MainActivity.class);
+                        intent.putExtra("user_info", patient);
+                        break;
+                    case "doctor":
+                       // intent = new Intent(this, BloodBankDashBoardActivity.class);
+                        break;
+                    case "bloodBank":
+                        intent = new Intent(this, BloodBankDashBoardActivity.class);
+                        break;
+                    case "diagnosticCenter":
+                      //  intent = new Intent(this, BloodBankDashBoardActivity.class);
+                        break;
+                }
+                CustomSharedPref.getInstance(this).setUserType(userType);
+                CustomSharedPref.getInstance(this).setUserSignedInOrNot(true);
+                startActivity(intent);
+                finish();
+            } else if (message != null && message.equals("user not found")) {
+                startActivity(new Intent(this, RegistrationOptionActivity.class));
+                finish();
+            } else {
+                if (flashbar != null)
+                    flashbar.dismiss();
+                flashbar = showFlash("Loading failed", "দুঃখিত এই মূহর্তে এপ্সটি ওপেন করা যাচ্ছে না। কিছুক্ষণ পর আবার চেষ্টা করুন। ধন্যবাদ ");
+                flashbar.show();
+            }
+        });
     }
 
     private void signOut() {
