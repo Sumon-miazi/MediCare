@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".bloodBank.BloodBankSignUpActivity">
+    tools:context=".diagnosticCenter.DiagnosticCenterSignUpActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/user_name_institute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -124,6 +124,30 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout565"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter email address"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
+                app:startIconContentDescription="content_description_end_icon"
+                app:startIconDrawable="@drawable/ic_baseline_alternate_email_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dcEmailId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="100"
+                    android:maxLines="1"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,11 +165,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
-                    android:maxLength="300"
+                    android:maxLength="14"
+                    android:maxLines="1"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
 
         <ImageView
@@ -175,6 +200,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/blue_bg"
+            android:onClick="registerDiagnosticCenter"
             android:text="Sign up"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"

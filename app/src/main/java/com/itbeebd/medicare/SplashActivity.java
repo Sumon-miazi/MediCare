@@ -132,7 +132,7 @@ public class SplashActivity extends AppCompatActivity {
         if(userType.equals("patient")) apiCalls.getUserData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
         if(userType.equals("doctor")) apiCalls.getDoctorData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
         if(userType.equals("bloodBank")) apiCalls.getBloodBankData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
-        if(userType.equals("diagnosticCenter")) apiCalls.getUserData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+        if(userType.equals("diagnosticCenter")) apiCalls.getDiagnosticCenterData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
     }
 
     private void gotoDashBoardAsRequires(Object object, String message){

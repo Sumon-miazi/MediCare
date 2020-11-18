@@ -102,10 +102,6 @@ public class DoctorSignUpActivity extends AppCompatActivity {
         dSpecialist = findViewById(R.id.dSpecialistId);
     }
 
-    public void signUpBtnClicked(View view) {
-
-    }
-
     public void registerDoctor(View view) {
         String name = dName.getText().toString();
         String address = dAddress.getText().toString();

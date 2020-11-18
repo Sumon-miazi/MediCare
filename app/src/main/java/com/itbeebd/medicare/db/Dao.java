@@ -1,6 +1,7 @@
 package com.itbeebd.medicare.db;
 
 import com.itbeebd.medicare.utils.BloodBank;
+import com.itbeebd.medicare.utils.DiagnosticCenter;
 import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.Medication;
 import com.itbeebd.medicare.utils.MedicationDate;
@@ -118,6 +119,32 @@ public class Dao {
 
         }
         else doctor.save();
+    }
+
+    public void saveDiagnosticCenterProfile(DiagnosticCenter diagnosticCenter){
+        List<DiagnosticCenter> diagnosticCenters = null;
+        try {
+            diagnosticCenters = DiagnosticCenter.find(DiagnosticCenter.class,"DIAGNOSTICID = ?", String.valueOf(diagnosticCenter.getDiagnosticId()));
+        }
+        catch (Exception exception){
+            System.out.println(">>>>>>>>. saveDiagnosticCenterProfile = " + exception.getMessage());
+            diagnosticCenter.save();
+            return;
+        }
+
+        if(diagnosticCenters != null && diagnosticCenters.size() > 0){
+            diagnosticCenters.get(0).setName(diagnosticCenter.getName());
+            diagnosticCenters.get(0).setServices(diagnosticCenter.getServices());
+            diagnosticCenters.get(0).setAddress(diagnosticCenter.getAddress());
+            diagnosticCenters.get(0).setEmail(diagnosticCenter.getEmail());
+            diagnosticCenters.get(0).setPhone(diagnosticCenter.getPhone());
+            diagnosticCenters.get(0).setLat(diagnosticCenter.getLat());
+            diagnosticCenters.get(0).setLon(diagnosticCenter.getLon());
+
+            diagnosticCenters.get(0).save();
+
+        }
+        else diagnosticCenter.save();
     }
 
 

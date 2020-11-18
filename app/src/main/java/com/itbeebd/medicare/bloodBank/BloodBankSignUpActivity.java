@@ -165,6 +165,7 @@ public class BloodBankSignUpActivity extends AppCompatActivity {
             }
         }
     }
+
 }
 /*
             $table->string('name');

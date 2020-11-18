@@ -539,6 +539,60 @@ public class ApiCalls {
         });
     }
 
+    public void getDiagnosticCenterData(String uid, GetData<DiagnosticCenter> getData) {
+        System.out.println("getBloodBankData>>>>>>>>>>> called ");
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.getDiagnosticCenterData(retrofitRequestBody.getPatientDetails(uid));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+                        System.out.println("getBloodBankData>>>>>>>>>>> " + jsonObject.toString());
+                        if (jsonObject.optString("status").equals("true")) {
+                            JSONObject userObj = jsonObject.getJSONObject("data");
+
+                            DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
+                            diagnosticCenter.setName(userObj.getString("name"));
+                            diagnosticCenter.setAddress(userObj.getString("address"));
+                            diagnosticCenter.setServices(userObj.getString("services"));
+                            diagnosticCenter.setEmail(userObj.getString("email"));
+                            diagnosticCenter.setPhone(userObj.getString("phone"));
+                            diagnosticCenter.setLat(userObj.getDouble("lat"));
+                            diagnosticCenter.setLon(userObj.getDouble("long"));
+                            diagnosticCenter.setUid(userObj.getString("uid"));
+
+                            diagnosticCenter.setDiagnosticId(userObj.getInt("id"));
+
+                            new Dao().saveDiagnosticCenterProfile(diagnosticCenter);
+
+                            CustomSharedPref.getInstance(context).setUserId(diagnosticCenter.getDiagnosticId());
+
+                            getData.data(diagnosticCenter, jsonObject.optString("message"));
+
+                        } else getData.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("getBloodBankData>>>>>>>>>>> catch " + ignore.getMessage());
+                        getData.data(null,  ignore.getMessage());
+                    }
+                }
+                else{
+                    System.out.println(">>>>>>>>>> " + response.errorBody());
+                } getData.data(null,  response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("getBloodBankData>>>>>>>>>>> failed " + t.getLocalizedMessage());
+                //  t.printStackTrace();
+                getData.data(null, t.getMessage());
+            }
+        });
+    }
+
 
     public void bookNewAppointment(Appointment appointment, GetResponse getResponse) {
 
@@ -1019,6 +1073,60 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 System.out.println("signUpPatient>>>>>>>>>>> failed " + t.getMessage());
+                getData.data(null, t.getMessage());
+            }
+        });
+    }
+
+    public void signUpDiagnosticCenter(DiagnosticCenter diagnosticCenter, GetData<DiagnosticCenter> getData) {
+
+        System.out.println("signUpDiagnosticCenter>>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.signUpDiagnosticCenter(retrofitRequestBody.signUpDiagnosticCenter(diagnosticCenter));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("signUpDiagnosticCenter>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+                            JSONObject userObj = jsonObject.getJSONObject("data");
+
+                            DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
+                            diagnosticCenter.setName(userObj.getString("name"));
+                            diagnosticCenter.setAddress(userObj.getString("address"));
+                            diagnosticCenter.setServices(userObj.getString("services"));
+                            diagnosticCenter.setEmail(userObj.getString("email"));
+                            diagnosticCenter.setPhone(userObj.getString("phone"));
+                            diagnosticCenter.setLat(userObj.getDouble("lat"));
+                            diagnosticCenter.setLon(userObj.getDouble("long"));
+                            diagnosticCenter.setUid(userObj.getString("uid"));
+                            diagnosticCenter.setDiagnosticId(userObj.getInt("id"));
+
+                            CustomSharedPref.getInstance(context).setUserId(diagnosticCenter.getDiagnosticId());
+
+                            new Dao().saveDiagnosticCenterProfile(diagnosticCenter);
+
+                            getData.data(diagnosticCenter, jsonObject.optString("message"));
+
+                        } else getData.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("signUpDiagnosticCenter>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getData.data(null, ignore.getMessage());
+                    }
+                } else getData.data(null, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("signUpDiagnosticCenter>>>>>>>>>>> failed " + t.getMessage());
                 getData.data(null, t.getMessage());
             }
         });

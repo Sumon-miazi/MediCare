@@ -67,4 +67,12 @@ public interface RetrofitService {
     Call<ResponseBody> getDoctorData(@Body Map<String, Object> body);
 
 
+    @POST(ApiUrls.SIGN_UP_DIAGNOSTIC)
+    Call<ResponseBody> signUpDiagnosticCenter(@Body Map<String, Object> body);
+
+    @POST(ApiUrls.GET_DIAGNOSTIC_DATA)
+    Call<ResponseBody> getDiagnosticCenterData(@Body Map<String, Object> body);
+
+
+
 }
