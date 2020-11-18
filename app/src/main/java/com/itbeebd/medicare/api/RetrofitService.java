@@ -63,4 +63,8 @@ public interface RetrofitService {
     @POST(ApiUrls.SIGN_UP_DOCTOR)
     Call<ResponseBody> signUpDoctor(@Body Map<String, Object> body);
 
+    @POST(ApiUrls.GET_DOCTOR_DATA)
+    Call<ResponseBody> getDoctorData(@Body Map<String, Object> body);
+
+
 }

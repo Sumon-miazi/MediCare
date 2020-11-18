@@ -442,7 +442,7 @@ public class ApiCalls {
     public void getDoctorData(String uid, GetData<Doctor> getData) {
         System.out.println("getDoctorData>>>>>>>>>>> called ");
         final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
-        Call<ResponseBody> responseBodyCall = service.getPatientDetails(retrofitRequestBody.getPatientDetails(uid));
+        Call<ResponseBody> responseBodyCall = service.getDoctorData(retrofitRequestBody.getPatientDetails(uid));
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -457,12 +457,10 @@ public class ApiCalls {
                             Doctor doctor = new Doctor();
                             doctor.setDoctor_id(userObj.getInt("id"));
                             doctor.setUid(userObj.getString("uid"));
-                            doctor.setHospital_id(userObj.getInt("hospital_id"));
                             doctor.setName(userObj.getString("name"));
                             doctor.setAbout(userObj.getString("about"));
                             doctor.setAddress(userObj.getString("address"));
                             doctor.setPhone(userObj.getString("phone"));
-                            doctor.setToken(userObj.getString("token"));
                             doctor.setBmdcRegNo(userObj.getString("bmdcRegNo"));
                             doctor.setSpecialist(userObj.getString("specialist"));
                             doctor.setEducationHistory(userObj.getString("educationHistory"));

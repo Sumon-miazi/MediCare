@@ -32,6 +32,7 @@ public class ApiUrls {
 
 
     public static final String SIGN_UP_DOCTOR = "signUpDoctor";
+    public static final String GET_DOCTOR_DATA = "getDoctorDataByUid";
 
 
 
