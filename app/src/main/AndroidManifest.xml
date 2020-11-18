@@ -26,7 +26,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="m">
-        <activity android:name=".bloodBank.BloodBankDashBoardActivity"/>
+        <activity android:name=".diagnosticCenter.DiagnosticCenterDashBoardActivity"></activity>
+        <activity android:name=".doctors.DoctorDashBoardActivity" />
+        <activity android:name=".bloodBank.BloodBankDashBoardActivity" />
         <activity android:name=".diagnosticCenter.DiagnosticCenterSignUpActivity" />
         <activity android:name=".bloodBank.BloodBankSignUpActivity" />
         <activity android:name=".RegistrationOptionActivity" />
@@ -119,7 +121,7 @@
             android:value="itbeebdMedicare.db" />
         <meta-data
             android:name="VERSION"
-            android:value="2" />
+            android:value="3" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />

@@ -114,7 +114,7 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
     }
 
     private void callApiToGetDoctorChambers() {
-        new ApiCalls().getAllDoctorChambersByDoctorId(doctor.getId(), (doctorChambers, message) -> {
+        new ApiCalls().getAllDoctorChambersByDoctorId(doctor.getDoctorId(), (doctorChambers, message) -> {
             if (doctorChambers != null) {
                 this.doctorChambers = doctorChambers;
                 if (!doctorChambers.isEmpty()) {

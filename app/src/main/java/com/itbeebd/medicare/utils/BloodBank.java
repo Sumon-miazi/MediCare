@@ -7,7 +7,7 @@ import com.orm.SugarRecord;
 
 public class BloodBank extends SugarRecord implements Parcelable {
 
-    private int id;
+    private int blood_bank_id;
     private String name;
     private String uid;
     private String address;
@@ -33,7 +33,7 @@ public class BloodBank extends SugarRecord implements Parcelable {
     }
 
     public BloodBank(int id, String name, String address, String phone, String about, double lat, double lon) {
-        this.id = id;
+        this.blood_bank_id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -60,7 +60,7 @@ public class BloodBank extends SugarRecord implements Parcelable {
     }
 
     public BloodBank(Parcel parcel) {
-        this.id = parcel.readInt();
+        this.blood_bank_id = parcel.readInt();
         this.name = parcel.readString();
         this.address = parcel.readString();
         this.phone = parcel.readString();
@@ -71,7 +71,7 @@ public class BloodBank extends SugarRecord implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(this.id);
+        parcel.writeInt(this.blood_bank_id);
         parcel.writeString(this.name);
         parcel.writeString(this.address);
         parcel.writeString(this.phone);
@@ -81,11 +81,11 @@ public class BloodBank extends SugarRecord implements Parcelable {
     }
 
     public int getBloodBankId() {
-        return id;
+        return blood_bank_id;
     }
 
     public void setBloodBankId(int id) {
-        this.id = id;
+        this.blood_bank_id = id;
     }
 
     public String getName() {

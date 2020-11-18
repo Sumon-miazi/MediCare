@@ -38,7 +38,7 @@
 
 
         <LinearLayout
-            android:id="@+id/user_name_institute"
+            android:id="@+id/doctorDetailsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -57,7 +57,7 @@
                 android:hint="Enter your name"
                 android:orientation="vertical"
                 app:startIconContentDescription="content_description_end_icon"
-                app:startIconDrawable="@drawable/ic_baseline_apartment_24"
+                app:startIconDrawable="@drawable/ic_person"
                 tools:layout_editor_absoluteX="15dp"
                 tools:layout_editor_absoluteY="14dp">
 
@@ -109,6 +109,27 @@
                     android:text="FEMALE" />
             </RadioGroup>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout55"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your email"
+                app:startIconContentDescription="content_description_end_icon"
+                app:startIconDrawable="@drawable/ic_baseline_alternate_email_24"
+                tools:layout_editor_absoluteX="15dp"
+                tools:layout_editor_absoluteY="192dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dEmailId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:maxEms="50"
+                    android:maxLength="50"
+                    android:maxLines="1"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout5"
@@ -180,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter your BMDC reg no"
                 app:startIconContentDescription="content_description_end_icon"
-                app:startIconDrawable="@drawable/ic_baseline_phone_24"
+                app:startIconDrawable="@drawable/ic_baseline_article_24"
                 tools:layout_editor_absoluteX="15dp"
                 tools:layout_editor_absoluteY="251dp">
 
@@ -189,8 +210,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
-                    android:maxLength="1000"
-                    android:maxLines="10"
+                    android:maxLength="50"
+                    android:maxLines="2"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -199,9 +220,9 @@
                 android:id="@+id/textInputLayout8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="write field name of speciality"
+                android:hint="write the degree. ex. MBBS,FCPS"
                 app:startIconContentDescription="content_description_end_icon"
-                app:startIconDrawable="@drawable/ic_baseline_phone_24"
+                app:startIconDrawable="@drawable/ic_baseline_article_24"
                 tools:layout_editor_absoluteX="15dp"
                 tools:layout_editor_absoluteY="251dp">
 
@@ -210,24 +231,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
-                    android:maxLength="1000"
-                    android:maxLines="10"
+                    android:maxLength="200"
+                    android:maxLines="3"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout6"
+                android:id="@+id/textInputLayout676"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Your education background"
+                android:hint="Your educational background"
                 app:startIconContentDescription="content_description_end_icon"
-                app:startIconDrawable="@drawable/ic_baseline_phone_24"
+                app:startIconDrawable="@drawable/ic_baseline_school_24"
                 tools:layout_editor_absoluteX="15dp"
                 tools:layout_editor_absoluteY="251dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/dEducationHistotyId"
+                    android:id="@+id/dEducationHistoryId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
@@ -245,8 +266,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/blue_bg"
+            android:onClick="registerDoctor"
             android:text="Sign up"
             android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/doctorDetailsLayout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

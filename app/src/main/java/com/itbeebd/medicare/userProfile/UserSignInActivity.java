@@ -29,6 +29,7 @@ import com.itbeebd.medicare.RegistrationOptionActivity;
 import com.itbeebd.medicare.api.ApiCalls;
 import com.itbeebd.medicare.bloodBank.BloodBankDashBoardActivity;
 import com.itbeebd.medicare.db.CustomSharedPref;
+import com.itbeebd.medicare.doctors.DoctorDashBoardActivity;
 import com.itbeebd.medicare.utils.CheckNetworkConnection;
 
 import org.jetbrains.annotations.NotNull;
@@ -249,7 +250,7 @@ public class UserSignInActivity extends AppCompatActivity implements View.OnClic
                         intent.putExtra("user_info", patient);
                         break;
                     case "doctor":
-                       // intent = new Intent(this, BloodBankDashBoardActivity.class);
+                        intent = new Intent(this, DoctorDashBoardActivity.class);
                         break;
                     case "bloodBank":
                         intent = new Intent(this, BloodBankDashBoardActivity.class);

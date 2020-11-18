@@ -439,6 +439,58 @@ public class ApiCalls {
         });
     }
 
+    public void getDoctorData(String uid, GetData<Doctor> getData) {
+        System.out.println("getDoctorData>>>>>>>>>>> called ");
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.getPatientDetails(retrofitRequestBody.getPatientDetails(uid));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+                        System.out.println("getDoctorData>>>>>>>>>>> " + jsonObject.toString());
+                        if (jsonObject.optString("status").equals("true")) {
+                            JSONObject userObj = jsonObject.getJSONObject("data");
+
+                            Doctor doctor = new Doctor();
+                            doctor.setDoctor_id(userObj.getInt("id"));
+                            doctor.setUid(userObj.getString("uid"));
+                            doctor.setHospital_id(userObj.getInt("hospital_id"));
+                            doctor.setName(userObj.getString("name"));
+                            doctor.setAbout(userObj.getString("about"));
+                            doctor.setAddress(userObj.getString("address"));
+                            doctor.setPhone(userObj.getString("phone"));
+                            doctor.setToken(userObj.getString("token"));
+                            doctor.setBmdcRegNo(userObj.getString("bmdcRegNo"));
+                            doctor.setSpecialist(userObj.getString("specialist"));
+                            doctor.setEducationHistory(userObj.getString("educationHistory"));
+                            doctor.setGender(userObj.getString("gender"));
+
+                            new Dao().saveDoctorProfile(doctor);
+
+                            CustomSharedPref.getInstance(context).setUserId(doctor.getDoctorId());
+
+                            getData.data(doctor,jsonObject.optString("message"));
+
+                        } else getData.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("getDoctorData>>>>>>>>>>> catch " + ignore.getMessage());
+                        getData.data(null,  ignore.getMessage());
+                    }
+                } else getData.data(null,  response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("getDoctorData>>>>>>>>>>> failed " + t.getMessage());
+                getData.data(null, t.getMessage());
+            }
+        });
+    }
+
     public void getBloodBankData(String uid, GetData<BloodBank> getData) {
         System.out.println("getBloodBankData>>>>>>>>>>> called ");
         final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
@@ -474,12 +526,16 @@ public class ApiCalls {
                         System.out.println("getBloodBankData>>>>>>>>>>> catch " + ignore.getMessage());
                         getData.data(null,  ignore.getMessage());
                     }
-                } else getData.data(null,  response.message());
+                }
+                else{
+                    System.out.println(">>>>>>>>>> " + response.errorBody());
+                } getData.data(null,  response.message());
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                System.out.println("getBloodBankData>>>>>>>>>>> failed " + t.getMessage());
+                System.out.println("getBloodBankData>>>>>>>>>>> failed " + t.getLocalizedMessage());
+              //  t.printStackTrace();
                 getData.data(null, t.getMessage());
             }
         });
@@ -910,6 +966,62 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
                 System.out.println("getAllBloodRequestOfABloodBankById>>>>>>>>>>> failed " + t.getMessage());
 
                 getDataFromApiCall.data(null, t.getMessage());
+            }
+        });
+    }
+
+
+    public void signUpDoctor(Doctor doctor, GetData<Doctor> getData) {
+
+        System.out.println("signUpDoctor>>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.signUpDoctor(retrofitRequestBody.signUpDoctor(doctor));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("signUpBloodBank>>>>>>>>>>> " + jsonObject.toString());
+
+                        if (jsonObject.optString("status").equals("true")) {
+                            JSONObject userObj = jsonObject.getJSONObject("data");
+
+                            Doctor doc = new Doctor();
+                            doc.setDoctor_id(userObj.getInt("id"));
+                            doc.setUid(userObj.getString("uid"));
+                            doc.setAbout(userObj.getString("about"));
+                            doc.setAddress(userObj.getString("address"));
+                            doc.setPhone(userObj.getString("phone"));
+                            doc.setGender(userObj.getString("gender"));
+                            doc.setEmail(userObj.getString("email"));
+                            doc.setEducationHistory(userObj.getString("educationHistory"));
+                            doc.setSpecialist(userObj.getString("specialist"));
+                            doc.setBmdcRegNo(userObj.getString("bmdcRegNo"));
+
+                            CustomSharedPref.getInstance(context).setUserId(doc.getDoctorId());
+
+                            new Dao().saveDoctorProfile(doc);
+
+                            getData.data(doc, jsonObject.optString("message"));
+
+                        } else getData.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("signUpBloodBank>>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getData.data(null, ignore.getMessage());
+                    }
+                } else getData.data(null, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("signUpPatient>>>>>>>>>>> failed " + t.getMessage());
+                getData.data(null, t.getMessage());
             }
         });
     }

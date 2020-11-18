@@ -1,6 +1,7 @@
 package com.itbeebd.medicare.db;
 
 import com.itbeebd.medicare.utils.BloodBank;
+import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.Medication;
 import com.itbeebd.medicare.utils.MedicationDate;
 import com.itbeebd.medicare.utils.Patient;
@@ -70,9 +71,9 @@ public class Dao {
 
 
     public void saveBloodBankProfile(BloodBank bloodBank){
-        BloodBank bb = null;
+        List<BloodBank> bloodBanks = null;
         try {
-            bb = BloodBank.findById(BloodBank.class, bloodBank.getId());
+            bloodBanks = BloodBank.find(BloodBank.class, "BLOODBANKID = ?", String.valueOf(bloodBank.getBloodBankId()));
         }
         catch (Exception exception){
             System.out.println(">>>>>>>>. saveBloodBankProfile = " + exception.getMessage());
@@ -80,13 +81,44 @@ public class Dao {
             return;
         }
 
-        if(bb != null){
-            bb.setName(bloodBank.getName());
-            bb.setAddress(bloodBank.getAddress());
-            bb.setPhone(bloodBank.getPhone());
-            bb.setAbout(bloodBank.getAbout());
-            bb.save();
+        if(bloodBanks != null && bloodBanks.size() > 0){
+            bloodBanks.get(0).setName(bloodBank.getName());
+            bloodBanks.get(0).setAddress(bloodBank.getAddress());
+            bloodBanks.get(0).setPhone(bloodBank.getPhone());
+            bloodBanks.get(0).setAbout(bloodBank.getAbout());
+            bloodBanks.get(0).save();
         }
         else bloodBank.save();
     }
+
+    public void saveDoctorProfile(Doctor doctor){
+        List<Doctor> doctors = null;
+        try {
+            doctors = Doctor.find(Doctor.class,"DOCTORID = ?", String.valueOf(doctor.getDoctorId()));
+        }
+        catch (Exception exception){
+            System.out.println(">>>>>>>>. saveDoctorProfile = " + exception.getMessage());
+            doctor.save();
+            return;
+        }
+
+        if(doctors != null && doctors.size() > 0){
+            doctors.get(0).setName(doctor.getName());
+            doctors.get(0).setGender(doctor.getGender());
+            doctors.get(0).setAddress(doctor.getAddress());
+            doctors.get(0).setAbout(doctor.getAbout());
+            doctors.get(0).setBmdcRegNo(doctor.getBmdcRegNo());
+            doctors.get(0).setEmail(doctor.getEmail());
+            doctors.get(0).setPhone(doctor.getPhone());
+            doctors.get(0).setEducationHistory(doctor.getEducationHistory());
+            doctors.get(0).setSpecialist(doctor.getSpecialist());
+            doctors.get(0).setDoctor_id(doctor.getDoctorId());
+
+            doctors.get(0).save();
+
+        }
+        else doctor.save();
+    }
+
+
 }

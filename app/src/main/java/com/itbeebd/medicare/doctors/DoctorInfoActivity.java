@@ -50,10 +50,10 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
             doctor = getIntent().getParcelableExtra("doctorObj");
             assert doctor != null;
             doctorName.setText(doctor.getName());
-            doctorQualification.setText(doctor.getEducation_history());
+            doctorQualification.setText(doctor.getEducationHistory());
             about.setText(doctor.getAbout());
 
-            new ApiCalls().getAllDoctorChambersByDoctorId(doctor.getId(), (doctorChambers, message) -> {
+            new ApiCalls().getAllDoctorChambersByDoctorId(doctor.getDoctorId(), (doctorChambers, message) -> {
                 if (doctorChambers != null) {
                     //this.doctor
                     this.doctorChambers = doctorChambers;

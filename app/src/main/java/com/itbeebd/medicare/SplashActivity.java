@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.itbeebd.medicare.api.ApiCalls;
 import com.itbeebd.medicare.bloodBank.BloodBankDashBoardActivity;
 import com.itbeebd.medicare.db.CustomSharedPref;
+import com.itbeebd.medicare.diagnosticCenter.DiagnosticCenterDashBoardActivity;
+import com.itbeebd.medicare.doctors.DoctorDashBoardActivity;
 import com.itbeebd.medicare.userProfile.UserSignInActivity;
 import com.itbeebd.medicare.utils.BloodBank;
 import com.itbeebd.medicare.utils.DiagnosticCenter;
@@ -95,7 +97,7 @@ public class SplashActivity extends AppCompatActivity {
                                 intent.putExtra("user_info", patient);
                                 break;
                             case "doctor":
-                              //  intent = new Intent(this, BloodBankDashBoardActivity.class);
+                                intent = new Intent(this, DoctorDashBoardActivity.class);
                                 break;
                             case "bloodBank":
                                 intent = new Intent(this, BloodBankDashBoardActivity.class);
@@ -126,8 +128,9 @@ public class SplashActivity extends AppCompatActivity {
     private void getUserDataAsUserType() {
         ApiCalls apiCalls = new ApiCalls();
         String userType = CustomSharedPref.getInstance(this).getUserType();
+
         if(userType.equals("patient")) apiCalls.getUserData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
-        if(userType.equals("doctor")) apiCalls.getUserData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+        if(userType.equals("doctor")) apiCalls.getDoctorData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
         if(userType.equals("bloodBank")) apiCalls.getBloodBankData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
         if(userType.equals("diagnosticCenter")) apiCalls.getUserData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
     }
@@ -140,13 +143,13 @@ public class SplashActivity extends AppCompatActivity {
                 intent.putExtra("user_info", (Patient)object);
             }
             else if(object instanceof Doctor){
-             //   intent = new Intent(this, MainActivity.class);
+                intent = new Intent(this, DoctorDashBoardActivity.class);
             }
             if(object instanceof BloodBank){
                 intent = new Intent(this, BloodBankDashBoardActivity.class);
             }
             if(object instanceof DiagnosticCenter){
-             //   intent = new Intent(this, MainActivity.class);
+                intent = new Intent(this, DiagnosticCenterDashBoardActivity.class);
             }
             CustomSharedPref.getInstance(this).setUserSignedInOrNot(true);
             startActivity(intent);

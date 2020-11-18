@@ -29,7 +29,7 @@ public class DoctorViewHolder extends BaseViewHolder<Doctor, OnRecyclerObjectCli
     @Override
     public void onBind(Doctor item, @Nullable OnRecyclerObjectClickListener<Doctor> listener) {
         doctorName.setText(item.getName());
-        doctorTitle.setText(item.getEducation_history());
+        doctorTitle.setText(item.getEducationHistory());
         appointment.setOnClickListener(view -> {
             assert listener != null;
             listener.onItemClicked(item, view);

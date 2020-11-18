@@ -59,4 +59,8 @@ public interface RetrofitService {
     Call<ResponseBody> getAllBloodRequestOfABloodBankById(@Body Map<String, Object> body);
 
 
+
+    @POST(ApiUrls.SIGN_UP_DOCTOR)
+    Call<ResponseBody> signUpDoctor(@Body Map<String, Object> body);
+
 }

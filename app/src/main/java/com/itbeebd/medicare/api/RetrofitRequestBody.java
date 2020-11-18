@@ -3,6 +3,7 @@ package com.itbeebd.medicare.api;
 import com.itbeebd.medicare.utils.Appointment;
 import com.itbeebd.medicare.utils.BloodBank;
 import com.itbeebd.medicare.utils.BloodRequest;
+import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.Patient;
 
 import java.util.Date;
@@ -131,6 +132,22 @@ public class RetrofitRequestBody {
     }
 
 
+    Map<String, Object> signUpDoctor(Doctor doctor) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("uid", doctor.getUid());
+        map.put("name", doctor.getName());
+        map.put("bmdcRegNo", doctor.getBmdcRegNo());
+        map.put("specialist", doctor.getSpecialist());
+        map.put("gender", doctor.getGender());
+        map.put("about", doctor.getAbout());
+        map.put("educationHistory", doctor.getEducationHistory());
+        map.put("address", doctor.getAddress());
+        map.put("email", doctor.getEmail());
+        map.put("phone", doctor.getPhone());
+        map.put("token", doctor.getToken());
+        map.put("api_key", this.api_key);
+        return map;
+    }
     String getApi_key() {
         return this.api_key;
     }
