@@ -8,6 +8,7 @@ public class BloodDonationRequest implements Parcelable {
     private int id;
     private int userId;
     private String name;
+    private String image;
     private String phone;
     private String token;
     private String bloodFor;
@@ -58,6 +59,7 @@ public class BloodDonationRequest implements Parcelable {
         this.id = parcel.readInt();
         this.userId = parcel.readInt();
         this.name = parcel.readString();
+        this.image = parcel.readString();
         this.bloodFor = parcel.readString();
         this.city = parcel.readString();
         this.hospital = parcel.readString();
@@ -78,6 +80,7 @@ public class BloodDonationRequest implements Parcelable {
         parcel.writeInt(this.id);
         parcel.writeInt(this.userId);
         parcel.writeString(this.name);
+        parcel.writeString(this.image);
         parcel.writeString(this.bloodFor);
         parcel.writeString(this.city);
         parcel.writeString(this.hospital);
@@ -130,5 +133,13 @@ public class BloodDonationRequest implements Parcelable {
 
     public String getBloodNeededDateTime() {
         return bloodNeededDateTime;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -11,14 +11,15 @@ import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickList
 import com.itbeebd.medicare.utils.BloodBank;
 
 public class BloodBankAdapter extends GenericRecyclerAdapter<BloodBank, OnRecyclerObjectClickListener<BloodBank>, BloodBankViewHolder> {
-
+    private Context context;
     public BloodBankAdapter(Context context) {
         super(context);
+        this.context = context;
     }
 
     @NonNull
     @Override
     public BloodBankViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new BloodBankViewHolder(inflate(R.layout.single_blood_bank_view, parent));
+        return new BloodBankViewHolder(inflate(R.layout.single_blood_bank_view, parent), context);
     }
 }

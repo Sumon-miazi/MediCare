@@ -42,7 +42,7 @@ public class DoctorViewHolder extends BaseViewHolder<Doctor, OnRecyclerObjectCli
         doctorTitle.setText(item.getEducationHistory());
 
         if(item.getImage() != null){
-            System.out.println("image url>>>>>>>> " + imageBaseUrl + item.getImage());
+           // System.out.println("image url>>>>>>>> " + imageBaseUrl + item.getImage());
             Glide.with(context)
                     .load(imageBaseUrl + item.getImage())
                     .into(singleDoctorImageView);

@@ -21,6 +21,7 @@ import com.itbeebd.medicare.utils.DoctorChamber;
 import com.itbeebd.medicare.utils.Hospital;
 import com.itbeebd.medicare.utils.Patient;
 import com.itbeebd.medicare.utils.Specialist;
+import com.itbeebd.medicare.utils.TestReport;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -86,6 +87,7 @@ public class ApiCalls {
                                         object.getString("phone"),
                                         object.getDouble("lat"),
                                         object.getDouble("long"));
+                                hospital.setImage(object.optString("image"));
 
                                 hospitalArrayList.add(hospital);
                             }
@@ -386,6 +388,8 @@ public class ApiCalls {
                                         hospitalObj.getDouble("lat"),
                                         hospitalObj.getDouble("long"));
 
+                                doctorChamber.setImage(object.optString("image"));
+
                                 JSONArray availableDays = object.getJSONArray("available_days");
                                 ArrayList<CustomDayOfWeek> customDayOfWeekArrayList = new ArrayList<>();
 
@@ -557,6 +561,7 @@ public class ApiCalls {
                                             userObj.getString("phone"),
                                             userObj.getString("email")
                                     );
+                                    bloodBank.setImage(userObj.optString("image"));
 
                                     bloodBank.setBloodBankId(userObj.getInt("id"));
                                     CustomSharedPref.getInstance(context).setUserId(bloodBank.getBloodBankId());
@@ -712,6 +717,7 @@ public class ApiCalls {
                                     userObj.getString("phone"),
                                     userObj.getString("email")
                             );
+                            bb.setImage(userObj.optString("image"));
 
                             bb.setBloodBankId(userObj.getInt("id"));
                             new Dao().saveBloodBankProfile(bb);
@@ -833,7 +839,41 @@ public class ApiCalls {
         });
     }
 
+    public void orderTest(TestReport testReport, GetResponse getResponse) {
 
+        System.out.println("orderTest >>>>>>>>>>> called ");
+
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.orderTest(retrofitRequestBody.orderTest(testReport));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+
+                        System.out.println("orderTest >>>>>>>>>>> " + jsonObject.toString());
+
+                        getResponse.data(jsonObject.optString("status").equals("true"), jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("orderTest >>>>>>>>>>> catch " + ignore.getMessage());
+
+                        getResponse.data(false, ignore.getMessage());
+                    }
+                } else getResponse.data(false, response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("orderTest >>>>>>>>>>> failed " + t.getMessage());
+
+                getResponse.data(false, t.getMessage());
+            }
+        });
+    }
 
     public void addBloodDonor(int id,
                               Date lastDonate,
@@ -896,24 +936,6 @@ public class ApiCalls {
                         if (jsonObject.optString("status").equals("true")) {
 
                             JSONArray donorJsonArray = jsonObject.getJSONArray("data");
-/* "data":[
-{"id":2,
-"patient_id":2,
-"lastDonate":"2020-12-19T00:00:00.000000Z",
-"currentlyAvailable":1,
-
-"patient":{"id":2,
-"uid":"Knv98LIRMPfPpsfnJpAfagBeffw1",
-"name":"Sumon",
-"gender":"male",
-"is_blood_donor":1,
-"dob":null,
-"weight":0,
-"blood_group":"O+",
-"address":"Cumilla",
-"phone":"+8801311200000",
-"token":'"}}]
-int id, String name, String lastDonateDate,  String bloodGroup, String address, String phone*/
 
                             ArrayList<BloodDonor> bloodDonors = new ArrayList<>();
 
@@ -930,7 +952,7 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
                                         userDetails.getString("address"),
                                         userDetails.getString("phone"),
                                         userDetails.getString("token"));
-
+                                bloodDonor.setImage(userDetails.optString("image"));
                                 bloodDonors.add(bloodDonor);
                             }
                             getDataFromApiCall.data(bloodDonors, jsonObject.optString("message"));
@@ -1033,6 +1055,8 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
                                         userDetails.getString("phone"),
                                         userDetails.getString("token"));
 
+                                bloodRequest.setImage(userDetails.optString("image"));
+
                                 bloodRequests.add(bloodRequest);
                             }
                             getDataFromApiCall.data(bloodRequests, jsonObject.optString("message"));
@@ -1089,6 +1113,7 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
                                         object.getString("about"),
                                         object.getDouble("lat"),
                                         object.getDouble("long"));
+                                bloodBank.setImage(object.optString("image"));
 
                                 bloodBanks.add(bloodBank);
                             }
@@ -1151,6 +1176,7 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
                                     userObj.getString("phone"),
                                     userObj.getString("email")
                             );
+                            bb.setImage(userObj.optString("image"));
 
                             bb.setBloodBankId(userObj.getInt("id"));
                             CustomSharedPref.getInstance(context).setUserId(bb.getBloodBankId());

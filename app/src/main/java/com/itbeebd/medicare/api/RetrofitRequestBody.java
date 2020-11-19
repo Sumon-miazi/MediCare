@@ -6,6 +6,7 @@ import com.itbeebd.medicare.utils.BloodRequest;
 import com.itbeebd.medicare.utils.DiagnosticCenter;
 import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.Patient;
+import com.itbeebd.medicare.utils.TestReport;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -162,6 +163,15 @@ public class RetrofitRequestBody {
         map.put("email", doctor.getEmail());
         map.put("phone", doctor.getPhone());
         map.put("token", doctor.getToken());
+        map.put("api_key", this.api_key);
+        return map;
+    }
+
+    Map<String, Object> orderTest(TestReport testReport) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("diagnostic_center_id", testReport.getDiagnostic_center_id());
+        map.put("patient_id", testReport.getPatient_id());
+        map.put("title", testReport.getTitle());
         map.put("api_key", this.api_key);
         return map;
     }

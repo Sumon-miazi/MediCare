@@ -11,14 +11,15 @@ import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickList
 import com.itbeebd.medicare.utils.BloodDonationRequest;
 
 public class BloodDonationRequestAdapter extends GenericRecyclerAdapter<BloodDonationRequest, OnRecyclerObjectClickListener<BloodDonationRequest>, BloodDonationRequestViewHolder> {
-
+    private Context context;
     public BloodDonationRequestAdapter(Context context) {
         super(context);
+        this.context = context;
     }
 
     @NonNull
     @Override
     public BloodDonationRequestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new BloodDonationRequestViewHolder(inflate(R.layout.single_blood_donor_view, parent));
+        return new BloodDonationRequestViewHolder(inflate(R.layout.single_blood_donor_view, parent), context);
     }
 }

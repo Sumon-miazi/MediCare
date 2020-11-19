@@ -11,15 +11,16 @@ import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickList
 import com.itbeebd.medicare.utils.Hospital;
 
 public class HospitalAdapter extends GenericRecyclerAdapter<Hospital, OnRecyclerObjectClickListener<Hospital>, HospitalViewHolder> {
-
+    private Context context;
     public HospitalAdapter(Context context) {
         super(context);
+        this.context = context;
     }
 
     @NonNull
     @Override
     public HospitalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new HospitalViewHolder(inflate(R.layout.single_hospital_view, parent));
+        return new HospitalViewHolder(inflate(R.layout.single_hospital_view, parent), context);
     }
 
 

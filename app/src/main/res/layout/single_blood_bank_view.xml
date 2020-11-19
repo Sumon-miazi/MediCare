@@ -73,6 +73,7 @@
             android:layout_margin="4dp"
             android:background="@color/deep_blue"
             android:text="Order"
+            android:visibility="gone"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

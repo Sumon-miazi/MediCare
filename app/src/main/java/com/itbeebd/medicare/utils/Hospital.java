@@ -3,6 +3,7 @@ package com.itbeebd.medicare.utils;
 public class Hospital {
     private int id;
     private String name;
+    private String image;
     private String address;
     private String phone;
     private double lat;
@@ -39,5 +40,13 @@ public class Hospital {
 
     public double getLon() {
         return lon;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

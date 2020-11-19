@@ -25,6 +25,7 @@
     <string name="slow_internet_connection">SLOW INTERNET CONNECTION</string>
     <string name="no_internet">NO INTERNET</string>
     <string name="medication">Medication</string>
+    <string name="test_intro">Please select a test from the list and place order to the diagnostic center. you can order one test at a time. so if you want to order multiple test just select the test and click on the ORDER TEST button. thank you</string>
 
     <string-array name="blood_for_list">
         <item>Mercury</item>

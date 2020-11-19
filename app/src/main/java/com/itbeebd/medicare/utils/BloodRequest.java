@@ -7,6 +7,7 @@ public class BloodRequest {
     private int userId;
     private int recordId;
     private String bloodFor;
+    private String image;
     private String city;
     private String hospital;
     private String amount;
@@ -116,5 +117,13 @@ public class BloodRequest {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

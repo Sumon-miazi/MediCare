@@ -26,7 +26,7 @@ public class DiagnosticCenterViewHolder extends BaseViewHolder<DiagnosticCenter,
     private TextView phone;
     private TextView address;
     private TextView allServicesTxt;
-    private Button seeAllServicesBtn,requestReportBtn;
+    private Button seeAllServicesBtn,orderTest;
     private ExpandableLayout expandable_layout;
 
     public DiagnosticCenterViewHolder(@NonNull View itemView, Context context) {
@@ -37,7 +37,7 @@ public class DiagnosticCenterViewHolder extends BaseViewHolder<DiagnosticCenter,
         address = itemView.findViewById(R.id.textView4);
         phone = itemView.findViewById(R.id.textView6);
         seeAllServicesBtn = itemView.findViewById(R.id.seeAllServicesBtnId);
-        requestReportBtn = itemView.findViewById(R.id.requestReportBtnId);
+        orderTest = itemView.findViewById(R.id.requestReportBtnId);
         expandable_layout = itemView.findViewById(R.id.expandable_layout);
         allServicesTxt = itemView.findViewById(R.id.allServicesTxtId);
     }
@@ -50,7 +50,7 @@ public class DiagnosticCenterViewHolder extends BaseViewHolder<DiagnosticCenter,
         allServicesTxt.setText(Html.fromHtml(item.getServices()));
 
         if(item.getImage() != null){
-            System.out.println("<<<<<<<<<>>>>> " + ApiUrls.BASE_IMAGE_URL + item.getImage());
+            // System.out.println("<<<<<<<<<>>>>> " + ApiUrls.BASE_IMAGE_URL + item.getImage());
             Glide.with(context)
                     .load(ApiUrls.BASE_IMAGE_URL + item.getImage())
                     .into(imageView);
@@ -59,7 +59,7 @@ public class DiagnosticCenterViewHolder extends BaseViewHolder<DiagnosticCenter,
             expandable_layout.toggle();
         });
 
-        requestReportBtn.setOnClickListener(view -> {
+        orderTest.setOnClickListener(view -> {
             assert listener != null;
             listener.onItemClicked(item, view);
         });

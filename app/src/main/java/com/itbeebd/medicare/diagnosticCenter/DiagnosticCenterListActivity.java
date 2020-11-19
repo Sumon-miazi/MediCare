@@ -1,5 +1,6 @@
 package com.itbeebd.medicare.diagnosticCenter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -43,6 +44,10 @@ public class DiagnosticCenterListActivity extends AppCompatActivity implements O
 
     @Override
     public void onItemClicked(DiagnosticCenter item, View view) {
-
+        if(view.getId() == R.id.requestReportBtnId){
+            Intent intent = new Intent(this, OrderTestActivity.class);
+            intent.putExtra("diagnosticCenterId", item.getDiagnosticId());
+            startActivity(intent);
+        }
     }
 }

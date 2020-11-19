@@ -9,6 +9,7 @@ public class BloodDonor implements Parcelable {
     private int id;
     private int userId;
     private String name;
+    private String image;
     private String lastDonateDate;
     private String totalBloodDonation;
     private String bloodGroup;
@@ -60,6 +61,7 @@ public class BloodDonor implements Parcelable {
     public BloodDonor(Parcel parcel) {
         this.id = parcel.readInt();
         this.name = parcel.readString();
+        this.image = parcel.readString();
         this.lastDonateDate = parcel.readString();
         this.totalBloodDonation = parcel.readString();
         this.bloodGroup = parcel.readString();
@@ -72,6 +74,7 @@ public class BloodDonor implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(this.id);
         parcel.writeString(this.name);
+        parcel.writeString(this.image);
         parcel.writeString(this.lastDonateDate);
         parcel.writeString(this.totalBloodDonation);
         parcel.writeString(this.bloodGroup);
@@ -110,5 +113,13 @@ public class BloodDonor implements Parcelable {
 
     public String getAbout() {
         return about;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

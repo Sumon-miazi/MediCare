@@ -10,12 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.DoctorChamberAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.ApiUrls;
 import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.DoctorChamber;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,7 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
     private TextView doctorQualification;
     private TextView totalPatient;
     private TextView totalReview;
+    private CircularImageView doctorImage;
     private TextView about;
 
     private RecyclerView allDoctorChamberRecyclerView;
@@ -38,6 +42,7 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
         setContentView(R.layout.activity_doctor_info);
 
         doctorName = findViewById(R.id.doctorProfileNameTxtViewId);
+        doctorImage = findViewById(R.id.main_doctorImageViewId);
         doctorQualification = findViewById(R.id.doctorProfileTitleTxtViewId);
         totalPatient = findViewById(R.id.textView10);
         totalReview = findViewById(R.id.textView13);
@@ -52,6 +57,12 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
             doctorName.setText(doctor.getName());
             doctorQualification.setText(doctor.getEducationHistory());
             about.setText(doctor.getAbout());
+
+            if(doctor.getImage() != null){
+                Glide.with(this)
+                        .load(ApiUrls.BASE_IMAGE_URL + doctor.getImage())
+                        .into(doctorImage);
+            }
 
             new ApiCalls().getAllDoctorChambersByDoctorId(doctor.getDoctorId(), (doctorChambers, message) -> {
                 if (doctorChambers != null) {

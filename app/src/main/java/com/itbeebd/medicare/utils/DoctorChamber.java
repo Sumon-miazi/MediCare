@@ -10,6 +10,7 @@ public class DoctorChamber implements Parcelable {
     private int doctor_id;
     private int hospital_id;
     private String name;
+    private String image;
     private String visit_fee;
     private String address;
     private String phone;
@@ -56,6 +57,7 @@ public class DoctorChamber implements Parcelable {
         this.visit_fee = parcel.readString();
         this.address = parcel.readString();
         this.phone = parcel.readString();
+        this.image = parcel.readString();
         this.lat = parcel.readDouble();
         this.lon = parcel.readDouble();
         this.clicked = parcel.readInt();
@@ -77,6 +79,7 @@ public class DoctorChamber implements Parcelable {
         parcel.writeString(this.visit_fee);
         parcel.writeString(this.address);
         parcel.writeString(this.phone);
+        parcel.writeString(this.image);
         parcel.writeDouble(this.lat);
         parcel.writeDouble(this.lon);
         parcel.writeInt(this.clicked);
@@ -139,5 +142,13 @@ public class DoctorChamber implements Parcelable {
         for (int i = 0; i < this.customDayOfWeekArrayList.size(); i++) {
             System.out.println(customDayOfWeekArrayList.get(i).getDay().toUpperCase());
         }
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

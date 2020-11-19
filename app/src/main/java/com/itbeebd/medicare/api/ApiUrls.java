@@ -40,6 +40,7 @@ public class ApiUrls {
     public static final String SIGN_UP_DIAGNOSTIC = "signUpDiagnosticCenter";
     public static final String ALL_DIAGNOSTIC = "getAllDiagnosticCenter";
     public static final String GET_DIAGNOSTIC_DATA = "getDiagnosticCenterDataByUid";
+    public static final String ORDER_TEST = "orderTest";
 
 
 
