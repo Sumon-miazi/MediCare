@@ -11,15 +11,16 @@ import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickList
 import com.itbeebd.medicare.utils.Specialist;
 
 public class SpecialistAdapter extends GenericRecyclerAdapter<Specialist, OnRecyclerObjectClickListener<Specialist>, SpecialistViewHolder> {
-
+    private Context context;
     public SpecialistAdapter(Context context) {
         super(context);
+        this.context = context;
     }
 
     @NonNull
     @Override
     public SpecialistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SpecialistViewHolder(inflate(R.layout.single_specialist_view, parent));
+        return new SpecialistViewHolder(inflate(R.layout.single_specialist_view, parent), context);
     }
 
 }
