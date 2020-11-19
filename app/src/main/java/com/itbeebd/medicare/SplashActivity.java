@@ -62,7 +62,7 @@ public class SplashActivity extends AppCompatActivity {
             } else {
                 System.out.println(">>>>>. splash else");
                 CustomSharedPref.getInstance(this).setUserUid(firebaseUser.getUid());
-                goToMainActivity(firebaseUser);
+                goToMainActivity(firebaseUser, true);
             }
         });
     }
@@ -76,8 +76,9 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    private void goToMainActivity(FirebaseUser user) {
-        if (CustomSharedPref.getInstance(this).getUserSignedInOrNot()) {
+    private void goToMainActivity(FirebaseUser user, boolean flag) {
+        System.out.println("><<<<<<<<<" + CustomSharedPref.getInstance(this).getUserType());
+        if (CustomSharedPref.getInstance(this).getUserSignedInOrNot() && flag) {
             if (alreadyNotCalledMainActivity) {
                 System.out.println(">>>>>>>>>>>>>>>>> getUserSignedInOrNot true");
                 alreadyNotCalledMainActivity = false;
@@ -129,13 +130,22 @@ public class SplashActivity extends AppCompatActivity {
         ApiCalls apiCalls = new ApiCalls();
         String userType = CustomSharedPref.getInstance(this).getUserType();
 
-        if(userType.equals("patient")) apiCalls.getUserData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
-        else if(userType.equals("doctor")) apiCalls.getDoctorData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
-        else if(userType.equals("bloodBank")) apiCalls.getBloodBankData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
-        else if(userType.equals("diagnosticCenter")) apiCalls.getDiagnosticCenterData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
-        else {
-            startActivity(new Intent(this, RegistrationOptionActivity.class));
-            finish();
+        switch (userType) {
+            case "patient":
+                apiCalls.getUserData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+                break;
+            case "doctor":
+                apiCalls.getDoctorData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+                break;
+            case "bloodBank":
+                apiCalls.getBloodBankData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+                break;
+            case "diagnosticCenter":
+                apiCalls.getDiagnosticCenterData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+                break;
+            default:
+                goToMainActivity(firebaseUser, false);
+                break;
         }
     }
 

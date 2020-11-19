@@ -142,6 +142,7 @@ public class ApiCalls {
                                 DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
                                 diagnosticCenter.setDiagnosticId(object.getInt("id"));
                                 diagnosticCenter.setName(object.getString("name"));
+                                diagnosticCenter.setImage(object.getString("image"));
                                 diagnosticCenter.setAddress(object.getString("address"));
                                 diagnosticCenter.setPhone(object.getString("phone"));
                                 diagnosticCenter.setServices(object.getString("services"));
@@ -261,7 +262,7 @@ public class ApiCalls {
                                         object.getInt("hospital_id"),
                                         object.getString("name"),
                                         object.getString("dob"),
-                                        object.getString("education_history"),
+                                        object.getString("educationHistory"),
                                         object.getString("address"),
                                         object.getString("phone"));
                                 doctor.setImage(object.optString("image"));
@@ -1391,6 +1392,7 @@ int id, String name, String lastDonateDate,  String bloodGroup, String address, 
 
                             DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
                             diagnosticCenter.setName(userObj.getString("name"));
+                            diagnosticCenter.setImage(userObj.optString("image"));
                             diagnosticCenter.setAddress(userObj.getString("address"));
                             diagnosticCenter.setServices(userObj.getString("services"));
                             diagnosticCenter.setEmail(userObj.getString("email"));

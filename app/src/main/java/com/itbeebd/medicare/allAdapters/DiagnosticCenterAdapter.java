@@ -11,14 +11,15 @@ import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickList
 import com.itbeebd.medicare.utils.DiagnosticCenter;
 
 public class DiagnosticCenterAdapter extends GenericRecyclerAdapter<DiagnosticCenter, OnRecyclerObjectClickListener<DiagnosticCenter>, DiagnosticCenterViewHolder> {
-
+    private Context context;
     public DiagnosticCenterAdapter(Context context) {
         super(context);
+        this.context = context;
     }
 
     @NonNull
     @Override
     public DiagnosticCenterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new DiagnosticCenterViewHolder(inflate(R.layout.signle_diagnostic_center_view, parent));
+        return new DiagnosticCenterViewHolder(inflate(R.layout.signle_diagnostic_center_view, parent), context);
     }
 }

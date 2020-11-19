@@ -1,5 +1,6 @@
 package com.itbeebd.medicare.allAdapters;
 
+import android.content.Context;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
@@ -8,9 +9,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.genericClasses.BaseViewHolder;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
+import com.itbeebd.medicare.api.ApiUrls;
 import com.itbeebd.medicare.utils.DiagnosticCenter;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -18,6 +21,7 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 
 public class DiagnosticCenterViewHolder extends BaseViewHolder<DiagnosticCenter, OnRecyclerObjectClickListener<DiagnosticCenter>> {
     private TextView name;
+    private Context context;
     private CircularImageView imageView;
     private TextView phone;
     private TextView address;
@@ -25,8 +29,9 @@ public class DiagnosticCenterViewHolder extends BaseViewHolder<DiagnosticCenter,
     private Button seeAllServicesBtn,requestReportBtn;
     private ExpandableLayout expandable_layout;
 
-    public DiagnosticCenterViewHolder(@NonNull View itemView) {
+    public DiagnosticCenterViewHolder(@NonNull View itemView, Context context) {
         super(itemView);
+        this.context = context;
         imageView = itemView.findViewById(R.id.main_userImageViewId);
         name = itemView.findViewById(R.id.textView5);
         address = itemView.findViewById(R.id.textView4);
@@ -44,6 +49,12 @@ public class DiagnosticCenterViewHolder extends BaseViewHolder<DiagnosticCenter,
         phone.setText(item.getPhone());
         allServicesTxt.setText(Html.fromHtml(item.getServices()));
 
+        if(item.getImage() != null){
+            System.out.println("<<<<<<<<<>>>>> " + ApiUrls.BASE_IMAGE_URL + item.getImage());
+            Glide.with(context)
+                    .load(ApiUrls.BASE_IMAGE_URL + item.getImage())
+                    .into(imageView);
+        }
         seeAllServicesBtn.setOnClickListener(view -> {
             expandable_layout.toggle();
         });
