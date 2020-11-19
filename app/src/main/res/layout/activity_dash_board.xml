@@ -246,6 +246,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/demo"
                     app:civ_border_width="0dp"
+                    android:scaleType="centerCrop"
                     app:civ_shadow="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

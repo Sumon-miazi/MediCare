@@ -31,6 +31,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/demo"
+                android:scaleType="centerCrop"
                 app:civ_border_width="0dp"
                 app:civ_shadow="false"
                 app:layout_constraintEnd_toEndOf="parent"
