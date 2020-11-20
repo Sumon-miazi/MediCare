@@ -1,6 +1,14 @@
 package com.itbeebd.medicare.utils;
 
+import android.text.format.DateFormat;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class Appointment {
 
@@ -8,6 +16,7 @@ public class Appointment {
     private int doctor_id;
     private int doctor_chamber_id;
     private int hospital_id;
+    private Date appointmentDateAndTime;
     private int year;
     private int month;
     private int day;
@@ -150,5 +159,87 @@ public class Appointment {
 
     public void setHospitalName(String hospitalName) {
         this.hospitalName = hospitalName;
+    }
+
+    public static Date getDate(int year, int month, int day, int hour, int minutes) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month + 1);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minutes);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
+
+    public Date getAppointmentDateAndTime() {
+        return appointmentDateAndTime;
+    }
+
+    public void setAppointmentDateAndTime(String  appointmentDateAndTime) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        fmt.setTimeZone(TimeZone.getTimeZone("GMT"));
+        try {
+            this.appointmentDateAndTime =fmt.parse(appointmentDateAndTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            this.appointmentDateAndTime = null;
+        }
+    }
+
+    public  ArrayList<String> getDateFormat(){
+        Calendar now = Calendar.getInstance();
+
+        ArrayList<String> dateAndTime = new ArrayList<>();
+
+        String hours = (String) DateFormat.format("HH", appointmentDateAndTime);
+        String minutes = (String) DateFormat.format("mm", appointmentDateAndTime);
+        String dayOfTheWeek = (String) DateFormat.format("EEEE", appointmentDateAndTime); // Thursday
+        String day          = (String) DateFormat.format("dd",   appointmentDateAndTime); // 20
+        String monthString  = (String) DateFormat.format("MMMM",  appointmentDateAndTime); // June
+        String monthNumber  = (String) DateFormat.format("MM",   appointmentDateAndTime); // 06
+        String year         = (String) DateFormat.format("yyyy", appointmentDateAndTime); // 2013
+
+        int nowYear = now.get(Calendar.YEAR);
+        int nowMonth = now.get(Calendar.MONTH) + 1;
+        int nowDay = now.get(Calendar.DAY_OF_MONTH);
+
+
+       // if(Integer.parseInt(year) == nowYear){
+            System.out.println(">>>>>>> monthNumber " + monthNumber);
+            System.out.println(">>>>>>> nowMonth " + nowMonth);
+            System.out.println(">>>>>>> day " + day);
+            System.out.println(">>>>>>> nowDay " + nowDay);
+            System.out.println(">>>>>>> hours " + hours);
+            System.out.println(">>>>>>> minutes " + minutes);
+
+            if(Integer.parseInt(monthNumber) == nowMonth){
+                if(Integer.parseInt(day) == nowDay) dateAndTime.add("Today");
+                else if(Integer.parseInt(day) == (nowDay+1)) dateAndTime.add("Tomorrow") ;
+                else if(Integer.parseInt(day) == (nowDay-1)) dateAndTime.add("Yesterday") ;
+                else dateAndTime.add(monthString + " " + day);
+            }
+            else {
+                dateAndTime.add(monthString + " " + day);
+            }
+
+            if(Integer.parseInt(hours) >= 12){
+                dateAndTime.add((Integer.parseInt(hours)-12) + ":" + minutes + "pm");
+            }
+            else {
+                dateAndTime.add(Integer.parseInt(hours) + ":" + minutes + "am");
+            }
+      //  }
+        return dateAndTime;
+        /*
+        else if(Integer.parseInt(year) > nowYear){
+
+        }
+        else if(Integer.parseInt(year) < nowYear){
+
+        }
+
+         */
     }
 }

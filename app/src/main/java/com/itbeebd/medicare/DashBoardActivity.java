@@ -27,6 +27,8 @@ import com.itbeebd.medicare.doctors.DoctorListActivity;
 import com.itbeebd.medicare.utils.Specialist;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.util.ArrayList;
+
 public class DashBoardActivity extends Fragment implements OnRecyclerObjectClickListener<Specialist> {
 
     private OnItemSelectedListener listener;
@@ -84,11 +86,15 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
     private void getNextAppointment() {
         new UserApi().getNextAppointment(CustomSharedPref.getInstance(getContext()).getUserId(), (appointment, message) -> {
             if(appointment != null){
+                ArrayList<String> dateAndTime = appointment.getDateFormat();
                 nextAppointmentView.setVisibility(View.VISIBLE);
                 doctorName.setText(appointment.getName());
                 doctorDegree.setText(appointment.getDegree());
                 chamberAddress.setText(appointment.getAddress());
                 hospitalName.setText(appointment.getHospitalName());
+                appointmentDateHint.setText(dateAndTime.get(0));
+                appointmentTimeHint.setText(dateAndTime.get(1));
+
                 if(appointment.getImage() != null){
                     Glide.with(this)
                             .load(ApiUrls.BASE_IMAGE_URL + appointment.getImage())

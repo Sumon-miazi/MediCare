@@ -300,6 +300,7 @@ public class UserApi extends BaseService{
                             appointment.setDoctor_id(object.getInt("doctor_id"));
                             appointment.setDoctor_chamber_id(object.getInt("doctor_chamber_id"));
                             appointment.setStatus(object.getInt("status"));
+                            appointment.setAppointmentDateAndTime(object.getString("appointmentTime"));
                             appointment.setName(doctorObj.getString("name"));
                             appointment.setImage(doctorObj.getString("image"));
                             appointment.setDegree(doctorObj.getString("specialist"));
