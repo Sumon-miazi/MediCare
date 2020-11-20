@@ -15,8 +15,8 @@ import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.AppointmentTimeGridAdapter;
 import com.itbeebd.medicare.allAdapters.DoctorChamberAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
+import com.itbeebd.medicare.api.AppointmentApi;
 import com.itbeebd.medicare.api.DoctorApi;
-import com.itbeebd.medicare.api.UserApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.doctors.customCalender.DayViewContainer;
 import com.itbeebd.medicare.doctors.customCalender.MonthViewContainer;
@@ -301,7 +301,7 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
         appointment.setDateTime(selectedDate, selectedTime);
         appointment.setStatus(1);
 
-        new UserApi().bookNewAppointment(appointment, (status, message) -> {
+        new AppointmentApi().bookNewAppointment(appointment, (status, message) -> {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         });
     }

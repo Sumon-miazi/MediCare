@@ -20,8 +20,8 @@ import com.bumptech.glide.Glide;
 import com.itbeebd.medicare.allAdapters.SpecialistAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.api.ApiUrls;
+import com.itbeebd.medicare.api.AppointmentApi;
 import com.itbeebd.medicare.api.HospitalApi;
-import com.itbeebd.medicare.api.UserApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.doctors.DoctorListActivity;
 import com.itbeebd.medicare.utils.Specialist;
@@ -84,7 +84,7 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
     }
 
     private void getNextAppointment() {
-        new UserApi().getNextAppointment(CustomSharedPref.getInstance(getContext()).getUserId(), (appointment, message) -> {
+        new AppointmentApi().getNextAppointment(CustomSharedPref.getInstance(getContext()).getUserId(), (appointment, message) -> {
             if(appointment != null){
                 ArrayList<String> dateAndTime = appointment.getDateFormat();
                 nextAppointmentView.setVisibility(View.VISIBLE);
