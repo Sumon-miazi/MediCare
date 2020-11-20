@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.itbeebd.medicare.allAdapters.SpecialistAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.HospitalApi;
 import com.itbeebd.medicare.doctors.DoctorListActivity;
 import com.itbeebd.medicare.utils.Specialist;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -53,7 +53,7 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
     }
 
     private void setUpAllSpecialist() {
-        new ApiCalls().getAllSpecialist((dataListFromApiCall, message) -> {
+        new HospitalApi().getAllSpecialist((dataListFromApiCall, message) -> {
             if(dataListFromApiCall != null){
                 specialistAdapter.setItems(dataListFromApiCall);
                 specialistAdapter.setListener(this);

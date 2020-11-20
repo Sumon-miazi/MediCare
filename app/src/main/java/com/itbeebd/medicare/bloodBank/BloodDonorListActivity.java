@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.blood.BloodDonorAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.BloodApi;
 import com.itbeebd.medicare.utils.BloodDonor;
 
 public class BloodDonorListActivity extends AppCompatActivity implements OnRecyclerObjectClickListener<BloodDonor> {
@@ -41,7 +41,7 @@ public class BloodDonorListActivity extends AppCompatActivity implements OnRecyc
     }
 
     private void getBloodDonor(String bloodGroup){
-        new ApiCalls().getBloodDonor(bloodGroup, (bloodDonors, message) -> {
+        new BloodApi().getBloodDonor(bloodGroup, (bloodDonors, message) -> {
             if(bloodDonors != null){
                 bloodDonorAdapter.setItems(bloodDonors);
                 bloodDonorAdapter.setListener(this);

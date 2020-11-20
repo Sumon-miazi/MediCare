@@ -15,7 +15,8 @@ import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.AppointmentTimeGridAdapter;
 import com.itbeebd.medicare.allAdapters.DoctorChamberAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.DoctorApi;
+import com.itbeebd.medicare.api.UserApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.doctors.customCalender.DayViewContainer;
 import com.itbeebd.medicare.doctors.customCalender.MonthViewContainer;
@@ -114,7 +115,7 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
     }
 
     private void callApiToGetDoctorChambers() {
-        new ApiCalls().getAllDoctorChambersByDoctorId(doctor.getDoctorId(), (doctorChambers, message) -> {
+        new DoctorApi().getAllDoctorChambersByDoctorId(doctor.getDoctorId(), (doctorChambers, message) -> {
             if (doctorChambers != null) {
                 this.doctorChambers = doctorChambers;
                 if (!doctorChambers.isEmpty()) {
@@ -300,7 +301,7 @@ public class DoctorAppointmentActivity extends AppCompatActivity implements OnRe
         appointment.setDateTime(selectedDate, selectedTime);
         appointment.setStatus(1);
 
-        new ApiCalls().bookNewAppointment(appointment, (status, message) -> {
+        new UserApi().bookNewAppointment(appointment, (status, message) -> {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         });
     }

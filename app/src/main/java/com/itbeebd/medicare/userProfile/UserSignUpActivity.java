@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.itbeebd.medicare.MainActivity;
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.UserApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.Patient;
 import com.nguyenhoanglam.imagepicker.model.Config;
@@ -292,7 +292,7 @@ public class UserSignUpActivity extends AppCompatActivity implements DatePickerD
         patientObj.setImage(imageUrl);
 
 
-        new ApiCalls(this).signUpPatient(patientObj, lastBloodDonationDate, (patient, message) -> {
+        new UserApi(this).signUpPatient(patientObj, lastBloodDonationDate, (patient, message) -> {
             if (patient != null) {
                 // Intent intent = new Intent(this, UserProfileActivity.class);
                 Intent intent = new Intent(this, MainActivity.class);

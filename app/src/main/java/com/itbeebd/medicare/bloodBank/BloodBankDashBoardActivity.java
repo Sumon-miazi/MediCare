@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.blood.BloodRequestAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.BloodApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.BloodRequest;
 
@@ -29,7 +29,7 @@ public class BloodBankDashBoardActivity extends AppCompatActivity implements OnR
         textView = findViewById(R.id.noBloodReqTxtId);
         bloodRequestAdapter = new BloodRequestAdapter(this);
 
-        new ApiCalls().getAllBloodRequestOfABloodBankById(CustomSharedPref.getInstance(this).getUserId(),(bloodRequests, message) -> {
+        new BloodApi().getAllBloodRequestOfABloodBankById(CustomSharedPref.getInstance(this).getUserId(),(bloodRequests, message) -> {
             if(bloodRequests != null){
                 recyclerView.setVisibility(View.VISIBLE);
                 textView.setVisibility(View.GONE);

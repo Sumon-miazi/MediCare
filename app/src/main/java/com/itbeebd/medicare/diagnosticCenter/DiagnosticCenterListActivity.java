@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.DiagnosticCenterAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.DiagnosticCenterApi;
 import com.itbeebd.medicare.utils.DiagnosticCenter;
 
 public class DiagnosticCenterListActivity extends AppCompatActivity implements OnRecyclerObjectClickListener<DiagnosticCenter> {
@@ -31,7 +31,7 @@ public class DiagnosticCenterListActivity extends AppCompatActivity implements O
     }
 
     private void setUpData() {
-        new ApiCalls().getAllDiagnosticCenter((dataListFromApiCall, message) -> {
+        new DiagnosticCenterApi().getAllDiagnosticCenter((dataListFromApiCall, message) -> {
             if(dataListFromApiCall!= null){
                 diagnosticCenterAdapter.setItems(dataListFromApiCall);
                 diagnosticCenterAdapter.setListener(this);

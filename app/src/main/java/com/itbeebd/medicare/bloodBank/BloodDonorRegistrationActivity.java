@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.BloodApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.db.Dao;
 import com.itbeebd.medicare.utils.Patient;
@@ -84,7 +84,7 @@ public class BloodDonorRegistrationActivity extends AppCompatActivity implements
 
         System.out.println(">>>>>>.. last donate " + lastDonateDate);
 
-        new ApiCalls().addBloodDonor(CustomSharedPref.getInstance(this).getUserId(),
+        new BloodApi().addBloodDonor(CustomSharedPref.getInstance(this).getUserId(),
                 lastDonateDate,
                 currentlyAvailable,
                 (status, message) -> {

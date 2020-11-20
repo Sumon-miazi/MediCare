@@ -33,12 +33,6 @@ public class RetrofitRequestBody {
         return map;
     }
 
-    Map<String, Object> getAllDoctorChambersByDoctorId(int id) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("doctor_id", id);
-        map.put("api_key", this.api_key);
-        return map;
-    }
 
     Map<String, Object> signUpPatient(Patient patient, Date lastBloodDonationDate) {
         Map<String, Object> map = new HashMap<>();
@@ -142,12 +136,6 @@ public class RetrofitRequestBody {
         return map;
     }
 
-    Map<String, Object> getAllBloodRequestOfABloodBankById(int id) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("api_key", this.api_key);
-        return map;
-    }
 
 
     Map<String, Object> signUpDoctor(Doctor doctor) {

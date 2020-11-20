@@ -2,40 +2,10 @@ package com.itbeebd.medicare.api;
 
 import android.content.Context;
 
-import com.itbeebd.medicare.api.allInterfaces.GetData;
-import com.itbeebd.medicare.api.allInterfaces.GetDataFromApiCall;
-import com.itbeebd.medicare.api.allInterfaces.GetPatientInfo;
-import com.itbeebd.medicare.api.allInterfaces.GetResponse;
-import com.itbeebd.medicare.api.allInterfaces.GetUserDataAndType;
-import com.itbeebd.medicare.db.CustomSharedPref;
-import com.itbeebd.medicare.db.Dao;
-import com.itbeebd.medicare.utils.Appointment;
-import com.itbeebd.medicare.utils.BloodBank;
-import com.itbeebd.medicare.utils.BloodDonationRequest;
-import com.itbeebd.medicare.utils.BloodDonor;
-import com.itbeebd.medicare.utils.BloodRequest;
-import com.itbeebd.medicare.utils.CustomDayOfWeek;
-import com.itbeebd.medicare.utils.DiagnosticCenter;
-import com.itbeebd.medicare.utils.Doctor;
-import com.itbeebd.medicare.utils.DoctorChamber;
-import com.itbeebd.medicare.utils.Hospital;
-import com.itbeebd.medicare.utils.Patient;
-import com.itbeebd.medicare.utils.Specialist;
-import com.itbeebd.medicare.utils.TestReport;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -56,6 +26,7 @@ public class ApiCalls {
 
     public ApiCalls(Context context){ this.context = context;}
 
+    /*
     public void getAllHospital(final GetDataFromApiCall<Hospital> getAllHospital) {
 
         System.out.println("getAllHospital>>>>>>>>>>> called ");
@@ -115,6 +86,7 @@ public class ApiCalls {
             }
         });
     }
+
 
     public void getAllDiagnosticCenter(final GetDataFromApiCall<DiagnosticCenter> getAllDiagnostic) {
 
@@ -233,8 +205,8 @@ public class ApiCalls {
             }
         });
     }
-
-
+*/
+/*
     public void getAllDoctorByHospitalId(int hospitalId, final GetDataFromApiCall<Doctor> getAllDoctor) {
 
         System.out.println("getAllDoctorByHospitalId>>>>>>>>>>> called ");
@@ -358,7 +330,7 @@ public class ApiCalls {
         System.out.println("getAllDoctorChambersByDoctorId>>>>>>>>>>> called ");
 
         final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
-        Call<ResponseBody> responseBodyCall = service.getAllDoctorChambersByDoctorId(retrofitRequestBody.getAllDoctorChambersByDoctorId(doctorId));
+        Call<ResponseBody> responseBodyCall = service.getAllDoctorChambersByDoctorId(retrofitRequestBody.getDataById(doctorId));
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -433,9 +405,9 @@ public class ApiCalls {
             }
         });
     }
+ */
 
-
-
+/*
     public void signUpPatient(Patient patient,
                               Date lastBloodDonationDate,
                               GetPatientInfo getPatientInfo) {
@@ -645,6 +617,8 @@ public class ApiCalls {
         });
     }
 
+ */
+/*
     public void getDoctorData(String uid, GetData<Doctor> getData) {
         System.out.println("getDoctorData>>>>>>>>>>> called ");
         final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
@@ -695,7 +669,8 @@ public class ApiCalls {
             }
         });
     }
-
+ */
+    /*
     public void getBloodBankData(String uid, GetData<BloodBank> getData) {
         System.out.println("getBloodBankData>>>>>>>>>>> called ");
         final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
@@ -747,6 +722,8 @@ public class ApiCalls {
         });
     }
 
+     */
+/*
     public void getDiagnosticCenterData(String uid, GetData<DiagnosticCenter> getData) {
         System.out.println("getBloodBankData>>>>>>>>>>> called ");
         final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
@@ -803,6 +780,7 @@ public class ApiCalls {
     }
 
 
+
     public void bookNewAppointment(Appointment appointment, GetResponse getResponse) {
 
         System.out.println("bookNewAppointment >>>>>>>>>>> called ");
@@ -838,7 +816,9 @@ public class ApiCalls {
             }
         });
     }
+     */
 
+/*
     public void orderTest(TestReport testReport, GetResponse getResponse) {
 
         System.out.println("orderTest >>>>>>>>>>> called ");
@@ -874,7 +854,8 @@ public class ApiCalls {
             }
         });
     }
-
+ */
+    /*
     public void addBloodDonor(int id,
                               Date lastDonate,
                               boolean currentlyAvailable,
@@ -1208,7 +1189,7 @@ public class ApiCalls {
         System.out.println("getAllBloodRequestOfABloodBankById>>>>>>>>>>> called ");
 
         final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
-        Call<ResponseBody> responseBodyCall = service.getAllBloodRequestOfABloodBankById(retrofitRequestBody.getAllBloodRequestOfABloodBankById(id));
+        Call<ResponseBody> responseBodyCall = service.getAllBloodRequestOfABloodBankById(retrofitRequestBody.getDataById(id));
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -1262,6 +1243,8 @@ public class ApiCalls {
     }
 
 
+     */
+/*
     public void signUpDoctor(Doctor doctor, GetData<Doctor> getData) {
 
         System.out.println("signUpDoctor>>>>>>>>>>> called ");
@@ -1330,7 +1313,7 @@ public class ApiCalls {
             }
         });
     }
-/*
+
     public void signUpDiagnosticCenter(DiagnosticCenter diagnosticCenter, GetData<DiagnosticCenter> getData) {
 
         System.out.println("signUpDiagnosticCenter>>>>>>>>>>> called ");
@@ -1384,7 +1367,7 @@ public class ApiCalls {
             }
         });
     }
- */
+
 
     public void signUpDiagnosticCenter(DiagnosticCenter diagnosticCenter, GetData<DiagnosticCenter> getData) {
 
@@ -1455,7 +1438,7 @@ public class ApiCalls {
             }
         });
     }
-
+ */
     private MultipartBody.Part getImageFile(String imageFilePath){
         if(imageFilePath == null || imageFilePath.isEmpty())
             return null;

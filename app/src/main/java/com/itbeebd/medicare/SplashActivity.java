@@ -13,7 +13,10 @@ import com.andrognito.flashbar.Flashbar;
 import com.androidstudy.networkmanager.Tovuti;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.BloodApi;
+import com.itbeebd.medicare.api.DiagnosticCenterApi;
+import com.itbeebd.medicare.api.DoctorApi;
+import com.itbeebd.medicare.api.UserApi;
 import com.itbeebd.medicare.bloodBank.BloodBankDashBoardActivity;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.diagnosticCenter.DiagnosticCenterDashBoardActivity;
@@ -88,7 +91,7 @@ public class SplashActivity extends AppCompatActivity {
             if (alreadyNotCalledCheckUserExistOrNot) {
                 System.out.println(">>>>>>>>>>>>>>>>> getUserSignedInOrNot false " + user.getUid());
                 alreadyNotCalledCheckUserExistOrNot = false;
-                new ApiCalls().checkUserExistOrNot(user.getUid(), (patient, doctor, bloodBank, diagnosticCenter, message, userType) -> {
+                new UserApi().checkUserExistOrNot(user.getUid(), (patient, doctor, bloodBank, diagnosticCenter, message, userType) -> {
                      System.out.println("checkUserExistOrNot>>>>>>>>>>>>>>>>>" + message + " " + userType);
                     if (userType != null) {
                         Intent intent = null;
@@ -127,21 +130,20 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void getUserDataAsUserType() {
-        ApiCalls apiCalls = new ApiCalls();
         String userType = CustomSharedPref.getInstance(this).getUserType();
 
         switch (userType) {
             case "patient":
-                apiCalls.getUserData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+                new UserApi().getUserData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
                 break;
             case "doctor":
-                apiCalls.getDoctorData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+                new DoctorApi().getDoctorData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
                 break;
             case "bloodBank":
-                apiCalls.getBloodBankData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+                new BloodApi().getBloodBankData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
                 break;
             case "diagnosticCenter":
-                apiCalls.getDiagnosticCenterData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
+                new DiagnosticCenterApi().getDiagnosticCenterData(firebaseUser.getUid(), this::gotoDashBoardAsRequires);
                 break;
             default:
                 goToMainActivity(firebaseUser, false);

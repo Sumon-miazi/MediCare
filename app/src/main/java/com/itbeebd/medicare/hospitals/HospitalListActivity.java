@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.HospitalAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.HospitalApi;
 import com.itbeebd.medicare.doctors.DoctorListActivity;
 import com.itbeebd.medicare.utils.Hospital;
 
@@ -29,7 +29,7 @@ public class HospitalListActivity extends AppCompatActivity implements OnRecycle
         allHospitalRecyclerView = findViewById(R.id.allHospitalRecyclerViewId);
         hospitalListAdapter = new HospitalAdapter(this);
 
-        new ApiCalls().getAllHospital((hospitals, message) -> {
+        new HospitalApi().getAllHospital((hospitals, message) -> {
             if (hospitals != null) {
 
                 hospitalListAdapter.setItems(hospitals);

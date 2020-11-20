@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.DoctorAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.DoctorApi;
 import com.itbeebd.medicare.utils.Doctor;
 
 public class DoctorListActivity extends AppCompatActivity implements OnRecyclerObjectClickListener<Doctor> {
@@ -30,7 +30,7 @@ public class DoctorListActivity extends AppCompatActivity implements OnRecyclerO
 
         if (getIntent().hasExtra("hospitalId")) {
             int id = getIntent().getIntExtra("hospitalId", 0);
-            new ApiCalls().getAllDoctorByHospitalId(id, (doctors, message) -> {
+            new DoctorApi().getAllDoctorByHospitalId(id, (doctors, message) -> {
                 if (doctors != null) {
                     doctorListAdapter.setItems(doctors);
                     doctorListAdapter.setListener(this);
@@ -41,7 +41,7 @@ public class DoctorListActivity extends AppCompatActivity implements OnRecyclerO
         }
         else if (getIntent().hasExtra("specialistId")) {
             int id = getIntent().getIntExtra("specialistId", 0);
-            new ApiCalls().getAllDoctorBySpecialistId(id, (doctors, message) -> {
+            new DoctorApi().getAllDoctorBySpecialistId(id, (doctors, message) -> {
                 if (doctors != null) {
                     doctorListAdapter.setItems(doctors);
                     doctorListAdapter.setListener(this);

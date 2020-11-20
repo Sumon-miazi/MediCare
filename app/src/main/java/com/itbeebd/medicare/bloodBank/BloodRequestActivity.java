@@ -13,7 +13,7 @@ import androidx.cardview.widget.CardView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.BloodApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.BloodRequest;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -201,7 +201,7 @@ public class BloodRequestActivity extends AppCompatActivity implements DatePicke
                 (bloodGroupName+bloodGroupFactor));
         bloodRequest.setBloodNeededDateTime(bloodNeededDateTime);
 
-        new ApiCalls().addNewBloodRequest(bloodRequest, (status, message) -> {
+        new BloodApi().addNewBloodRequest(bloodRequest, (status, message) -> {
                 if(status) finish();
                 else Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         });

@@ -14,8 +14,8 @@ import com.bumptech.glide.Glide;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.DoctorChamberAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
-import com.itbeebd.medicare.api.ApiCalls;
 import com.itbeebd.medicare.api.ApiUrls;
+import com.itbeebd.medicare.api.DoctorApi;
 import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.DoctorChamber;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -64,7 +64,7 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
                         .into(doctorImage);
             }
 
-            new ApiCalls().getAllDoctorChambersByDoctorId(doctor.getDoctorId(), (doctorChambers, message) -> {
+            new DoctorApi().getAllDoctorChambersByDoctorId(doctor.getDoctorId(), (doctorChambers, message) -> {
                 if (doctorChambers != null) {
                     //this.doctor
                     this.doctorChambers = doctorChambers;

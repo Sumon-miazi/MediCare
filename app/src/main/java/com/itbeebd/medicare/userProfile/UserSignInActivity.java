@@ -26,7 +26,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.itbeebd.medicare.MainActivity;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.RegistrationOptionActivity;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.UserApi;
 import com.itbeebd.medicare.bloodBank.BloodBankDashBoardActivity;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.diagnosticCenter.DiagnosticCenterDashBoardActivity;
@@ -241,7 +241,7 @@ public class UserSignInActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void gotoToDashBoardAsRequired(FirebaseUser user) {
-        new ApiCalls().checkUserExistOrNot(user.getUid(), (patient, doctor, bloodBank, diagnosticCenter, message, userType) -> {
+        new UserApi().checkUserExistOrNot(user.getUid(), (patient, doctor, bloodBank, diagnosticCenter, message, userType) -> {
             System.out.println("checkUserExistOrNot>>>>>>>>>>>>>>>>>" + message);
             if (userType != null) {
                 Intent intent = null;

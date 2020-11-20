@@ -17,7 +17,7 @@ import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.blood.BloodBankAdapter;
 import com.itbeebd.medicare.allAdapters.blood.BloodDonationRequestAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.BloodApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.db.Dao;
 import com.itbeebd.medicare.utils.Patient;
@@ -74,7 +74,7 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
     }
 
     private void setBloodBankRecyclerView() {
-        new ApiCalls().getAllBloodBank((bloodBanks, message) -> {
+        new BloodApi().getAllBloodBank((bloodBanks, message) -> {
             if(bloodBanks != null){
                 bloodBankAdapter.setItems(bloodBanks);
                 bloodBankAdapter.setListener(this);
@@ -94,7 +94,7 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
         bloodDonationRequests.add(new BloodDonationRequest("Abdullah Al Borhan", "B-", "Dhaka medical college and hospital", "+8801311206790"));
          */
 
-        new ApiCalls().getBloodRequest((bloodDonationRequests, message) ->{
+        new BloodApi().getBloodRequest((bloodDonationRequests, message) ->{
             if(bloodDonationRequests != null){
                 bloodDonationRequestAdapter.setItems(bloodDonationRequests);
                 bloodDonationRequestAdapter.setListener(this);

@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.DiagnosticCenterApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.TestReport;
 
@@ -51,7 +51,7 @@ public class OrderTestActivity extends AppCompatActivity {
         testReport.setPatient_id(CustomSharedPref.getInstance(this).getUserId());
         testReport.setTitle(testName);
 
-        new ApiCalls().orderTest(testReport, (status, message) -> {
+        new DiagnosticCenterApi().orderTest(testReport, (status, message) -> {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         });
     }

@@ -16,7 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.BloodApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.BloodBank;
 import com.nguyenhoanglam.imagepicker.model.Config;
@@ -103,7 +103,7 @@ public class BloodBankSignUpActivity extends AppCompatActivity {
         bloodBank.setToken(CustomSharedPref.getInstance(this).getPushNotificationToken());
         bloodBank.setImage(imageUrl);
 
-        new ApiCalls().signUpBloodBank(bloodBank, (data, message) -> {
+        new BloodApi().signUpBloodBank(bloodBank, (data, message) -> {
             if(data != null){
                 startActivity(new Intent(this, BloodBankDashBoardActivity.class));
                 finish();

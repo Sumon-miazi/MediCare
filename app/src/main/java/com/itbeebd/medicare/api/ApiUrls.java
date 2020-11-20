@@ -20,6 +20,9 @@ public class ApiUrls {
 
 
     public static final String BOOK_NEW_APPOINTMENT = "bookNewAppointment";
+    public static final String GET_ALL_APPOINTMENT = "getAllAppointment";
+    public static final String GET_NEXT_APPOINTMENT = "getNextAppointment";
+    public static final String GET_AN_APPOINTMENT_REPORTS = "getAnAppointmentReports";
 
 
     public static final String ADD_BLOOD_DONOR = "addBloodDonor";
@@ -27,6 +30,7 @@ public class ApiUrls {
     public static final String NEW_BLOOD_REQUEST = "addNewBloodRequest";
     public static final String GET_BLOOD_REQUEST = "getBloodRequest";
     public static final String GET_ALL_BLOOD_BANK = "getAllBloodBank";
+    public static final String GET_BD_BR_COUNT = "getBloodDonorBloodRequestCount";
 
     public static final String SIGN_UP_BLOOD_BANK = "signUpBloodBank";
     public static final String GET_BLOOD_BANK_DATA = "getBloodBankDataByUid";

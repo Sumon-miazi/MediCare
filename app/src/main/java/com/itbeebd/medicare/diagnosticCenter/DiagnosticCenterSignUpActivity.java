@@ -16,7 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.api.ApiCalls;
+import com.itbeebd.medicare.api.DiagnosticCenterApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.DiagnosticCenter;
 import com.nguyenhoanglam.imagepicker.model.Config;
@@ -111,7 +111,7 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
         diagnosticCenter.setToken(CustomSharedPref.getInstance(this).getPushNotificationToken());
         diagnosticCenter.setImage(imageUrl);
 
-        new ApiCalls().signUpDiagnosticCenter(diagnosticCenter, (data, message) -> {
+        new DiagnosticCenterApi().signUpDiagnosticCenter(diagnosticCenter, (data, message) -> {
             if(data != null){
                 startActivity(new Intent(this, DiagnosticCenterDashBoardActivity.class));
                 finish();

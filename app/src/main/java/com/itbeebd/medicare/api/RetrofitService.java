@@ -59,8 +59,19 @@ public interface RetrofitService {
     Call<ResponseBody> checkUserExistence(@Body Map<String, Object> body);
 
 
+
     @POST(ApiUrls.BOOK_NEW_APPOINTMENT)
     Call<ResponseBody> bookNewAppointment(@Body Map<String, Object> body);
+
+    @POST(ApiUrls.GET_ALL_APPOINTMENT)
+    Call<ResponseBody> getAllAppointment(@Body Map<String, Object> body);
+
+    @POST(ApiUrls.GET_NEXT_APPOINTMENT)
+    Call<ResponseBody> getNextAppointment(@Body Map<String, Object> body);
+
+    @POST(ApiUrls.GET_AN_APPOINTMENT_REPORTS)
+    Call<ResponseBody> getAnAppointmentReports(@Body Map<String, Object> body);
+
 
 
     @POST(ApiUrls.ADD_BLOOD_DONOR)
