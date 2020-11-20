@@ -6,16 +6,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.itbeebd.medicare.allAdapters.SpecialistAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
+import com.itbeebd.medicare.api.ApiUrls;
 import com.itbeebd.medicare.api.HospitalApi;
+import com.itbeebd.medicare.api.UserApi;
+import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.doctors.DoctorListActivity;
 import com.itbeebd.medicare.utils.Specialist;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -28,7 +35,15 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
     private CardView diagnosticCardView;
     private CardView bloodBankCardView;
     private RecyclerView allSpecialistView;
+    private TextView appointmentDateHint;
+    private TextView appointmentTimeHint;
+    private TextView hospitalName;
+    private TextView doctorName;
+    private TextView doctorDegree;
+    private TextView chamberAddress;
+    private ImageView showAllAppointment;
     private SpecialistAdapter specialistAdapter;
+    private ConstraintLayout nextAppointmentView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +55,14 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
         diagnosticCardView = view.findViewById(R.id.diagnosticCardViewId);
         bloodBankCardView = view.findViewById(R.id.bloodBankCardViewId);
         allSpecialistView = view.findViewById(R.id.allSpecialistViewId);
+        nextAppointmentView = view.findViewById(R.id.constraintLayout2);
+        appointmentDateHint = view.findViewById(R.id.appointmentDateHintId);
+        appointmentTimeHint = view.findViewById(R.id.appointmentTimeHintId);
+        showAllAppointment = view.findViewById(R.id.calenderIconId);
+        doctorName = view.findViewById(R.id.textView5);
+        doctorDegree = view.findViewById(R.id.textView4);
+        hospitalName = view.findViewById(R.id.hospitalName);
+        chamberAddress = view.findViewById(R.id.textView6);
 
         specialistAdapter = new SpecialistAdapter(getContext());
 
@@ -50,6 +73,32 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
         setUpAllSpecialist();
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getNextAppointment();
+    }
+
+    private void getNextAppointment() {
+        new UserApi().getNextAppointment(CustomSharedPref.getInstance(getContext()).getUserId(), (appointment, message) -> {
+            if(appointment != null){
+                nextAppointmentView.setVisibility(View.VISIBLE);
+                doctorName.setText(appointment.getName());
+                doctorDegree.setText(appointment.getDegree());
+                chamberAddress.setText(appointment.getAddress());
+                hospitalName.setText(appointment.getHospitalName());
+                if(appointment.getImage() != null){
+                    Glide.with(this)
+                            .load(ApiUrls.BASE_IMAGE_URL + appointment.getImage())
+                            .into(main_doctorImageView);
+                }
+            }
+            else {
+                nextAppointmentView.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void setUpAllSpecialist() {

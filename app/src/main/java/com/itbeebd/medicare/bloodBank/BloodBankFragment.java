@@ -101,7 +101,7 @@ public class BloodBankFragment extends Fragment implements OnRecyclerObjectClick
                 recentBloodReqRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recentBloodReqRecyclerView.setAdapter(bloodDonationRequestAdapter);
             }
-            else Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
+            else Toast.makeText(getContext(), message,Toast.LENGTH_SHORT).show();
         });
 
     }

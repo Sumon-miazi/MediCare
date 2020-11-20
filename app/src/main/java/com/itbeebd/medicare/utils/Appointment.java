@@ -15,6 +15,13 @@ public class Appointment {
     private int minute;
     private int status;
 
+    // these will hold the doctor info
+    private String name;
+    private String hospitalName;
+    private String image;
+    private String degree;
+    private String address;
+
     public int getHospital_id() {
         return hospital_id;
     }
@@ -103,5 +110,45 @@ public class Appointment {
         String[] t = time.split(":");
         this.hour = Integer.parseInt(t[0]);
         this.minute = Integer.parseInt(t[1]);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getHospitalName() {
+        return hospitalName;
+    }
+
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
     }
 }
