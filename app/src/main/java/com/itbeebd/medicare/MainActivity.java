@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView;
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
+import com.itbeebd.medicare.appointmentAndReport.AppointmentListActivity;
 import com.itbeebd.medicare.bloodBank.BloodBankFragment;
 import com.itbeebd.medicare.bloodBank.BloodBankListActivity;
 import com.itbeebd.medicare.db.CustomSharedPref;
@@ -98,6 +99,9 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
         }
         else if(view.getId() == R.id.bloodBankCardViewId){
             startActivity(new Intent(this, BloodBankListActivity.class));
+        }
+        else if(view.getId() == R.id.calenderIconId){
+            startActivity(new Intent(this, AppointmentListActivity.class));
         }
     }
 

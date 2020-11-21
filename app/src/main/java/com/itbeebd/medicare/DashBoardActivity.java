@@ -71,6 +71,7 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
         hospitalCardView.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
         diagnosticCardView.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
         bloodBankCardView.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
+        showAllAppointment.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
 
         setUpAllSpecialist();
 

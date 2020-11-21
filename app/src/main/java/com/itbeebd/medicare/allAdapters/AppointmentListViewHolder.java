@@ -6,21 +6,20 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.genericClasses.BaseViewHolder;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 
-public class AllBookAppointmentViewHolder extends BaseViewHolder<String, OnRecyclerObjectClickListener<String>> {
+public class AppointmentListViewHolder extends BaseViewHolder<String, OnRecyclerObjectClickListener<String>> {
     private final TextView timeTxt;
-    private final ConstraintLayout timeBg;
+ //   private final ConstraintLayout timeBg;
     private final Context context;
 
-    public AllBookAppointmentViewHolder(@NonNull View itemView, Context context) {
+    public AppointmentListViewHolder(@NonNull View itemView, Context context) {
         super(itemView);
-        timeTxt = itemView.findViewById(R.id.timeTxtId);
-        timeBg = itemView.findViewById(R.id.timeBgId);
+        timeTxt = itemView.findViewById(R.id.doctorNameId);
+      //  timeBg = itemView.findViewById(R.id.timeBgId);
         this.context = context;
     }
 

@@ -14,7 +14,6 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-
     <application
         android:name=".utils.MyApplication"
         android:allowBackup="true"
@@ -28,7 +27,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="m">
-        <activity android:name=".diagnosticCenter.OrderTestActivity"></activity>
+        <activity android:name=".appointmentAndReport.AppointmentListActivity"></activity>
+        <activity android:name=".diagnosticCenter.OrderTestActivity" />
         <activity android:name=".bloodBank.BloodBankListActivity" />
         <activity android:name=".diagnosticCenter.DiagnosticCenterListActivity" />
         <activity android:name=".diagnosticCenter.DiagnosticCenterDashBoardActivity" />
