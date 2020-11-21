@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.allAdapters.DoctorChamberAdapter;
+import com.itbeebd.medicare.allAdapters.doctor.DoctorChamberAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.api.ApiUrls;
 import com.itbeebd.medicare.api.DoctorApi;

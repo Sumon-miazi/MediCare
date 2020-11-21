@@ -1,5 +1,6 @@
 package com.itbeebd.medicare.appointmentAndReport;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,9 +10,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.allAdapters.AppointmentListAdapter;
+import com.itbeebd.medicare.allAdapters.appointmentAdapters.AppointmentListAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.api.AppointmentApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
@@ -33,6 +33,7 @@ public class AppointmentListActivity extends AppCompatActivity implements OnRecy
     private ImageView oldHideIcon;
     private ExpandableLayout nextAppointmentsExpandable;
     private ExpandableLayout oldAppointmentsExpandable;
+    private Appointment appointment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,23 +90,17 @@ public class AppointmentListActivity extends AppCompatActivity implements OnRecy
 
     @Override
     public void onItemClicked(Appointment item, View view) {
+        this.appointment = item;
         showBottomSheetDialogFragment();
     }
 
     @Override
     public void onItemSelectedOnBottomSheet(View view) {
-
-    }
-
-    /**
-     * showing bottom sheet dialog
-     */
-    public void showBottomSheetDialog() {
-        View view = getLayoutInflater().inflate(R.layout.appointment_bottom_sheet, null);
-
-        BottomSheetDialog dialog = new BottomSheetDialog(this);
-        dialog.setContentView(view);
-        dialog.show();
+        if(view.getId() == R.id.constraintLayout3){
+            Intent intent = new Intent(this, ReportListActivity.class);
+            intent.putExtra("appointment_id", appointment.getAppointment_id());
+            startActivity(intent);
+        }
     }
 
     public void showBottomSheetDialogFragment() {

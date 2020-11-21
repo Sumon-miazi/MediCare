@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class Appointment {
-
+    private int appointment_id;
     private int patient_id;
     private int doctor_id;
     private int doctor_chamber_id;
@@ -30,6 +30,14 @@ public class Appointment {
     private String image;
     private String degree;
     private String address;
+
+    public int getAppointment_id() {
+        return appointment_id;
+    }
+
+    public void setAppointment_id(int appointment_id) {
+        this.appointment_id = appointment_id;
+    }
 
     public int getHospital_id() {
         return hospital_id;

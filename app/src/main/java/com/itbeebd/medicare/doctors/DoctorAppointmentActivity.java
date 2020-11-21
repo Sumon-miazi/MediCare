@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.allAdapters.AppointmentTimeGridAdapter;
-import com.itbeebd.medicare.allAdapters.DoctorChamberAdapter;
+import com.itbeebd.medicare.allAdapters.doctor.AppointmentTimeGridAdapter;
+import com.itbeebd.medicare.allAdapters.doctor.DoctorChamberAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.api.AppointmentApi;
 import com.itbeebd.medicare.api.DoctorApi;

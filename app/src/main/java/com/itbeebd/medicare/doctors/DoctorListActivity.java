@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.allAdapters.DoctorAdapter;
+import com.itbeebd.medicare.allAdapters.doctor.DoctorAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.api.DoctorApi;
 import com.itbeebd.medicare.utils.Doctor;

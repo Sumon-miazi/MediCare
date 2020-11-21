@@ -9,6 +9,8 @@ public class ReportFile {
     private int appointmentId;
     private ArrayList<Map<String, String>> files;
     private boolean isComplete;
+    private DiagnosticCenter diagnosticCenter;
+
 
     public int getId() {
         return id;
@@ -48,5 +50,13 @@ public class ReportFile {
 
     public void setComplete(boolean complete) {
         isComplete = complete;
+    }
+
+    public DiagnosticCenter getDiagnosticCenter() {
+        return diagnosticCenter;
+    }
+
+    public void setDiagnosticCenter(DiagnosticCenter diagnosticCenter) {
+        this.diagnosticCenter = diagnosticCenter;
     }
 }

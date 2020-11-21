@@ -6,6 +6,7 @@ import com.itbeebd.medicare.api.allInterfaces.GetData;
 import com.itbeebd.medicare.api.allInterfaces.GetDataFromApiCall;
 import com.itbeebd.medicare.api.allInterfaces.GetResponse;
 import com.itbeebd.medicare.utils.Appointment;
+import com.itbeebd.medicare.utils.DiagnosticCenter;
 import com.itbeebd.medicare.utils.ReportFile;
 
 import org.json.JSONArray;
@@ -85,6 +86,7 @@ public class AppointmentApi extends BaseService{
                             JSONObject hospital = chamber.getJSONObject("hospital");
 
                             Appointment appointment = new Appointment();
+                            appointment.setAppointment_id(object.getInt("id"));
                             appointment.setDoctor_id(object.getInt("doctor_id"));
                             appointment.setDoctor_chamber_id(object.getInt("doctor_chamber_id"));
                             appointment.setStatus(object.getInt("status"));
@@ -168,6 +170,7 @@ public class AppointmentApi extends BaseService{
                 JSONObject hospital = chamber.getJSONObject("hospital");
 
                 Appointment appointment = new Appointment();
+                appointment.setAppointment_id(object.optInt("id"));
                 appointment.setDoctor_id(object.getInt("doctor_id"));
                 appointment.setDoctor_chamber_id(object.getInt("doctor_chamber_id"));
                 appointment.setStatus(object.getInt("status"));
@@ -187,7 +190,7 @@ public class AppointmentApi extends BaseService{
         }
     }
 
-    public void getAnAppointmentReports(int id, GetData<ReportFile> getData) {
+    public void getAnAppointmentReports(int id, GetDataFromApiCall<ReportFile> getData) {
         System.out.println("getAnAppointmentReports>>>>>>>>>>> called ");
         final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
         Call<ResponseBody> responseBodyCall = service.getAnAppointmentReports(retrofitRequestBody.getDataById(id));
@@ -201,29 +204,53 @@ public class AppointmentApi extends BaseService{
                         System.out.println("getAnAppointmentReports>>>>>>>>>>> " + jsonObject.toString());
                         if (jsonObject.optString("status").equals("true")) {
 
-                            JSONObject reportJsonObj = jsonObject.getJSONObject("data");
-                            ReportFile reportFile = new ReportFile();
+                            JSONArray reportJsonObj = jsonObject.getJSONArray("data");
+                            ArrayList<ReportFile> reportFiles = new ArrayList<>();
+                            for(int i = 0; i < reportJsonObj.length(); i++){
 
-                            reportFile.setId(reportJsonObj.getInt("id"));
-                            reportFile.setDiagnosticCenterId(reportJsonObj.getInt("diagnostic_center_id"));
-                            reportFile.setAppointmentId(reportJsonObj.optInt("appointment_id"));
-                            reportFile.setComplete(reportJsonObj.getBoolean("complete"));
+                                JSONObject reportObject = reportJsonObj.getJSONObject(i);
+                                ReportFile reportFile = new ReportFile();
 
-                            JSONArray jsonArray = reportJsonObj.getJSONArray("file");
+                                reportFile.setId(reportObject.getInt("id"));
+                                reportFile.setDiagnosticCenterId(reportObject.getInt("diagnostic_center_id"));
+                                reportFile.setAppointmentId(reportObject.optInt("appointment_id"));
+                                reportFile.setComplete(reportObject.getInt("complete") == 1);
 
-                            ArrayList<Map<String, String>> files = new ArrayList<>();
+                                JSONArray jsonArray = reportObject.getJSONArray("file");
 
-                            for(int i = 0; i < jsonArray.length(); i++){
-                                JSONObject object = jsonArray.getJSONObject(i);
-                                Map<String, String> file = new HashMap<>();
-                                file.put("title", object.getString("original_name"));
-                                file.put("file", object.getString("download_link"));
+                                ArrayList<Map<String, String>> files = new ArrayList<>();
 
-                                files.add(file);
+                                for(int j = 0; j < jsonArray.length(); j++){
+                                    JSONObject object = jsonArray.getJSONObject(j);
+                                    Map<String, String> file = new HashMap<>();
+                                    file.put("title", object.getString("original_name"));
+                                    file.put("file", object.getString("download_link"));
+
+                                    files.add(file);
+                                }
+
+                                reportFile.setFiles(files);
+
+
+                                JSONObject diagnosticCenterObj = reportObject.getJSONObject("diagnostic_center");
+
+                                DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
+                                diagnosticCenter.setName(diagnosticCenterObj.getString("name"));
+                                diagnosticCenter.setImage(diagnosticCenterObj.optString("image"));
+                                diagnosticCenter.setAddress(diagnosticCenterObj.getString("address"));
+                                diagnosticCenter.setServices(diagnosticCenterObj.getString("services"));
+                                diagnosticCenter.setEmail(diagnosticCenterObj.getString("email"));
+                                diagnosticCenter.setPhone(diagnosticCenterObj.getString("phone"));
+                                diagnosticCenter.setLat(diagnosticCenterObj.getDouble("lat"));
+                                diagnosticCenter.setLon(diagnosticCenterObj.getDouble("long"));
+                                diagnosticCenter.setUid(diagnosticCenterObj.getString("uid"));
+                                diagnosticCenter.setDiagnosticId(diagnosticCenterObj.getInt("id"));
+
+                                reportFile.setDiagnosticCenter(diagnosticCenter);
+
+                                reportFiles.add(reportFile);
                             }
-
-                            reportFile.setFiles(files);
-                            getData.data(reportFile, jsonObject.optString("message"));
+                            getData.data(reportFiles, jsonObject.optString("message"));
 
                         } else getData.data(null, jsonObject.optString("message"));
 
