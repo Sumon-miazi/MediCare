@@ -39,6 +39,7 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
     private RecyclerView allSpecialistView;
     private TextView appointmentDateHint;
     private TextView appointmentTimeHint;
+
     private TextView hospitalName;
     private TextView doctorName;
     private TextView doctorDegree;

@@ -9,15 +9,19 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.AppointmentListAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
+import com.itbeebd.medicare.api.AppointmentApi;
+import com.itbeebd.medicare.db.CustomSharedPref;
+import com.itbeebd.medicare.utils.Appointment;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.ArrayList;
 
-public class AppointmentListActivity extends AppCompatActivity implements OnRecyclerObjectClickListener<String> {
+public class AppointmentListActivity extends AppCompatActivity implements OnRecyclerObjectClickListener<Appointment>, OptionsBottomSheetFragment.OnItemSelectedListener {
 
     private RecyclerView nextAppointment;
     private RecyclerView oldAppointment;
@@ -62,31 +66,50 @@ public class AppointmentListActivity extends AppCompatActivity implements OnRecy
     }
 
     private void setUpAdapters(){
-        ArrayList<String> data = new ArrayList<>();
-        data.add("data");
-        data.add("data");
+        new AppointmentApi().getAllAppointment(CustomSharedPref.getInstance(this).getUserId(),(data, message) -> {
+            if(!data.isEmpty()){
+                ArrayList<Appointment> nextAppointmentsData = data.get(0);
+                ArrayList<Appointment> previousAppointmentsData = data.get(1);
 
-
-        nextAppointmentAdapter.setItems(data);
-        nextAppointmentAdapter.setListener(this);
-        nextAppointment.setLayoutManager(new LinearLayoutManager(this));
-        nextAppointment.setAdapter(nextAppointmentAdapter);
-
-        ArrayList<String> data2 = new ArrayList<>();
-        data2.add("data2");
-        data2.add("data2");
-        data2.add("data2");
-
-
-        oldAppointmentAdapter.setItems(data2);
-        oldAppointmentAdapter.setListener(this);
-        oldAppointment.setLayoutManager(new LinearLayoutManager(this));
-        oldAppointment.setAdapter(oldAppointmentAdapter);
-
+                if(nextAppointmentsData != null){
+                    nextAppointmentAdapter.setItems(nextAppointmentsData);
+                    nextAppointmentAdapter.setListener(this);
+                    nextAppointment.setLayoutManager(new LinearLayoutManager(this));
+                    nextAppointment.setAdapter(nextAppointmentAdapter);
+                }
+                if(previousAppointmentsData != null){
+                    oldAppointmentAdapter.setItems(previousAppointmentsData);
+                    oldAppointmentAdapter.setListener(this);
+                    oldAppointment.setLayoutManager(new LinearLayoutManager(this));
+                    oldAppointment.setAdapter(oldAppointmentAdapter);
+                }
+            }
+        });
     }
 
     @Override
-    public void onItemClicked(String item, View view) {
+    public void onItemClicked(Appointment item, View view) {
+        showBottomSheetDialogFragment();
+    }
 
+    @Override
+    public void onItemSelectedOnBottomSheet(View view) {
+
+    }
+
+    /**
+     * showing bottom sheet dialog
+     */
+    public void showBottomSheetDialog() {
+        View view = getLayoutInflater().inflate(R.layout.appointment_bottom_sheet, null);
+
+        BottomSheetDialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(view);
+        dialog.show();
+    }
+
+    public void showBottomSheetDialogFragment() {
+        OptionsBottomSheetFragment bottomSheetFragment = new OptionsBottomSheetFragment();
+        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 }

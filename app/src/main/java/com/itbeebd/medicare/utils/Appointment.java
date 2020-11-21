@@ -173,6 +173,7 @@ public class Appointment {
         return cal.getTime();
     }
 
+
     public Date getAppointmentDateAndTime() {
         return appointmentDateAndTime;
     }
@@ -231,6 +232,51 @@ public class Appointment {
                 dateAndTime.add(Integer.parseInt(hours) + ":" + minutes + "am");
             }
       //  }
+        return dateAndTime;
+        /*
+        else if(Integer.parseInt(year) > nowYear){
+
+        }
+        else if(Integer.parseInt(year) < nowYear){
+
+        }
+
+         */
+    }
+
+    public  String getAppointmentDateAndTimeString(){
+        Calendar now = Calendar.getInstance();
+
+        String dateAndTime = "";
+
+        String hours = (String) DateFormat.format("HH", appointmentDateAndTime);
+        String minutes = (String) DateFormat.format("mm", appointmentDateAndTime);
+        String dayOfTheWeek = (String) DateFormat.format("EEEE", appointmentDateAndTime); // Thursday
+        String day          = (String) DateFormat.format("dd",   appointmentDateAndTime); // 20
+        String monthString  = (String) DateFormat.format("MMM",  appointmentDateAndTime); // Jun
+        String monthNumber  = (String) DateFormat.format("MM",   appointmentDateAndTime); // 06
+        String year         = (String) DateFormat.format("yyyy", appointmentDateAndTime); // 2013
+
+        int nowMonth = now.get(Calendar.MONTH) + 1;
+        int nowDay = now.get(Calendar.DAY_OF_MONTH);
+
+        if(Integer.parseInt(monthNumber) == nowMonth){
+            if(Integer.parseInt(day) == nowDay) dateAndTime += "Today";
+            else if(Integer.parseInt(day) == (nowDay+1)) dateAndTime += "Tomorrow" ;
+            else if(Integer.parseInt(day) == (nowDay-1)) dateAndTime += "Yesterday" ;
+            else dateAndTime += day +" "+ monthString + ", " + year;
+        }
+        else {
+            dateAndTime += day +" "+ monthString + ", " + year;
+        }
+
+        if(Integer.parseInt(hours) >= 12){
+            dateAndTime += " " + (Integer.parseInt(hours)-12) + ":" + minutes + "pm";
+        }
+        else {
+            dateAndTime +=  " " + hours + ":" + minutes + "am";
+        }
+        //  }
         return dateAndTime;
         /*
         else if(Integer.parseInt(year) > nowYear){

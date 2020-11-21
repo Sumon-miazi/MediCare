@@ -20,6 +20,6 @@ public class DiagnosticCenterAdapter extends GenericRecyclerAdapter<DiagnosticCe
     @NonNull
     @Override
     public DiagnosticCenterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new DiagnosticCenterViewHolder(inflate(R.layout.signle_diagnostic_center_view, parent), context);
+        return new DiagnosticCenterViewHolder(inflate(R.layout.single_diagnostic_center_view, parent), context);
     }
 }
