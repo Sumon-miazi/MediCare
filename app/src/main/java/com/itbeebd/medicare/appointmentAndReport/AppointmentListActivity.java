@@ -68,7 +68,7 @@ public class AppointmentListActivity extends AppCompatActivity implements OnRecy
 
     private void setUpAdapters(){
         new AppointmentApi().getAllAppointment(CustomSharedPref.getInstance(this).getUserId(),(data, message) -> {
-            if(!data.isEmpty()){
+            if(data != null && !data.isEmpty()){
                 ArrayList<Appointment> nextAppointmentsData = data.get(0);
                 ArrayList<Appointment> previousAppointmentsData = data.get(1);
 
