@@ -3,6 +3,7 @@ package com.itbeebd.medicare.utils;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.orm.SugarRecord;
 
 public class BloodBank extends SugarRecord implements Parcelable {
@@ -171,5 +172,9 @@ public class BloodBank extends SugarRecord implements Parcelable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public LatLng getLocation(){
+        return new LatLng(lat, lon);
     }
 }

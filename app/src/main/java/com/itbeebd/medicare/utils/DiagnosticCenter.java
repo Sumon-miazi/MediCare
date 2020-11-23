@@ -1,5 +1,6 @@
 package com.itbeebd.medicare.utils;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.orm.SugarRecord;
 
 public class DiagnosticCenter extends SugarRecord {
@@ -105,5 +106,9 @@ public class DiagnosticCenter extends SugarRecord {
 
     public void setLon(double lon) {
         this.lon = lon;
+    }
+
+    public LatLng getLocation(){
+        return new LatLng(lat, lon);
     }
 }

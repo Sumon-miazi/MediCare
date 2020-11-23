@@ -22,6 +22,7 @@ public class SearchApi extends BaseService{
     private Context context;
 
     public SearchApi() {
+
     }
 
     public SearchApi(Context context) {

@@ -7,7 +7,12 @@ public class ApiUrls {
    // public static final String BASE_URL = IP_ADDRESS + "/api/";
    // public static final String BASE_IMAGE_URL = IP_ADDRESS + "/storage/";
 
-    public static final String IP_ADDRESS = "http://192.168.43.182";
+    public static final String HOSPITAL = "hospitals";
+    public static final String DIAGNOSTIC = "diagnostic centers";
+    public static final String BLOODBANK = "blood banks";
+
+
+    public static final String IP_ADDRESS = "http://192.168.43.77";
     public static final String BASE_URL = IP_ADDRESS + "/MediCare/public/api/";
     public static final String BASE_IMAGE_URL = IP_ADDRESS + "/MediCare/public/storage/";
 

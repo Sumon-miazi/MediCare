@@ -1,5 +1,7 @@
 package com.itbeebd.medicare.utils;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class Hospital {
     private int id;
     private String name;
@@ -48,5 +50,9 @@ public class Hospital {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public LatLng getLocation(){
+        return new LatLng(lat, lon);
     }
 }

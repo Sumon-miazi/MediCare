@@ -14,16 +14,22 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.text.Html;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.bumptech.glide.Glide;
 import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -41,22 +47,48 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.itbeebd.medicare.api.ApiUrls;
+import com.itbeebd.medicare.api.SearchApi;
 import com.itbeebd.medicare.api.allInterfaces.CustomLocation;
+import com.itbeebd.medicare.diagnosticCenter.OrderTestActivity;
+import com.itbeebd.medicare.utils.BloodBank;
+import com.itbeebd.medicare.utils.DiagnosticCenter;
+import com.itbeebd.medicare.utils.Hospital;
+import com.mikhaellopez.circularimageview.CircularImageView;
+
+import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.ArrayList;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
     private GoogleMap mMap;
     private int updateTimeInterval = 10000;
     private int LOCATION_PERMISSION_ID = 44;
-    private Marker userLocationMarker, busLocationMarker;
+    private Marker userLocationMarker, initialLocationMarker;
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private LatLng userLocation;
+    private LatLng userLocation, initialDestinationLocation;
     private Boolean isGpsLocationEnableChecked = false;
     private Dialog gpsEnableDialog;
 
+    // search layout
+    private ConstraintLayout searchLayout;
+
+    // diagnostic center view
+    private CardView diagnosticCardView;
+    private CircularImageView diagnosticImage;
+    private ImageView diagnosticCloseIcon;
+    private TextView diagnosticName;
+    private TextView diagnosticAddress;
+    private TextView diagnosticPhone;
+    private TextView allServicesTxt;
+    private Button seeAllServicesBtn, orderTest;
+    private ExpandableLayout expandable_layout;
+
+    private ArrayList<Hospital> hospitals;
+    private ArrayList<DiagnosticCenter> diagnosticCenters;
+    private ArrayList<BloodBank> bloodBanks;
+    private String name = "";
     private SmartMaterialSpinner searchNearbySpinner;
     private String searchOption = "";
 
@@ -64,13 +96,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        searchLayout = findViewById(R.id.searchLayoutId);
+        searchNearbySpinner = findViewById(R.id.searchNearbySpinnerId);
+
+        if (getIntent().hasExtra("lat") && getIntent().hasExtra("long")) {
+            initialDestinationLocation = new LatLng(getIntent().getDoubleExtra("lat", 0), getIntent().getDoubleExtra("long", 0));
+        }
+
+
+        initDiagnosticView();
+
+        initMap();
+        initSpinner();
+        initializeDialog();
+    }
+
+    private void initDiagnosticView() {
+        diagnosticCardView = findViewById(R.id.diagnosticCardView);
+        diagnosticImage = findViewById(R.id.main_userImageViewId);
+        diagnosticCloseIcon = findViewById(R.id.closeIconId);
+        diagnosticName = findViewById(R.id.textView5);
+        diagnosticAddress = findViewById(R.id.textView4);
+        diagnosticPhone = findViewById(R.id.textView6);
+        seeAllServicesBtn = findViewById(R.id.seeAllServicesBtnId);
+        orderTest = findViewById(R.id.requestReportBtnId);
+        expandable_layout = findViewById(R.id.expandable_layout);
+        allServicesTxt = findViewById(R.id.allServicesTxtId);
+
+        diagnosticCloseIcon.setVisibility(View.VISIBLE);
+    }
+
+    private void initMap() {
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        searchNearbySpinner = findViewById(R.id.searchNearbySpinnerId);
-
-        initSpinner();
-        initializeDialog();
     }
 
     private void initSpinner() {
@@ -124,59 +184,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         getLastLocation(this::setMarker);
 
-        // Add a marker in Sydney and move the camera
-        /*
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-         */
+        mMap.setOnMarkerClickListener(marker -> {
+            System.out.println("mmmmmmmmm >>>> " + marker.getTitle());
+            marker.showInfoWindow();
+            setUpDataOnMarkerClicked(marker.getTitle());
+            return true;
+        });
     }
 
     private void setMarker(double latitude, double longitude) {
+
         mMap.clear();
 
         LatLngBounds bounds;
-        /*
-        if (true) {
+        if (initialDestinationLocation != null) {
             bounds = new LatLngBounds.Builder()
                     .include(new LatLng(latitude, longitude))
-                  //  .include(new LatLng(bus.lat, bus.lon))
+                    .include(initialDestinationLocation)
                     .build();
 
-           // busLocationMarker = mMap.addMarker(new MarkerOptions()
-                  //  .position(new LatLng(bus.lat, bus.lon))
-                   // .title(bus.name)
-                   // .icon(bitmapDescriptorFromVector(this, R.drawable.ic_bus_marker)));
-
-          //  if (bus.stoppages != null && !bus.stoppages.isEmpty()) {
-              //  for (int i = 0; i < bus.stoppages.size(); i++) {
-                  //  mMap.addMarker(new MarkerOptions()
-                  //          .position(new LatLng(bus.stoppages.get(i).lat, bus.stoppages.get(i).lon))
-                    //        .title(bus.stoppages.get(i).spot_name)
-                    //        .icon(bitmapDescriptorFromVector(this, R.drawable.ic_blue_spot)));
-              //  }
-           // }
-        } else {
+            initialLocationMarker = mMap.addMarker(new MarkerOptions()
+                    .position(initialDestinationLocation)
+                    .title("Result")
+                    .icon(bitmapDescriptorFromVector(this, R.drawable.ic_user_marker)));
+            initialLocationMarker.showInfoWindow();
+        }
+        else {
             bounds = new LatLngBounds.Builder()
                     .include(new LatLng(latitude, longitude))
                     .build();
         }
 
+        addUserMarker(latitude, longitude);
 
-         */
-
-        bounds = new LatLngBounds.Builder()
-                .include(new LatLng(latitude, longitude))
-                .build();
-
-        userLocationMarker = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(latitude, longitude))
-                .title("My location")
-                .icon(bitmapDescriptorFromVector(this, R.drawable.ic_user_marker)));
-
-        // .icon(BitmapDescriptorFactory.fromResource(R.drawable.user_gps)));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nearest_station.getStationGPS(),zoom));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 10));
+        if(initialDestinationLocation != null) mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 200));
+        else mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 12));
     }
 
 
@@ -237,7 +279,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         // Log.i("request2", "getLastLocation from mLocationCallBacks");
                         Location mLastLocation = locationResult.getLastLocation();
                         userLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-                        setMarker(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                        //setMarker(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                         customLocation.customLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
 
                         //Log.i("controlBottomSheet", "location2 >>> " + mLastLocation.getLatitude() + " " + mLastLocation.getLongitude());
@@ -285,8 +327,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onResume();
 
         if (isLocationPermissionsGiven()) {
-             getLastLocation(this::setMarker);
-           // updateUserLocationAndBusCurrentLocationFromAPI();
+           // getLastLocation(this::setMarker);
+            // updateUserLocationAndBusCurrentLocationFromAPI();
         }
     }
 
@@ -313,12 +355,170 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     public void searchNearByByNameAndDistance(View view) {
-        if(searchOption.isEmpty()){
+        if (searchOption.isEmpty()) {
             Toast.makeText(this, "Please select an option first", Toast.LENGTH_LONG).show();
             return;
         }
-        String name = (searchOption.split("in")[0]).trim();
-        String radius = (searchOption.split("in")[1]).trim().replace("km","");
-        Toast.makeText(this,name + " >>>>> " + radius, Toast.LENGTH_LONG).show();
+        name = (searchOption.split("in")[0]).toLowerCase().trim();
+        String radius = (searchOption.split("in")[1]).trim().replace("km", "").toLowerCase();
+        // Toast.makeText(this,name + " >>>>> " + radius, Toast.LENGTH_LONG).show();
+
+        new SearchApi().getNearByNameAndDistance(name,
+                Integer.parseInt(radius),
+                (hospitals, diagnosticCenters, bloodBanks, message) -> {
+
+                    if (name.equals("diagnostic centers") && diagnosticCenters != null && !diagnosticCenters.isEmpty()) {
+                        this.diagnosticCenters = diagnosticCenters;
+                        setMarkersOnMap();
+                    }
+
+                });
+    }
+    private void setMarkersOnMap(){
+
+        mMap.clear();
+        initialDestinationLocation = null;
+
+        LatLngBounds.Builder bounds = new LatLngBounds.Builder();
+        if(userLocation != null) bounds.include(userLocation);
+
+        getLastLocation((latitude, longitude) -> {
+            bounds.include(new LatLng(latitude, longitude));
+            addUserMarker(latitude, longitude);
+        });
+
+        switch (name) {
+            case ApiUrls.HOSPITAL:
+                for (int i = 0; i < this.hospitals.size(); i++) {
+                    bounds.include(this.hospitals.get(i).getLocation());
+                    addMarker(
+                            this.hospitals.get(i).getName(),
+                            this.hospitals.get(i).getLocation(),
+                            R.drawable.ic_user_marker
+                    );
+                }
+                break;
+            case ApiUrls.DIAGNOSTIC:
+                for (int i = 0; i < this.diagnosticCenters.size(); i++) {
+                    bounds.include(this.diagnosticCenters.get(i).getLocation());
+                    addMarker(
+                            this.diagnosticCenters.get(i).getName(),
+                            this.diagnosticCenters.get(i).getLocation(),
+                            R.drawable.ic_user_marker
+                    );
+                }
+                break;
+            case ApiUrls.BLOODBANK:
+                for (int i = 0; i < this.bloodBanks.size(); i++) {
+                    bounds.include(this.bloodBanks.get(i).getLocation());
+                    addMarker(
+                            this.bloodBanks.get(i).getName(),
+                            this.bloodBanks.get(i).getLocation(),
+                            R.drawable.ic_user_marker
+                    );
+                }
+                break;
+        }
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 200));
+    }
+
+    private void addMarker(String name, LatLng location, int drawable){
+        System.out.println(">>>>>>>. addMarker");
+        mMap.addMarker(new MarkerOptions()
+                .position(location)
+                .title(name)
+                .icon(bitmapDescriptorFromVector(this, drawable)));
+    }
+
+    private void addUserMarker(double latitude, double longitude){
+        System.out.println(">>>>>>>. addUserMarker");
+
+         mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .title("My location")
+                .icon(bitmapDescriptorFromVector(this, R.drawable.ic_user_marker)));
+
+
+    }
+
+    private void setUpDataOnMarkerClicked(String title){
+        System.out.println(">>>>>>>. setUpDataOnMarkerClicked " + title);
+        if(title.equals("My location")) {
+            System.out.println(">>>>>>>>>>>>>else ");
+            searchLayout.setVisibility(View.VISIBLE);
+            diagnosticCardView.setVisibility(View.GONE);
+        }
+        else if(name.equals(ApiUrls.HOSPITAL)){
+            System.out.println(">>>>>>>>>>>>>hospital ");
+            for (int i = 0; i < this.hospitals.size(); i++) {
+                Hospital hospital = this.hospitals.get(i);
+                if(hospital.getName().equals(title)){
+                    searchLayout.setVisibility(View.GONE);
+                    setHospitalData(hospital);
+                    break;
+                }
+            }
+        }
+        else if(name.equals(ApiUrls.DIAGNOSTIC)){
+            System.out.println(">>>>>>>>>>>>>dc ");
+            for (int i = 0; i < this.diagnosticCenters.size(); i++) {
+                DiagnosticCenter diagnosticCenter = this.diagnosticCenters.get(i);
+                if(diagnosticCenter.getName().equals(title)){
+                    searchLayout.setVisibility(View.GONE);
+                    setDiagnosticCenterData(diagnosticCenter);
+                    break;
+                }
+            }
+        }
+        else if(name.equals(ApiUrls.BLOODBANK)){
+            System.out.println(">>>>>>>>>>>>>bb ");
+            for (int i = 0; i < this.bloodBanks.size(); i++) {
+                BloodBank bloodBank = this.bloodBanks.get(i);
+                if(bloodBank.getName().equals(title)){
+                    searchLayout.setVisibility(View.GONE);
+                    setBloodBankData(bloodBank);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void setHospitalData(Hospital hospitalData) {
+
+    }
+
+    private void setDiagnosticCenterData(DiagnosticCenter diagnosticCenterData) {
+        System.out.println(">>>>>>>. diagnosticCardView visible");
+        diagnosticCardView.setVisibility(View.VISIBLE);
+        diagnosticName.setText(diagnosticCenterData.getName());
+        diagnosticAddress.setText(diagnosticCenterData.getAddress());
+        diagnosticPhone.setText(diagnosticCenterData.getPhone());
+        allServicesTxt.setText(Html.fromHtml(diagnosticCenterData.getServices()));
+
+        if (diagnosticCenterData.getImage() != null) {
+            Glide.with(this)
+                    .load(ApiUrls.BASE_IMAGE_URL + diagnosticCenterData.getImage())
+                    .into(diagnosticImage);
+        }
+
+        seeAllServicesBtn.setOnClickListener(view -> {
+            expandable_layout.toggle();
+        });
+
+        orderTest.setOnClickListener(view -> {
+            Intent intent = new Intent(this, OrderTestActivity.class);
+            intent.putExtra("diagnosticCenterId", diagnosticCenterData.getDiagnosticId());
+            startActivity(intent);
+        });
+
+        diagnosticCloseIcon.setOnClickListener(view -> {
+            diagnosticCardView.setVisibility(View.GONE);
+            searchLayout.setVisibility(View.VISIBLE);
+        });
+    }
+
+    private void setBloodBankData(BloodBank bloodBankData) {
+
     }
 }
