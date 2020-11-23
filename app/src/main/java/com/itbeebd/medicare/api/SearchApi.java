@@ -91,7 +91,7 @@ public class SearchApi extends BaseService{
             }
         });
     }
-    
+
     private ArrayList<Hospital> getHospitalsFromJsonArray(JSONArray hospitalsJsonArray){
         try {
             ArrayList<Hospital> hospitalArrayList = new ArrayList<>();

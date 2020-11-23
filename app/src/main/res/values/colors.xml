@@ -91,4 +91,6 @@
 
     <color name="flash_bar">#05A19C</color>
 
+    <color name="positive_notification">#E9F7FF</color>
+    <color name="negative_notification">#FFE2E3</color>
 </resources>
