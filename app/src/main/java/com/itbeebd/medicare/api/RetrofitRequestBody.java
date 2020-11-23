@@ -166,4 +166,12 @@ public class RetrofitRequestBody {
     String getApi_key() {
         return this.api_key;
     }
+
+    public Map<String, Object> getNearByNameAndDistance(String name, int distance) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", name);
+        map.put("distance", distance);
+        map.put("api_key", this.api_key);
+        return map;
+    }
 }

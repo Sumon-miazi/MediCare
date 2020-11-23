@@ -14,6 +14,10 @@ import retrofit2.http.Part;
 
 public interface RetrofitService {
 
+
+    @POST(ApiUrls.SEARCH_NEARBY)
+    Call<ResponseBody> getNearByNameAndDistance(@Body Map<String, Object> body);
+
     @POST(ApiUrls.ALL_HOSPITAL)
     Call<ResponseBody> getAllHospital(@Body Map<String, Object> body);
 

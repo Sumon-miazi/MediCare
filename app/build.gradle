@@ -75,7 +75,7 @@ dependencies {
     implementation 'com.gauravk.bubblenavigation:bubblenavigation:1.0.7'
 
     //https://github.com/kizitonwose/CalendarView
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.10'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.1'
     implementation 'com.github.kizitonwose:CalendarView:0.4.5'
 
 
@@ -107,5 +107,9 @@ dependencies {
     // intro library
     // https://github.com/AppIntro/AppIntro
     implementation 'com.github.AppIntro:AppIntro:6.0.0'
+
+    //spinner
+    //https://github.com/Chivorns/SmartMaterialSpinner
+    implementation 'com.github.chivorns.androidx:smartmaterialspinner:1.2.1'
 
 }
