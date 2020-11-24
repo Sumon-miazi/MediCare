@@ -30,14 +30,14 @@
         app:layout_constraintTop_toBottomOf="@+id/profileImageId">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rateUsBtn"
+            android:id="@+id/showAllAppointmentBtn"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:onClick="normalUser"
-            app:layout_constraintBottom_toTopOf="@+id/feedBackBtn"
+            app:layout_constraintBottom_toTopOf="@+id/showAllReportsBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -66,17 +66,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/feedBackBtn"
+            android:id="@+id/showAllReportsBtn"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:onClick="registerDoctor"
-            app:layout_constraintBottom_toTopOf="@+id/checkForUpdatesBtn"
+            app:layout_constraintBottom_toTopOf="@+id/editProfileBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rateUsBtn">
+            app:layout_constraintTop_toBottomOf="@+id/showAllAppointmentBtn">
 
             <View
                 android:layout_width="0dp"
@@ -112,17 +112,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/checkForUpdatesBtn"
+            android:id="@+id/editProfileBtn"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:onClick="registerBloodBank"
-            app:layout_constraintBottom_toTopOf="@+id/inviteFrndsBtn"
+            app:layout_constraintBottom_toTopOf="@+id/logOutBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/feedBackBtn">
+            app:layout_constraintTop_toBottomOf="@+id/showAllReportsBtn">
 
             <View
                 android:layout_width="0dp"
@@ -158,7 +158,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/inviteFrndsBtn"
+            android:id="@+id/logOutBtn"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clickable="true"
@@ -168,7 +168,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkForUpdatesBtn">
+            app:layout_constraintTop_toBottomOf="@+id/editProfileBtn">
 
             <View
                 android:layout_width="0dp"
