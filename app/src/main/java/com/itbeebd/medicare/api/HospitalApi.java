@@ -45,9 +45,9 @@ public class HospitalApi extends BaseService {
                                         object.getString("name"),
                                         object.getString("address"),
                                         object.getString("phone"),
-                                        object.getDouble("lat"),
-                                        object.getDouble("long"));
-                                hospital.setImage(object.optString("image"));
+                                        object.getDouble("latitude"),
+                                        object.getDouble("longitude"));
+                                hospital.setImage(object.optString("image").equals("null")? null : object.optString("image"));
 
                                 hospitalArrayList.add(hospital);
                             }
@@ -103,7 +103,7 @@ public class HospitalApi extends BaseService {
 
                                 Specialist specialist = new Specialist(object.getInt("id"),
                                         object.getString("type"),
-                                        object.getString("icon"));
+                                        object.optString("icon").equals("null")? null : object.optString("icon"));
 
                                 specialists.add(specialist);
                             }

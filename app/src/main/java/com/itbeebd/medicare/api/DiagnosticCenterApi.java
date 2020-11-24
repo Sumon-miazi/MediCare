@@ -61,13 +61,13 @@ public class DiagnosticCenterApi extends BaseService{
 
                             DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
                             diagnosticCenter.setName(userObj.getString("name"));
-                            diagnosticCenter.setImage(userObj.optString("image"));
+                            diagnosticCenter.setImage(userObj.optString("image").equals("null")? null : userObj.optString("image"));
                             diagnosticCenter.setAddress(userObj.getString("address"));
                             diagnosticCenter.setServices(userObj.getString("services"));
                             diagnosticCenter.setEmail(userObj.getString("email"));
                             diagnosticCenter.setPhone(userObj.getString("phone"));
-                            diagnosticCenter.setLat(userObj.getDouble("lat"));
-                            diagnosticCenter.setLon(userObj.getDouble("long"));
+                            diagnosticCenter.setLat(userObj.getDouble("latitude"));
+                            diagnosticCenter.setLon(userObj.getDouble("longitude"));
                             diagnosticCenter.setUid(userObj.getString("uid"));
                             diagnosticCenter.setDiagnosticId(userObj.getInt("id"));
 
@@ -116,13 +116,13 @@ public class DiagnosticCenterApi extends BaseService{
 
                             DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
                             diagnosticCenter.setName(userObj.getString("name"));
-                            diagnosticCenter.setImage(userObj.optString("image"));
+                            diagnosticCenter.setImage(userObj.optString("image").equals("null")? null : userObj.optString("image"));
                             diagnosticCenter.setAddress(userObj.getString("address"));
                             diagnosticCenter.setServices(userObj.getString("services"));
                             diagnosticCenter.setEmail(userObj.getString("email"));
                             diagnosticCenter.setPhone(userObj.getString("phone"));
-                            diagnosticCenter.setLat(userObj.getDouble("lat"));
-                            diagnosticCenter.setLon(userObj.getDouble("long"));
+                            diagnosticCenter.setLat(userObj.getDouble("latitude"));
+                            diagnosticCenter.setLon(userObj.getDouble("longitude"));
                             diagnosticCenter.setUid(userObj.getString("uid"));
 
                             diagnosticCenter.setDiagnosticId(userObj.getInt("id"));
@@ -182,12 +182,12 @@ public class DiagnosticCenterApi extends BaseService{
                                 DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
                                 diagnosticCenter.setDiagnosticId(object.getInt("id"));
                                 diagnosticCenter.setName(object.getString("name"));
-                                diagnosticCenter.setImage(object.getString("image"));
+                                diagnosticCenter.setImage(object.optString("image").equals("null")? null : object.optString("image"));
                                 diagnosticCenter.setAddress(object.getString("address"));
                                 diagnosticCenter.setPhone(object.getString("phone"));
                                 diagnosticCenter.setServices(object.getString("services"));
-                                diagnosticCenter.setLat(object.getDouble("lat"));
-                                diagnosticCenter.setLon(object.getDouble("long"));
+                                diagnosticCenter.setLat(object.getDouble("latitude"));
+                                diagnosticCenter.setLon(object.getDouble("longitude"));
 
                                 diagnosticCenters.add(diagnosticCenter);
                             }

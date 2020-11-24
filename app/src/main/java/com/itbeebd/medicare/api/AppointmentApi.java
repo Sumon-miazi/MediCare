@@ -92,7 +92,7 @@ public class AppointmentApi extends BaseService{
                             appointment.setStatus(object.getInt("status"));
                             appointment.setAppointmentDateAndTime(object.getString("appointmentTime"));
                             appointment.setName(doctorObj.getString("name"));
-                            appointment.setImage(doctorObj.getString("image"));
+                            appointment.setImage(doctorObj.optString("image").equals("null")? null : doctorObj.optString("image"));
                             appointment.setDegree(doctorObj.getString("specialist"));
                             appointment.setHospitalName(hospital.getString("name"));
                             appointment.setAddress(hospital.getString("address"));
@@ -175,8 +175,8 @@ public class AppointmentApi extends BaseService{
                 appointment.setDoctor_chamber_id(object.getInt("doctor_chamber_id"));
                 appointment.setStatus(object.getInt("status"));
                 appointment.setAppointmentDateAndTime(object.getString("appointmentTime"));
-                appointment.setName(doctorObj.getString("name"));
-                appointment.setImage(doctorObj.getString("image"));
+                appointment.setImage(doctorObj.optString("image").equals("null")? null : doctorObj.optString("image"));
+                appointment.setName(doctorObj.getString("image"));
                 appointment.setDegree(doctorObj.getString("specialist"));
                 appointment.setHospitalName(hospital.getString("name"));
                 appointment.setAddress(hospital.getString("address"));
@@ -236,13 +236,13 @@ public class AppointmentApi extends BaseService{
 
                                 DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
                                 diagnosticCenter.setName(diagnosticCenterObj.getString("name"));
-                                diagnosticCenter.setImage(diagnosticCenterObj.optString("image"));
+                                diagnosticCenter.setImage(diagnosticCenterObj.optString("image").equals("null")? null : diagnosticCenterObj.optString("image"));
                                 diagnosticCenter.setAddress(diagnosticCenterObj.getString("address"));
                                 diagnosticCenter.setServices(diagnosticCenterObj.getString("services"));
                                 diagnosticCenter.setEmail(diagnosticCenterObj.getString("email"));
                                 diagnosticCenter.setPhone(diagnosticCenterObj.getString("phone"));
-                                diagnosticCenter.setLat(diagnosticCenterObj.getDouble("lat"));
-                                diagnosticCenter.setLon(diagnosticCenterObj.getDouble("long"));
+                                diagnosticCenter.setLat(diagnosticCenterObj.getDouble("latitude"));
+                                diagnosticCenter.setLon(diagnosticCenterObj.getDouble("longitude"));
                                 diagnosticCenter.setUid(diagnosticCenterObj.getString("uid"));
                                 diagnosticCenter.setDiagnosticId(diagnosticCenterObj.getInt("id"));
 

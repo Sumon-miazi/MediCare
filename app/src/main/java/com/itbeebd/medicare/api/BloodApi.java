@@ -108,7 +108,7 @@ public class BloodApi extends BaseService{
                                         userDetails.getString("address"),
                                         userDetails.getString("phone"),
                                         userDetails.getString("token"));
-                                bloodDonor.setImage(userDetails.optString("image"));
+                                bloodDonor.setImage(userDetails.optString("image").equals("null")? null : userDetails.optString("image"));
                                 bloodDonors.add(bloodDonor);
                             }
                             getDataFromApiCall.data(bloodDonors, jsonObject.optString("message"));
@@ -211,7 +211,7 @@ public class BloodApi extends BaseService{
                                         userDetails.getString("phone"),
                                         userDetails.getString("token"));
 
-                                bloodRequest.setImage(userDetails.optString("image"));
+                                bloodRequest.setImage(userDetails.optString("image").equals("null")? null : userDetails.optString("image"));
 
                                 bloodRequests.add(bloodRequest);
                             }
@@ -274,7 +274,7 @@ public class BloodApi extends BaseService{
                                     userObj.getString("phone"),
                                     userObj.getString("email")
                             );
-                            bb.setImage(userObj.optString("image"));
+                            bb.setImage(userObj.optString("image").equals("null")? null : userObj.optString("image"));
 
                             bb.setBloodBankId(userObj.getInt("id"));
                             CustomSharedPref.getInstance(context).setUserId(bb.getBloodBankId());
@@ -322,7 +322,7 @@ public class BloodApi extends BaseService{
                                     userObj.getString("phone"),
                                     userObj.getString("email")
                             );
-                            bb.setImage(userObj.optString("image"));
+                            bb.setImage(userObj.optString("image").equals("null")? null : userObj.optString("image"));
 
                             bb.setBloodBankId(userObj.getInt("id"));
                             new Dao().saveBloodBankProfile(bb);
@@ -383,9 +383,9 @@ public class BloodApi extends BaseService{
                                         object.getString("address"),
                                         object.getString("phone"),
                                         object.getString("about"),
-                                        object.getDouble("lat"),
-                                        object.getDouble("long"));
-                                bloodBank.setImage(object.optString("image"));
+                                        object.getDouble("latitude"),
+                                        object.getDouble("longitude"));
+                                bloodBank.setImage(object.optString("image").equals("null")? null : object.optString("image"));
 
                                 bloodBanks.add(bloodBank);
                             }

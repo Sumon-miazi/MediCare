@@ -2,6 +2,7 @@ package com.itbeebd.medicare.api;
 
 import android.content.Context;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.itbeebd.medicare.api.allInterfaces.GetSearchedData;
 import com.itbeebd.medicare.utils.BloodBank;
 import com.itbeebd.medicare.utils.DiagnosticCenter;
@@ -28,12 +29,12 @@ public class SearchApi extends BaseService{
     public SearchApi(Context context) {
         this.context = context;
     }
-    public void getNearByNameAndDistance(String name, int distance,final GetSearchedData getSearchedData) {
+    public void getNearby(LatLng userLocation, String name, int distance, final GetSearchedData getSearchedData) {
 
         System.out.println("getNearByNameAndDistance>>>>>>>>>>> called ");
 
         final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
-        Call<ResponseBody> responseBodyCall = service.getNearByNameAndDistance(retrofitRequestBody.getNearByNameAndDistance(name, distance));
+        Call<ResponseBody> responseBodyCall = service.getNearByNameAndDistance(retrofitRequestBody.getNearByNameAndDistance(userLocation,name, distance));
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -43,12 +44,17 @@ public class SearchApi extends BaseService{
                         jsonObject = new JSONObject(response.body().string());
 
                         System.out.println("getNearByNameAndDistance>>>>>>>>>>> " + jsonObject.toString());
+                        System.out.println("message>>>>>>>>>>> " + jsonObject.optString("message"));
+                        System.out.println("condition>>>>>>>>>>> " + name.toLowerCase().equals(ApiUrls.HOSPITAL));
+                        System.out.println("condition>>>>>>>>>>> " + name.toLowerCase().equals(ApiUrls.DIAGNOSTIC));
+                        System.out.println("condition>>>>>>>>>>> " + name.toLowerCase().equals(ApiUrls.BLOODBANK));
+                       // System.out.println("name>>>>>>>>>>> " + name);
 
                         if (jsonObject.optString("status").equals("true")) {
-
                             JSONArray jsonArray = jsonObject.getJSONArray("data");
 
-                            if(name.toLowerCase().equals("hospitals")){
+                            if(name.toLowerCase().equals(ApiUrls.HOSPITAL)){
+                                System.out.println("name>>>>>>>>>>> " + name);
                                 getSearchedData.data(
                                         getHospitalsFromJsonArray(jsonArray),
                                         null,
@@ -56,7 +62,8 @@ public class SearchApi extends BaseService{
                                         jsonObject.optString("message"));
                             }
 
-                            else if(name.toLowerCase().equals("diagnostic centers")){
+                            else if(name.toLowerCase().equals(ApiUrls.DIAGNOSTIC)){
+                                System.out.println("name>>>>>>>>>>> " + name);
                                 getSearchedData.data(
                                         null,
                                         getDiagnosticsFromJsonArray(jsonArray),
@@ -64,7 +71,8 @@ public class SearchApi extends BaseService{
                                         jsonObject.optString("message"));
                             }
 
-                            else if(name.toLowerCase().equals("blood banks")){
+                            else if(name.toLowerCase().equals(ApiUrls.BLOODBANK)){
+                                System.out.println("name>>>>>>>>>>> " + name);
                                 getSearchedData.data(
                                         null,
                                         null,
@@ -105,9 +113,9 @@ public class SearchApi extends BaseService{
                         object.getString("name"),
                         object.getString("address"),
                         object.getString("phone"),
-                        object.getDouble("lat"),
-                        object.getDouble("long"));
-                hospital.setImage(object.optString("image"));
+                        object.getDouble("latitude"),
+                        object.getDouble("longitude"));
+                hospital.setImage(object.optString("image").equals("null")? null : object.optString("image"));
 
                 hospitalArrayList.add(hospital);
             }
@@ -130,19 +138,20 @@ public class SearchApi extends BaseService{
                 DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
                 diagnosticCenter.setDiagnosticId(object.getInt("id"));
                 diagnosticCenter.setName(object.getString("name"));
-                diagnosticCenter.setImage(object.getString("image"));
+                diagnosticCenter.setImage(object.optString("image").equals("null")? null : object.optString("image"));
                 diagnosticCenter.setAddress(object.getString("address"));
                 diagnosticCenter.setPhone(object.getString("phone"));
                 diagnosticCenter.setServices(object.getString("services"));
-                diagnosticCenter.setLat(object.getDouble("lat"));
-                diagnosticCenter.setLon(object.getDouble("long"));
+                diagnosticCenter.setLat(object.getDouble("latitude"));
+                diagnosticCenter.setLon(object.getDouble("longitude"));
 
                 diagnosticCenters.add(diagnosticCenter);
             }
-
+            System.out.println("name>>>>>>>>>>>dc " + diagnosticCenters.size());
             return diagnosticCenters;
         }
         catch (Exception ignore){
+            System.out.println("name>>>>>>>>>>>dc " + ignore.getMessage());
             return null;
         }
     }
@@ -160,9 +169,9 @@ public class SearchApi extends BaseService{
                         object.getString("address"),
                         object.getString("phone"),
                         object.getString("about"),
-                        object.getDouble("lat"),
-                        object.getDouble("long"));
-                bloodBank.setImage(object.optString("image"));
+                        object.getDouble("latitude"),
+                        object.getDouble("longitude"));
+                bloodBank.setImage(object.optString("image").equals("null")? null : object.optString("image"));
 
                 bloodBanks.add(bloodBank);
             }

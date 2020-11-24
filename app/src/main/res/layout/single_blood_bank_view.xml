@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
+    android:id="@+id/bloodBankLayoutId"
     app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bloodBankLayoutId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -31,25 +31,36 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:maxLength="20"
             android:text="Ashar alo blood bank"
             android:textColor="@color/result_color"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bbCloseIconId"
             app:layout_constraintStart_toEndOf="@+id/bloodBankImageViewId"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
+
+        <ImageView
+            android:id="@+id/bbCloseIconId"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_cancel_24"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/bloodBankAddressTxtViewId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:maxLength="22"
             android:text="Cumilla, kandirpar"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bbCloseIconId"
             app:layout_constraintStart_toStartOf="@+id/bloodBankNameTxtViewId"
             app:layout_constraintTop_toBottomOf="@+id/bloodBankNameTxtViewId" />
 
@@ -100,6 +111,7 @@
             android:layout_margin="4dp"
             android:layout_marginBottom="16dp"
             android:text="Map"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/bbCallBtn"

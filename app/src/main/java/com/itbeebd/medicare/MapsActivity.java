@@ -63,10 +63,8 @@ import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
-    private int updateTimeInterval = 10000;
-    private int LOCATION_PERMISSION_ID = 44;
-    private Marker userLocationMarker, initialLocationMarker;
-    private FusedLocationProviderClient fusedLocationProviderClient;
+    private final int LOCATION_PERMISSION_ID = 1976;
+    private Marker userLocationMarker;
     private LatLng userLocation, initialDestinationLocation;
     private Boolean isGpsLocationEnableChecked = false;
     private Dialog gpsEnableDialog;
@@ -74,23 +72,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // search layout
     private ConstraintLayout searchLayout;
 
+    // hospital center view
+    private CardView hospitalInfoLayout;
+    private CircularImageView hospitalImageView;
+    private TextView hospitalName;
+    private TextView hospitalAddress;
+
     // diagnostic center view
     private CardView diagnosticCardView;
     private CircularImageView diagnosticImage;
-    private ImageView diagnosticCloseIcon;
     private TextView diagnosticName;
     private TextView diagnosticAddress;
     private TextView diagnosticPhone;
     private TextView allServicesTxt;
-    private Button seeAllServicesBtn, orderTest;
+    private Button orderTest;
     private ExpandableLayout expandable_layout;
+
+    // blood bank view
+    private CardView bbCardView;
+    private CircularImageView bbImage;
+    private TextView bbName;
+    private TextView bbAddress;
+    private TextView bbPhone;
+    private Button bbCallBtn;
 
     private ArrayList<Hospital> hospitals;
     private ArrayList<DiagnosticCenter> diagnosticCenters;
     private ArrayList<BloodBank> bloodBanks;
+    private String selectedNearbyCategoryName = "";
     private String name = "";
     private SmartMaterialSpinner searchNearbySpinner;
     private String searchOption = "";
+    private String title = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,31 +113,67 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         searchLayout = findViewById(R.id.searchLayoutId);
         searchNearbySpinner = findViewById(R.id.searchNearbySpinnerId);
 
-        if (getIntent().hasExtra("lat") && getIntent().hasExtra("long")) {
-            initialDestinationLocation = new LatLng(getIntent().getDoubleExtra("lat", 0), getIntent().getDoubleExtra("long", 0));
+        if (getIntent().hasExtra("latitude") && getIntent().hasExtra("longitude")) {
+
+            initialDestinationLocation = new LatLng(getIntent().getDoubleExtra("latitude", 0),
+                    getIntent().getDoubleExtra("longitude", 0));
+            title = getIntent().getStringExtra("title");
         }
 
 
+        initHospitalView();
         initDiagnosticView();
+        initBloodBankView();
 
         initMap();
         initSpinner();
         initializeDialog();
     }
 
+    private void initHospitalView() {
+        hospitalInfoLayout = findViewById(R.id.hospitalInfoLayoutId);
+        hospitalImageView = findViewById(R.id.hospitalImageViewId);
+        ImageView hospitalCloseIcon = findViewById(R.id.hospitalMapIconId);
+        hospitalCloseIcon.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_baseline_close_24));
+
+        hospitalName = findViewById(R.id.hospitalNameTxtViewId);
+        hospitalAddress = findViewById(R.id.hospitalAddressTxtViewId);
+
+        hospitalCloseIcon.setVisibility(View.VISIBLE);
+        hospitalCloseIcon.setOnClickListener(this::closeIconClicked);
+    }
+
     private void initDiagnosticView() {
         diagnosticCardView = findViewById(R.id.diagnosticCardView);
         diagnosticImage = findViewById(R.id.main_userImageViewId);
-        diagnosticCloseIcon = findViewById(R.id.closeIconId);
+        ImageView diagnosticCloseIcon = findViewById(R.id.closeIconId);
         diagnosticName = findViewById(R.id.textView5);
         diagnosticAddress = findViewById(R.id.textView4);
         diagnosticPhone = findViewById(R.id.textView6);
-        seeAllServicesBtn = findViewById(R.id.seeAllServicesBtnId);
+        Button seeAllServicesBtn = findViewById(R.id.seeAllServicesBtnId);
         orderTest = findViewById(R.id.requestReportBtnId);
         expandable_layout = findViewById(R.id.expandable_layout);
         allServicesTxt = findViewById(R.id.allServicesTxtId);
 
         diagnosticCloseIcon.setVisibility(View.VISIBLE);
+        diagnosticCloseIcon.setOnClickListener(this::closeIconClicked);
+        seeAllServicesBtn.setOnClickListener(view -> expandable_layout.toggle());
+    }
+
+    private void initBloodBankView() {
+        bbCardView = findViewById(R.id.bloodBankLayoutId);
+        bbImage = findViewById(R.id.bloodBankImageViewId);
+        ImageView bbCloseIcon = findViewById(R.id.bbCloseIconId);
+        bbName = findViewById(R.id.bloodBankNameTxtViewId);
+        bbAddress = findViewById(R.id.bloodBankAddressTxtViewId);
+        bbPhone = findViewById(R.id.bloodBankPhoneTxtViewId);
+        bbCallBtn = findViewById(R.id.bbCallBtn);
+        Button bbLocationBtn = findViewById(R.id.bbLocationBtn);
+        bbLocationBtn.setVisibility(View.GONE);
+
+        bbCloseIcon.setVisibility(View.VISIBLE);
+        bbCloseIcon.setOnClickListener(this::closeIconClicked);
+
     }
 
     private void initMap() {
@@ -137,20 +186,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         ArrayList<String> nearBy = new ArrayList<>();
 
-        nearBy.add("Hospitals in 5km");
-        nearBy.add("Hospitals in 10km");
-        nearBy.add("Hospitals in 20km");
-        nearBy.add("Hospitals in 50km");
+        nearBy.add(ApiUrls.HOSPITAL + " in 5km");
+        nearBy.add(ApiUrls.HOSPITAL + " in 10km");
+        nearBy.add(ApiUrls.HOSPITAL + " in 20km");
+        nearBy.add(ApiUrls.HOSPITAL + " in 50km");
 
-        nearBy.add("Diagnostic Centers in 5km");
-        nearBy.add("Diagnostic Centers in 10km");
-        nearBy.add("Diagnostic Centers in 20km");
-        nearBy.add("Diagnostic Centers in 50km");
+        nearBy.add(ApiUrls.DIAGNOSTIC + " in 5km");
+        nearBy.add(ApiUrls.DIAGNOSTIC + " in 10km");
+        nearBy.add(ApiUrls.DIAGNOSTIC + " in 20km");
+        nearBy.add(ApiUrls.DIAGNOSTIC + " in 50km");
 
-        nearBy.add("Blood Bank in 5km");
-        nearBy.add("Blood Bank in 10km");
-        nearBy.add("Blood Bank in 20km");
-        nearBy.add("Blood Bank in 50km");
+        nearBy.add(ApiUrls.BLOODBANK + " in 5km");
+        nearBy.add(ApiUrls.BLOODBANK + " in 10km");
+        nearBy.add(ApiUrls.BLOODBANK + " in 20km");
+        nearBy.add(ApiUrls.BLOODBANK + " in 50km");
 
         searchNearbySpinner.setItem(nearBy);
 
@@ -194,6 +243,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void setMarker(double latitude, double longitude) {
 
+        if(!name.isEmpty()){
+            setMarkersOnMap();
+            return;
+        }
+
         mMap.clear();
 
         LatLngBounds bounds;
@@ -203,9 +257,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .include(initialDestinationLocation)
                     .build();
 
-            initialLocationMarker = mMap.addMarker(new MarkerOptions()
+            Marker initialLocationMarker = mMap.addMarker(new MarkerOptions()
                     .position(initialDestinationLocation)
-                    .title("Result")
+                    .title(title)
                     .icon(bitmapDescriptorFromVector(this, R.drawable.ic_user_marker)));
             initialLocationMarker.showInfoWindow();
         }
@@ -270,7 +324,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mLocationRequest.setFastestInterval(0);
         mLocationRequest.setNumUpdates(1);
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationProviderClient.requestLocationUpdates(
                 mLocationRequest,
                 new LocationCallback() {
@@ -327,7 +381,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onResume();
 
         if (isLocationPermissionsGiven()) {
-           // getLastLocation(this::setMarker);
+            getLastLocation(this::setMarker);
             // updateUserLocationAndBusCurrentLocationFromAPI();
         }
     }
@@ -359,21 +413,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Toast.makeText(this, "Please select an option first", Toast.LENGTH_LONG).show();
             return;
         }
-        name = (searchOption.split("in")[0]).toLowerCase().trim();
+        selectedNearbyCategoryName = (searchOption.split("in")[0]).toLowerCase().trim();
         String radius = (searchOption.split("in")[1]).trim().replace("km", "").toLowerCase();
         // Toast.makeText(this,name + " >>>>> " + radius, Toast.LENGTH_LONG).show();
 
-        new SearchApi().getNearByNameAndDistance(name,
-                Integer.parseInt(radius),
+        new SearchApi().getNearby(userLocation, selectedNearbyCategoryName, Integer.parseInt(radius),
                 (hospitals, diagnosticCenters, bloodBanks, message) -> {
 
-                    if (name.equals("diagnostic centers") && diagnosticCenters != null && !diagnosticCenters.isEmpty()) {
+                    if (selectedNearbyCategoryName.equals(ApiUrls.HOSPITAL) && hospitals != null && !hospitals.isEmpty()) {
+                        this.name = this.selectedNearbyCategoryName;
+                        this.hospitals = hospitals;
+                        setMarkersOnMap();
+                    }
+                    else if (selectedNearbyCategoryName.equals(ApiUrls.DIAGNOSTIC) && diagnosticCenters != null && !diagnosticCenters.isEmpty()) {
+                        this.name = this.selectedNearbyCategoryName;
                         this.diagnosticCenters = diagnosticCenters;
+                        setMarkersOnMap();
+                    }
+                    else if (selectedNearbyCategoryName.equals(ApiUrls.BLOODBANK) && bloodBanks != null && !bloodBanks.isEmpty()) {
+                        this.name = this.selectedNearbyCategoryName;
+                        this.bloodBanks = bloodBanks;
                         setMarkersOnMap();
                     }
 
                 });
     }
+
+
     private void setMarkersOnMap(){
 
         mMap.clear();
@@ -386,7 +452,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             bounds.include(new LatLng(latitude, longitude));
             addUserMarker(latitude, longitude);
         });
-
+        System.out.println("<<<<<<<< name" + name);
+        System.out.println("<<<<<<<< apiule" + ApiUrls.HOSPITAL);
+        System.out.println("<<<<<<<< apiule" + ApiUrls.DIAGNOSTIC);
+        System.out.println("<<<<<<<< apiule" + ApiUrls.BLOODBANK);
         switch (name) {
             case ApiUrls.HOSPITAL:
                 for (int i = 0; i < this.hospitals.size(); i++) {
@@ -445,11 +514,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void setUpDataOnMarkerClicked(String title){
         System.out.println(">>>>>>>. setUpDataOnMarkerClicked " + title);
         if(title.equals("My location")) {
-            System.out.println(">>>>>>>>>>>>>else ");
-            searchLayout.setVisibility(View.VISIBLE);
-            diagnosticCardView.setVisibility(View.GONE);
+            closeIconClicked(null);
         }
-        else if(name.equals(ApiUrls.HOSPITAL)){
+
+        else if(name.equals(ApiUrls.HOSPITAL) && this.hospitals != null){
             System.out.println(">>>>>>>>>>>>>hospital ");
             for (int i = 0; i < this.hospitals.size(); i++) {
                 Hospital hospital = this.hospitals.get(i);
@@ -460,7 +528,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         }
-        else if(name.equals(ApiUrls.DIAGNOSTIC)){
+        else if(name.equals(ApiUrls.DIAGNOSTIC) && this.diagnosticCenters != null){
             System.out.println(">>>>>>>>>>>>>dc ");
             for (int i = 0; i < this.diagnosticCenters.size(); i++) {
                 DiagnosticCenter diagnosticCenter = this.diagnosticCenters.get(i);
@@ -471,7 +539,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         }
-        else if(name.equals(ApiUrls.BLOODBANK)){
+        else if(name.equals(ApiUrls.BLOODBANK) && this.bloodBanks != null){
             System.out.println(">>>>>>>>>>>>>bb ");
             for (int i = 0; i < this.bloodBanks.size(); i++) {
                 BloodBank bloodBank = this.bloodBanks.get(i);
@@ -485,7 +553,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void setHospitalData(Hospital hospitalData) {
-
+        hospitalInfoLayout.setVisibility(View.VISIBLE);
+        hospitalName.setText(hospitalData.getName());
+        hospitalAddress.setText(hospitalData.getAddress());
+        if (hospitalData.getImage() != null) {
+            Glide.with(this)
+                    .load(ApiUrls.BASE_IMAGE_URL + hospitalData.getImage())
+                    .into(hospitalImageView);
+        }
     }
 
     private void setDiagnosticCenterData(DiagnosticCenter diagnosticCenterData) {
@@ -502,23 +577,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .into(diagnosticImage);
         }
 
-        seeAllServicesBtn.setOnClickListener(view -> {
-            expandable_layout.toggle();
-        });
-
         orderTest.setOnClickListener(view -> {
             Intent intent = new Intent(this, OrderTestActivity.class);
             intent.putExtra("diagnosticCenterId", diagnosticCenterData.getDiagnosticId());
             startActivity(intent);
         });
-
-        diagnosticCloseIcon.setOnClickListener(view -> {
-            diagnosticCardView.setVisibility(View.GONE);
-            searchLayout.setVisibility(View.VISIBLE);
-        });
     }
 
     private void setBloodBankData(BloodBank bloodBankData) {
+        bbCardView.setVisibility(View.VISIBLE);
+        bbName.setText(bloodBankData.getName());
+        bbAddress.setText(bloodBankData.getAddress());
+        bbPhone.setText(bloodBankData.getPhone());
 
+        if (bloodBankData.getImage() != null) {
+            Glide.with(this)
+                    .load(ApiUrls.BASE_IMAGE_URL + bloodBankData.getImage())
+                    .into(bbImage);
+        }
+
+        bbCallBtn.setOnClickListener(view -> {
+            Toast.makeText(this, "called button clicked " + bloodBankData.getName(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void closeIconClicked(View v){
+        hospitalInfoLayout.setVisibility(View.GONE);
+        diagnosticCardView.setVisibility(View.GONE);
+        bbCardView.setVisibility(View.GONE);
+        searchLayout.setVisibility(View.VISIBLE);
     }
 }

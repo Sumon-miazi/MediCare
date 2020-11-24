@@ -74,7 +74,7 @@ public class DoctorApi extends BaseService {
                             doc.setEducationHistory(userObj.getString("educationHistory"));
                             doc.setSpecialist(userObj.getString("specialist"));
                             doc.setBmdcRegNo(userObj.getString("bmdcRegNo"));
-                            doc.setImage(userObj.optString("image"));
+                            doc.setImage(userObj.optString("image").equals("null")? null : userObj.optString("image"));
 
                             CustomSharedPref.getInstance(context).setUserId(doc.getDoctorId());
 
@@ -126,7 +126,7 @@ public class DoctorApi extends BaseService {
                             doctor.setSpecialist(userObj.getString("specialist"));
                             doctor.setEducationHistory(userObj.getString("educationHistory"));
                             doctor.setGender(userObj.getString("gender"));
-                            doctor.setImage(userObj.optString("image"));
+                            doctor.setImage(userObj.optString("image").equals("null")? null : userObj.optString("image"));
 
                             new Dao().saveDoctorProfile(doctor);
 
@@ -183,7 +183,7 @@ public class DoctorApi extends BaseService {
                                         object.getString("educationHistory"),
                                         object.getString("address"),
                                         object.getString("phone"));
-                                doctor.setImage(object.optString("image"));
+                                doctor.setImage(object.optString("image").equals("null")? null : object.optString("image"));
                                 doctorArrayList.add(doctor);
                             }
 
@@ -242,7 +242,7 @@ public class DoctorApi extends BaseService {
                                         object.getString("educationHistory"),
                                         object.getString("address"),
                                         object.getString("phone"));
-                                doctor.setImage(object.optString("image"));
+                                doctor.setImage(object.optString("image").equals("null")? null : object.optString("image"));
                                 doctorArrayList.add(doctor);
                             }
 
@@ -301,10 +301,10 @@ public class DoctorApi extends BaseService {
                                         object.getString("visit_fee"),
                                         hospitalObj.getString("address"),
                                         hospitalObj.getString("phone"),
-                                        hospitalObj.getDouble("lat"),
-                                        hospitalObj.getDouble("long"));
+                                        hospitalObj.getDouble("latitude"),
+                                        hospitalObj.getDouble("longitude"));
 
-                                doctorChamber.setImage(object.optString("image"));
+                                doctorChamber.setImage(object.optString("image").equals("null")? null : object.optString("image"));
 
                                 JSONArray availableDays = object.getJSONArray("available_days");
                                 ArrayList<CustomDayOfWeek> customDayOfWeekArrayList = new ArrayList<>();

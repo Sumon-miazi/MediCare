@@ -1,5 +1,6 @@
 package com.itbeebd.medicare.api;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.itbeebd.medicare.utils.Appointment;
 import com.itbeebd.medicare.utils.BloodBank;
 import com.itbeebd.medicare.utils.BloodRequest;
@@ -167,10 +168,12 @@ public class RetrofitRequestBody {
         return this.api_key;
     }
 
-    public Map<String, Object> getNearByNameAndDistance(String name, int distance) {
+    public Map<String, Object> getNearByNameAndDistance(LatLng userLocation, String name, int distance) {
         Map<String, Object> map = new HashMap<>();
         map.put("name", name);
-        map.put("distance", distance);
+        map.put("latitude", userLocation.latitude);
+        map.put("longitude", userLocation.longitude);
+        map.put("radius", distance);
         map.put("api_key", this.api_key);
         return map;
     }
