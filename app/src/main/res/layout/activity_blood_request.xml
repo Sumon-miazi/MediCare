@@ -10,77 +10,57 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="20dp">
 
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Blood for"
-            android:textColor="@color/textColor"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
             android:id="@+id/bloodForSpinnerId"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/round_border_bg"
-            android:popupBackground="@drawable/white_rounded_bg"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView16"
-            tools:listitem="@layout/single_spinner_item" />
-
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="City preference"
-            android:textColor="@color/textColor"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bloodForSpinnerId" />
-
-        <Spinner
-            android:id="@+id/citySpinnerId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/round_border_bg"
-            android:popupBackground="@drawable/white_rounded_bg"
-            android:spinnerMode="dropdown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView17"
-            tools:listitem="@layout/single_spinner_item" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:smsp_floatingLabelColor="#009688"
+            app:smsp_floatingLabelText="Blood for"
+            app:smsp_hint="Blood for"
+            app:smsp_itemColor="#171717"
+            app:smsp_itemListColor="@color/textColor"
+            app:smsp_itemListHintBackgroundColor="@color/example_4_green"
+            app:smsp_itemListHintColor="#FFFFFF"
+            app:smsp_multilineError="false"
+            app:smsp_selectedItemListColor="@color/result_color" />
+
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/citySpinnerId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bloodForSpinnerId"
+            app:smsp_floatingLabelColor="#009688"
+            app:smsp_floatingLabelText="City preference"
+            app:smsp_hint="City preference"
+            app:smsp_itemColor="#171717"
+            app:smsp_itemListColor="@color/textColor"
+            app:smsp_itemListHintBackgroundColor="@color/example_4_green"
+            app:smsp_itemListHintColor="#FFFFFF"
+            app:smsp_multilineError="false"
+            app:smsp_selectedItemListColor="@color/result_color" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="8dp"
             android:hint="Enter Hospital name"
             android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/citySpinnerId"
-            app:startIconDrawable="@drawable/ic_person"
-            tools:layout_editor_absoluteX="30dp">
+            app:startIconDrawable="@drawable/ic_person">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/hospitalNameId"
@@ -96,44 +76,37 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <TextView
-            android:id="@+id/bloodAmountHintId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Blood amount"
-            android:textColor="@color/textColor"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-
-        <Spinner
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
             android:id="@+id/bloodAmountSpinnerId"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/round_border_bg"
-            android:popupBackground="@drawable/white_rounded_bg"
-            android:spinnerMode="dropdown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bloodAmountHintId"
-            tools:listitem="@layout/single_spinner_item" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+            app:smsp_floatingLabelColor="#009688"
+            app:smsp_floatingLabelText="City preference"
+            app:smsp_hint="City preference"
+            app:smsp_itemColor="#171717"
+            app:smsp_itemListColor="@color/textColor"
+            app:smsp_itemListHintBackgroundColor="@color/example_4_green"
+            app:smsp_itemListHintColor="#FFFFFF"
+            app:smsp_multilineError="false"
+            app:smsp_selectedItemListColor="@color/result_color" />
 
 
         <Button
             android:id="@+id/whenNeededBloodBtnId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="30dp"
+            android:background="@drawable/button_drawable"
             android:text="Select date and time"
             android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bloodAmountSpinnerId" />
 
         <TextView
@@ -162,9 +135,9 @@
 
         <Button
             android:id="@+id/addBloodRequestBtnId"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/blue_bg"
             android:minWidth="180dp"
             android:text="Submit"

@@ -2,23 +2,25 @@ package com.itbeebd.medicare.bloodBank;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
 import com.google.android.material.textfield.TextInputEditText;
 import com.itbeebd.medicare.R;
+import com.itbeebd.medicare.api.ApiUrls;
 import com.itbeebd.medicare.api.BloodApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.BloodRequest;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -40,9 +42,14 @@ public class BloodRequestActivity extends AppCompatActivity implements DatePicke
 
     private String bloodGroupName;
     private String bloodGroupFactor;
-    private Spinner bloodForSpinner;
-    private Spinner citySpinner;
-    private Spinner amountSpinner;
+    private SmartMaterialSpinner bloodForSpinner;
+    private SmartMaterialSpinner citySpinner;
+    private SmartMaterialSpinner amountSpinner;
+
+    private String bloodFor = "";
+    private String cityName = "";
+    private String bloodAmount = "";
+
     private TextInputEditText hospitalName;
     private Button whenNeededBloodBtn;
     private DatePickerDialog dpd;
@@ -76,7 +83,10 @@ public class BloodRequestActivity extends AppCompatActivity implements DatePicke
 
         Button addBloodRequestBtn = findViewById(R.id.addBloodRequestBtnId);
 
-        setAllAdapter();
+        initBloodForSpinner();
+        initCitySpinner();
+        initAmountSpinner();
+
         setUpDatePicker();
 
         addBloodRequestBtn.setOnClickListener(this::addNewBloodRequest);
@@ -167,37 +177,99 @@ public class BloodRequestActivity extends AppCompatActivity implements DatePicke
         two_txt.setTextColor(getResources().getColor(R.color.pink_700));
     }
 
-    private void setAllAdapter(){
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.blood_for_list, R.layout.single_spinner_item);
-        adapter.setDropDownViewResource(R.layout.single_spinner_item);
-        bloodForSpinner.setAdapter(adapter);
+    private void initBloodForSpinner() {
 
+        ArrayList<String> items = new ArrayList<>();
 
-        ArrayAdapter<CharSequence> city_adapter = ArrayAdapter.createFromResource(this, R.array.blood_for_list, R.layout.single_spinner_item);
-        city_adapter.setDropDownViewResource(R.layout.single_spinner_item);
-        citySpinner.setAdapter(city_adapter);
+        items.add(ApiUrls.HOSPITAL + " in 5km");
+        items.add(ApiUrls.HOSPITAL + " in 10km");
+        items.add(ApiUrls.HOSPITAL + " in 20km");
+        items.add(ApiUrls.HOSPITAL + " in 50km");
 
-        ArrayAdapter<CharSequence> amountAdapter = ArrayAdapter.createFromResource(this, R.array.blood_for_list, R.layout.single_spinner_item);
-        amountAdapter.setDropDownViewResource(R.layout.single_spinner_item);
-        amountSpinner.setAdapter(amountAdapter);
+        bloodForSpinner.setItem(items);
+
+        bloodForSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                //Toast.makeText(MapsActivity.this, nearBy.get(position), Toast.LENGTH_SHORT).show();
+                bloodFor = items.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                bloodFor = "";
+            }
+        });
+    }
+
+    private void initCitySpinner() {
+
+        ArrayList<String> items = new ArrayList<>();
+
+        items.add(ApiUrls.HOSPITAL + " in 5km");
+        items.add(ApiUrls.HOSPITAL + " in 10km");
+        items.add(ApiUrls.HOSPITAL + " in 20km");
+        items.add(ApiUrls.HOSPITAL + " in 50km");
+
+        citySpinner.setItem(items);
+
+        citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                //Toast.makeText(MapsActivity.this, nearBy.get(position), Toast.LENGTH_SHORT).show();
+                cityName = items.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                cityName = "";
+            }
+        });
+    }
+
+    private void initAmountSpinner() {
+
+        ArrayList<String> items = new ArrayList<>();
+
+        items.add(ApiUrls.HOSPITAL + " in 5km");
+        items.add(ApiUrls.HOSPITAL + " in 10km");
+        items.add(ApiUrls.HOSPITAL + " in 20km");
+        items.add(ApiUrls.HOSPITAL + " in 50km");
+
+        amountSpinner.setItem(items);
+
+        amountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                //Toast.makeText(MapsActivity.this, nearBy.get(position), Toast.LENGTH_SHORT).show();
+                bloodAmount = items.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                bloodAmount = "";
+            }
+        });
     }
 
     private void addNewBloodRequest(View view){
-        String bloodFor = bloodForSpinner.getSelectedItem().toString();
-        String city = citySpinner.getSelectedItem().toString();
+
         String hospital = hospitalName.getText().toString().trim();
-        String amount = amountSpinner.getSelectedItem().toString();
 
         if(bloodNeededDateTime == null){
             Toast.makeText(this, "Select date and time first please", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(bloodFor.isEmpty() || cityName.isEmpty() || bloodAmount.isEmpty()){
+            Toast.makeText(this, "Please fill up all options first", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         BloodRequest bloodRequest = new BloodRequest(CustomSharedPref.getInstance(this).getUserId(),
                 bloodFor,
-                city,
+                cityName,
                 hospital,
-                amount,
+                bloodAmount,
                 (bloodGroupName+bloodGroupFactor));
         bloodRequest.setBloodNeededDateTime(bloodNeededDateTime);
 
