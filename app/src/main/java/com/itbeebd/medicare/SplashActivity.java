@@ -71,7 +71,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void goToSignInActivity() {
-        animationView.setRepeatCount(0);
+        //animationView.setRepeatCount(0);
         if(alreadyNotCalledSignInActivity){
             alreadyNotCalledSignInActivity = false;
             startActivity(new Intent(this, UserSignInActivity.class));
@@ -123,7 +123,7 @@ public class SplashActivity extends AppCompatActivity {
                         flashbar = showFlash("Loading failed", "দুঃখিত এই মূহর্তে এপ্সটি ওপেন করা যাচ্ছে না। কিছুক্ষণ পর আবার চেষ্টা করুন। ধন্যবাদ ");
                         flashbar.show();
                     }
-                    animationView.setRepeatCount(0);
+                  //  animationView.setRepeatCount(0);
                 });
             }
         }
@@ -180,7 +180,7 @@ public class SplashActivity extends AppCompatActivity {
             flashbar = showFlash("Loading failed", "দুঃখিত এই মূহর্তে এপ্সটি ওপেন করা যাচ্ছে না। কিছুক্ষণ পর আবার চেষ্টা করুন। ধন্যবাদ ");
             flashbar.show();
         }
-        animationView.setRepeatCount(0);
+       // animationView.setRepeatCount(0);
     }
 
 

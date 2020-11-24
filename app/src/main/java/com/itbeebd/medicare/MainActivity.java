@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
                 break;
 
             case R.id.l_item_search:
-                System.out.println(">>>>>>>>>search");
+                startActivity(new Intent(this, MapsActivity.class));
                 break;
 
             case R.id.l_item_profile_list:

@@ -7,4 +7,6 @@
     <dimen name="doctor_profile_communication_card_view_size">60dp</dimen>
     <dimen name="doctor_profile_communication_card_view_margin">2dp</dimen>
     <dimen name="doctor_profile_communication_card_view_padding">12dp</dimen>
+
+    <dimen name="app_logo_size">100dp</dimen>
 </resources>

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.andrognito.flashbar.Flashbar;
 import com.google.firebase.FirebaseException;
@@ -52,6 +53,13 @@ public class UserSignInActivity extends AppCompatActivity implements View.OnClic
     private Flashbar flashbar = null;
     private String verificationCode;
 
+    private ConstraintLayout verifyNumberView;
+    private ConstraintLayout confirmOtpView;
+    private TextView goBackBtn;
+    private Button confirmNumBtn;
+    private Button resendBtn;
+    private EditText verificationCodeId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +74,25 @@ public class UserSignInActivity extends AppCompatActivity implements View.OnClic
 
         userMobile = findViewById(R.id.userNumberId);
         verifyBtnId = findViewById(R.id.verifyBtnId);
+        verifyNumberView = findViewById(R.id.verifyNumberView);
+        confirmOtpView = findViewById(R.id.confirmOtpView);
+        goBackBtn = findViewById(R.id.goBackId);
 
+        confirmNumBtn = findViewById(R.id.confirmOtpBtnId);
+        resendBtn = findViewById(R.id.resendTxtBtnId);
+        verificationCodeId = findViewById(R.id.verificationCodeID);
+
+        confirmNumBtn.setOnClickListener(v -> {
+            verificationCode = verificationCodeId.getText().toString().trim();
+            signInOrResendBtnClicked(true);
+        });
+
+        resendBtn.setOnClickListener(v -> signInOrResendBtnClicked(false));
+        goBackBtn.setOnClickListener(v -> {
+            verifyNumberView.setVisibility(View.VISIBLE);
+            confirmOtpView.setVisibility(View.GONE);
+            goBackBtn.setVisibility(View.GONE);
+        });
         verifyBtnId.setOnClickListener(this);
         
         // Initializing phone auth callbacks  (For verification, Not entering code yet, To get text send to device)
@@ -118,7 +144,10 @@ public class UserSignInActivity extends AppCompatActivity implements View.OnClic
                 flashbar = showFlash("Attention Please", "আপনার ফোন নাম্বারে একটি ভেরিফিকেশন কোড পাঠানো হয়েছে।  যদি না যায় একটু অপেক্ষা করুন। কোডটি টাইপ করে SIGN IN বাটনের ক্লিক করুন।  ধন্যবাদ ");
                 flashbar.show();
 
-                showCodeConfirmationDialog();
+               // showCodeConfirmationDialog();
+                verifyNumberView.setVisibility(View.GONE);
+                confirmOtpView.setVisibility(View.VISIBLE);
+                goBackBtn.setVisibility(View.VISIBLE);
                 // The SMS verification code will be sent to the provided phone number
                 // Now need to ask the user for entering the code and then construct a credential
                 // through integrating the code with a verification ID.
@@ -307,7 +336,7 @@ public class UserSignInActivity extends AppCompatActivity implements View.OnClic
             //    setErrorMessage(userMobile, "Enter number");
             return;
         }
-        phnNumber = "+880" + phnNumber;
+        phnNumber = "+88" + phnNumber;
         if (!(Patterns.PHONE.matcher(phnNumber).matches())) {
             if (flashbar != null)
                 flashbar.dismiss();
