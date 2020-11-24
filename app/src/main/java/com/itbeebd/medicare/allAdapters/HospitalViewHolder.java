@@ -2,11 +2,12 @@ package com.itbeebd.medicare.allAdapters;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
 import com.itbeebd.medicare.R;
@@ -20,7 +21,8 @@ public class HospitalViewHolder extends BaseViewHolder<Hospital, OnRecyclerObjec
     private final TextView hospitalName;
     private final TextView hospitalAddress;
     private final CircularImageView hospitalImageView;
-    private final ConstraintLayout hospitalInfoLayout;
+    private final CardView hospitalInfoLayout;
+    private final ImageView hospitalMapIcon;
     private Context context;
 
     public HospitalViewHolder(@NonNull View itemView, Context context) {
@@ -30,6 +32,7 @@ public class HospitalViewHolder extends BaseViewHolder<Hospital, OnRecyclerObjec
         hospitalAddress = itemView.findViewById(R.id.hospitalAddressTxtViewId);
         hospitalImageView = itemView.findViewById(R.id.hospitalImageViewId);
         hospitalInfoLayout = itemView.findViewById(R.id.hospitalInfoLayoutId);
+        hospitalMapIcon = itemView.findViewById(R.id.hospitalMapIconId);
     }
 
     @Override
@@ -44,6 +47,11 @@ public class HospitalViewHolder extends BaseViewHolder<Hospital, OnRecyclerObjec
         }
 
         hospitalInfoLayout.setOnClickListener(view -> {
+            assert listener != null;
+            listener.onItemClicked(item, view);
+        });
+
+        hospitalMapIcon.setOnClickListener(view -> {
             assert listener != null;
             listener.onItemClicked(item, view);
         });

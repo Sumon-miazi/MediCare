@@ -43,7 +43,7 @@
         <activity android:name=".bloodBank.BloodDonorRegistrationActivity" />
         <activity android:name=".userProfile.AllBookedAppointmentActivity" />
         <activity
-            android:name=".MapsActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -84,7 +84,7 @@
             android:name=".hospitals.HospitalListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait" />
 

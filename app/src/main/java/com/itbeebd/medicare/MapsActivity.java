@@ -168,7 +168,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bbAddress = findViewById(R.id.bloodBankAddressTxtViewId);
         bbPhone = findViewById(R.id.bloodBankPhoneTxtViewId);
         bbCallBtn = findViewById(R.id.bbCallBtn);
-        Button bbLocationBtn = findViewById(R.id.bbLocationBtn);
+        ImageView bbLocationBtn = findViewById(R.id.bbLocationBtn);
         bbLocationBtn.setVisibility(View.GONE);
 
         bbCloseIcon.setVisibility(View.VISIBLE);

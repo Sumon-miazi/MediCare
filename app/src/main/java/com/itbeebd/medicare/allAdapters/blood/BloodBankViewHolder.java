@@ -3,11 +3,12 @@ package com.itbeebd.medicare.allAdapters.blood;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
 import com.itbeebd.medicare.R;
@@ -22,10 +23,10 @@ public class BloodBankViewHolder extends BaseViewHolder<BloodBank, OnRecyclerObj
     private TextView bloodBankAddress;
     private TextView bloodBankPhone;
     private Button bbCallBtn;
-    private Button bbLocationBtn;
+    private ImageView bbLocationBtn;
     private Button bbOrderBtn;
     private CircularImageView bloodBankImageView;
-    private ConstraintLayout bloodBankInfoLayout;
+    private CardView bloodBankInfoLayout;
     private Context context;
 
     public BloodBankViewHolder(@NonNull View itemView, Context context) {
@@ -53,12 +54,12 @@ public class BloodBankViewHolder extends BaseViewHolder<BloodBank, OnRecyclerObj
                     .load(ApiUrls.BASE_IMAGE_URL + item.getImage())
                     .into(bloodBankImageView);
         }
-/*
-        bloodBankInfoLayout.setOnClickListener(view -> {
+
+        bbLocationBtn.setOnClickListener(view -> {
             assert listener != null;
             listener.onItemClicked(item, view);
         });
-         */
+
     }
 
 

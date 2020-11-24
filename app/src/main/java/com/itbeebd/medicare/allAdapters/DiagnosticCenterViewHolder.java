@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ public class DiagnosticCenterViewHolder extends BaseViewHolder<DiagnosticCenter,
     private TextView name;
     private Context context;
     private CircularImageView imageView;
+    private ImageView showMeOnMap;
     private TextView phone;
     private TextView address;
     private TextView allServicesTxt;
@@ -33,6 +35,7 @@ public class DiagnosticCenterViewHolder extends BaseViewHolder<DiagnosticCenter,
         super(itemView);
         this.context = context;
         imageView = itemView.findViewById(R.id.main_userImageViewId);
+        showMeOnMap = itemView.findViewById(R.id.showMeOnMapId);
         name = itemView.findViewById(R.id.textView5);
         address = itemView.findViewById(R.id.textView4);
         phone = itemView.findViewById(R.id.textView6);
@@ -40,6 +43,7 @@ public class DiagnosticCenterViewHolder extends BaseViewHolder<DiagnosticCenter,
         orderTest = itemView.findViewById(R.id.requestReportBtnId);
         expandable_layout = itemView.findViewById(R.id.expandable_layout);
         allServicesTxt = itemView.findViewById(R.id.allServicesTxtId);
+        showMeOnMap.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -60,6 +64,11 @@ public class DiagnosticCenterViewHolder extends BaseViewHolder<DiagnosticCenter,
         });
 
         orderTest.setOnClickListener(view -> {
+            assert listener != null;
+            listener.onItemClicked(item, view);
+        });
+
+        showMeOnMap.setOnClickListener(view -> {
             assert listener != null;
             listener.onItemClicked(item, view);
         });

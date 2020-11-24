@@ -104,18 +104,17 @@
             app:layout_constraintTop_toBottomOf="@+id/bloodBankPhoneTxtViewId"
             app:layout_constraintVertical_bias="1.0" />
 
-        <Button
+        <ImageView
             android:id="@+id/bbLocationBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_marginBottom="16dp"
-            android:text="Map"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="6dp"
+            android:padding="6dp"
+            android:src="@drawable/ic_location"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/bbCallBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/bbCallBtn"
-            app:layout_constraintTop_toBottomOf="@+id/bloodBankPhoneTxtViewId"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="@+id/bbCallBtn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

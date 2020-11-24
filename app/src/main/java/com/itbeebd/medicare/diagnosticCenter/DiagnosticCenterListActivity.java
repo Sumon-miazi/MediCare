@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.itbeebd.medicare.MapsActivity;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.DiagnosticCenterAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
@@ -44,10 +45,18 @@ public class DiagnosticCenterListActivity extends AppCompatActivity implements O
 
     @Override
     public void onItemClicked(DiagnosticCenter item, View view) {
+        Intent intent = null;
         if(view.getId() == R.id.requestReportBtnId){
-            Intent intent = new Intent(this, OrderTestActivity.class);
+            intent = new Intent(this, OrderTestActivity.class);
             intent.putExtra("diagnosticCenterId", item.getDiagnosticId());
-            startActivity(intent);
+
         }
+        else if(view.getId() == R.id.showMeOnMapId){
+            intent = new Intent(this, MapsActivity.class);
+            intent.putExtra("latitude", item.getLat());
+            intent.putExtra("longitude", item.getLon());
+            intent.putExtra("title", item.getName());
+        }
+        startActivity(intent);
     }
 }

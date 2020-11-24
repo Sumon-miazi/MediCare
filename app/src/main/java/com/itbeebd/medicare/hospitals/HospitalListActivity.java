@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.itbeebd.medicare.MapsActivity;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.HospitalAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
@@ -42,10 +43,20 @@ public class HospitalListActivity extends AppCompatActivity implements OnRecycle
 
     @Override
     public void onItemClicked(Hospital item, View view) {
-        System.out.println(">>>>>>>>>>. clicked");
-        Intent intent = new Intent(this, DoctorListActivity.class);
-        intent.putExtra("hospitalId", item.getId());
-        intent.putExtra("source", "HospitalListActivity");
+        Intent intent = null;
+        if(view.getId() == R.id.hospitalInfoLayoutId){
+            intent = new Intent(this, DoctorListActivity.class);
+            intent.putExtra("hospitalId", item.getId());
+            intent.putExtra("source", "HospitalListActivity");
+
+        }
+        else if(view.getId() == R.id.hospitalMapIconId){
+            intent = new Intent(this, MapsActivity.class);
+            intent.putExtra("latitude", item.getLat());
+            intent.putExtra("longitude", item.getLon());
+            intent.putExtra("title", item.getName());
+        }
         startActivity(intent);
+
     }
 }

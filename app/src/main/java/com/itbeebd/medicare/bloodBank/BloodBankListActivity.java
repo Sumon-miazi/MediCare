@@ -1,5 +1,6 @@
 package com.itbeebd.medicare.bloodBank;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.itbeebd.medicare.MapsActivity;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.blood.BloodBankAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
@@ -42,6 +44,14 @@ public class BloodBankListActivity extends AppCompatActivity implements OnRecycl
 
     @Override
     public void onItemClicked(BloodBank item, View view) {
+        Intent intent = null;
+        if(view.getId() == R.id.bbLocationBtn){
+            intent = new Intent(this, MapsActivity.class);
+            intent.putExtra("latitude", item.getLat());
+            intent.putExtra("longitude", item.getLon());
+            intent.putExtra("title", item.getName());
+            startActivity(intent);
+        }
 
     }
 }
