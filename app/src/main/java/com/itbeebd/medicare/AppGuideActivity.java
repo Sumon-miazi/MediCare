@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import com.github.appintro.AppIntro2;
+import com.github.appintro.AppIntroCustomLayoutFragment;
 import com.github.appintro.AppIntroFragment;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.userProfile.UserSignInActivity;
@@ -28,8 +29,8 @@ public class AppGuideActivity extends AppIntro2 {
                 Color.RED,
                 Color.BLUE
                 ));*/
-       // addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.activity_dash_board));
-        addSlide(AppIntroFragment.newInstance("welcome", "this is description"));
+        addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.intro_welcome_view));
+       // addSlide(AppIntroFragment.newInstance("welcome", "this is description"));
         addSlide(AppIntroFragment.newInstance("this is intro", "this is description"));
         addSlide(AppIntroFragment.newInstance("here more intro", "this is description"));
         addSlide(AppIntroFragment.newInstance("Let's get started", "this is description"));
@@ -40,7 +41,7 @@ public class AppGuideActivity extends AppIntro2 {
 
         // Change Indicator Color
         setIndicatorColor(
-                getResources().getColor(R.color.result_color),
+                getResources().getColor(R.color.white),
                 getResources().getColor(R.color.grey_bg_light)
         );
     }

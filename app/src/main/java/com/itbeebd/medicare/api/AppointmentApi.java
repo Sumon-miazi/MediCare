@@ -176,7 +176,7 @@ public class AppointmentApi extends BaseService{
                 appointment.setStatus(object.getInt("status"));
                 appointment.setAppointmentDateAndTime(object.getString("appointmentTime"));
                 appointment.setImage(doctorObj.optString("image").equals("null")? null : doctorObj.optString("image"));
-                appointment.setName(doctorObj.getString("image"));
+                appointment.setName(doctorObj.getString("name"));
                 appointment.setDegree(doctorObj.getString("specialist"));
                 appointment.setHospitalName(hospital.getString("name"));
                 appointment.setAddress(hospital.getString("address"));
