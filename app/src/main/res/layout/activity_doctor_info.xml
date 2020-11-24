@@ -16,25 +16,18 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/ic_white_bg"
-            android:padding="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.mikhaellopez.circularimageview.CircularImageView
+
+            <ImageView
                 android:id="@+id/main_doctorImageViewId"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/demo"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:scaleType="centerCrop"
-                app:civ_border_width="0dp"
-                app:civ_shadow="true"
-                app:civ_shadow_radius="3dp"
+                android:src="@drawable/demo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,56 +35,77 @@
                 android:id="@+id/doctorProfileNameTxtViewId"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
                 android:text="Dr. Md. Suman miazi"
-                android:textColor="@color/textColor"
-                android:textSize="16sp"
+                android:textAlignment="center"
+                android:textColor="@color/result_color"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/main_doctorImageViewId"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/main_doctorImageViewId" />
+                app:layout_constraintTop_toBottomOf="@+id/main_doctorImageViewId" />
 
             <TextView
                 android:id="@+id/doctorProfileTitleTxtViewId"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="MBBS, FCPS"
+                android:paddingBottom="10dp"
                 android:textColor="@color/textColor"
-                android:textSize="12sp"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/doctorProfileNameTxtViewId"
                 app:layout_constraintStart_toStartOf="@+id/doctorProfileNameTxtViewId"
                 app:layout_constraintTop_toBottomOf="@+id/doctorProfileNameTxtViewId" />
 
-            <ImageView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/doctorMessageImgId"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="16dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_message"
-                app:layout_constraintStart_toStartOf="@+id/doctorProfileTitleTxtViewId"
-                app:layout_constraintTop_toBottomOf="@+id/doctorProfileTitleTxtViewId" />
+                android:layout_width="@dimen/doctor_profile_communication_card_view_size"
+                android:layout_height="@dimen/doctor_profile_communication_card_view_size"
+                android:layout_margin="@dimen/doctor_profile_communication_card_view_margin"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/doctorCallImgId"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/doctorProfileTitleTxtViewId">
 
-            <ImageView
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/doctor_profile_communication_card_view_padding"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_baseline_email_24" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
                 android:id="@+id/doctorCallImgId"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="8dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_message"
+                android:layout_width="@dimen/doctor_profile_communication_card_view_size"
+                android:layout_height="@dimen/doctor_profile_communication_card_view_size"
+                android:layout_margin="@dimen/doctor_profile_communication_card_view_margin"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/doctorMessageImgId"
-                app:layout_constraintTop_toTopOf="@+id/doctorMessageImgId" />
+                app:layout_constraintTop_toBottomOf="@+id/doctorProfileTitleTxtViewId">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/doctor_profile_communication_card_view_padding"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_baseline_call_24" />
+            </androidx.cardview.widget.CardView>
 
-            <ImageView
-                android:id="@+id/doctorVideoCallImgId"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="8dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_message"
-                app:layout_constraintStart_toEndOf="@+id/doctorCallImgId"
-                app:layout_constraintTop_toTopOf="@+id/doctorMessageImgId" />
+            <View
+                android:id="@+id/blankView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/doctorMessageImgId" />
 
 
             <androidx.cardview.widget.CardView
@@ -107,7 +121,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/doctorMessageImgId">
+                app:layout_constraintTop_toBottomOf="@+id/blankView">
 
             </androidx.cardview.widget.CardView>
 
@@ -116,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Patients"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/grey_active"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/textView10"
                 app:layout_constraintEnd_toEndOf="@+id/textView10"
@@ -126,7 +140,7 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1000"
+                android:text="100"
                 android:textColor="@color/textColor"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -147,13 +161,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/totalPatientTreatmentCountId"
-                app:layout_constraintTop_toBottomOf="@+id/doctorMessageImgId" />
+                app:layout_constraintTop_toBottomOf="@+id/blankView" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Reviews"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/grey_active"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/textView13"
                 app:layout_constraintEnd_toEndOf="@+id/textView13"
@@ -163,7 +177,7 @@
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1100"
+                android:text="88"
                 android:textColor="@color/textColor"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -176,11 +190,11 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/blue_bg"
+                android:layout_margin="30dp"
                 android:gravity="center"
                 android:onClick="bookAppointment"
                 android:text="Book Appointment"
+                android:background="@drawable/button_drawable"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textStyle="bold"
@@ -207,7 +221,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="About Doctor"
-                android:textColor="@color/textColor"
+                android:textColor="@color/grey_active"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/view"
@@ -218,9 +232,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text=""
+                android:fontFamily="@font/robotomedium"
                 android:textColor="@color/textColor"
-                android:textSize="16sp"
+                android:text="Hello i am sumon miazi and i am from cumilla bangladesh"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView7"
@@ -232,7 +247,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:layout_marginTop="4dp"
+
             android:background="@drawable/ic_white_bg"
             android:padding="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/mainContainerId"
@@ -246,7 +261,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Chambers"
-                android:textColor="@color/textColor"
+                android:textColor="@color/grey_active"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"

@@ -3,6 +3,7 @@ package com.itbeebd.medicare.doctors;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +19,6 @@ import com.itbeebd.medicare.api.ApiUrls;
 import com.itbeebd.medicare.api.DoctorApi;
 import com.itbeebd.medicare.utils.Doctor;
 import com.itbeebd.medicare.utils.DoctorChamber;
-import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
     private TextView doctorQualification;
     private TextView totalPatient;
     private TextView totalReview;
-    private CircularImageView doctorImage;
+    private ImageView doctorImage;
     private TextView about;
 
     private RecyclerView allDoctorChamberRecyclerView;
