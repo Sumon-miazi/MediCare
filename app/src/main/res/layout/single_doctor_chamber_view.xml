@@ -40,7 +40,7 @@
             android:layout_marginTop="8dp"
             android:text="Comilla central hospital"
             android:textAlignment="center"
-            android:textColor="@color/textColor"
+            android:textColor="@color/result_color"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/singleDoctorChamberImageViewId"

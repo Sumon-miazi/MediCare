@@ -76,6 +76,7 @@
     <color name="yellow_inactive">#fff176</color>
     <color name="orange_inactive">#ffb74d</color>
     <color name="gery_inactive">#e0e0e0</color>
+    <color name="grey_active_3">#e0e0e0</color>
     <color name="gery">#FAFAFA</color>
 
     <color name="default_inactive">#78909c</color>
