@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.itbeebd.medicare.ChoseLocationMapActivity;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.api.DiagnosticCenterApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
@@ -41,13 +42,14 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
     private Image imagePath;
     private Uri filePath;
     private String imageUrl = null;
+    private DiagnosticCenter diagnosticCenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnostic_center_sign_up);
-
+        diagnosticCenter = new DiagnosticCenter();
         initViews();
 
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
@@ -85,6 +87,11 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
         dcServices = findViewById(R.id.dcServicesId);
         dcPhone = findViewById(R.id.dcPhoneId);
         dcEmail = findViewById(R.id.dcEmailId);
+
+        worldMapBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(this, ChoseLocationMapActivity.class);
+            startActivityForResult(intent, 100);
+        });
     }
 
 
@@ -96,17 +103,19 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
         String email = dcEmail.getText().toString();
 
         if(checkDataIsEmpty(name, address, services, number, email)){
+            Toast.makeText(this,"Please fill up the all field", Toast.LENGTH_LONG).show();
             return;
         };
+        if(diagnosticCenter.getLat() == 0 ||  diagnosticCenter.getLon() == 0){
+            Toast.makeText(this,"Without choosing the right location you can't make the account", Toast.LENGTH_LONG).show();
+            return;
+        }
 
-        DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
         diagnosticCenter.setName(name);
         diagnosticCenter.setAddress(address);
         diagnosticCenter.setServices(services);
         diagnosticCenter.setEmail(email);
         diagnosticCenter.setPhone(number);
-        diagnosticCenter.setLat(0.0);
-        diagnosticCenter.setLon(0.0);
         diagnosticCenter.setUid(firebaseUser.getUid());
         diagnosticCenter.setToken(CustomSharedPref.getInstance(this).getPushNotificationToken());
         diagnosticCenter.setImage(imageUrl);
@@ -178,9 +187,11 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
                 }
             }
         }
+        else if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+            diagnosticCenter.setLat(data.getDoubleExtra("latitude", 0));
+            diagnosticCenter.setLon(data.getDoubleExtra("longitude", 0));
+        }
     }
-
-
 }
 
 /*

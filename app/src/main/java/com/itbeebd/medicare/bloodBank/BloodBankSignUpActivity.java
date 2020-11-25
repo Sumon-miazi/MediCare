@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.itbeebd.medicare.ChoseLocationMapActivity;
 import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.api.BloodApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
@@ -42,12 +43,13 @@ public class BloodBankSignUpActivity extends AppCompatActivity {
     private Image imagePath;
     private Uri filePath;
     private String imageUrl = null;
+    private BloodBank bloodBank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood_bank_sign_up);
-
+        bloodBank = new BloodBank();
         initViews();
 
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
@@ -85,6 +87,11 @@ public class BloodBankSignUpActivity extends AppCompatActivity {
         bbAbout = findViewById(R.id.bbAboutId);
         bbPhone = findViewById(R.id.bbPhoneId);
         bbEmail = findViewById(R.id.bbEmailId);
+
+        worldMapBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(this, ChoseLocationMapActivity.class);
+            startActivityForResult(intent, 100);
+        });
     }
 
     public void registerBloodBank(View view) {
@@ -97,8 +104,16 @@ public class BloodBankSignUpActivity extends AppCompatActivity {
         if(checkDataIsEmpty(name, address, about, number, email)){
             return;
         };
+        if(bloodBank.getLat() == 0 ||  bloodBank.getLon() == 0){
+            Toast.makeText(this,"Without choosing the right location you can't make the account", Toast.LENGTH_LONG).show();
+            return;
+        }
 
-        BloodBank bloodBank = new BloodBank(name, address , number, about, email);
+        bloodBank.setName(name);
+        bloodBank.setAddress(address);
+        bloodBank.setPhone(number);
+        bloodBank.setAbout(about);
+        bloodBank.setEmail(email);
         bloodBank.setUid(firebaseUser.getUid());
         bloodBank.setToken(CustomSharedPref.getInstance(this).getPushNotificationToken());
         bloodBank.setImage(imageUrl);
@@ -166,6 +181,10 @@ public class BloodBankSignUpActivity extends AppCompatActivity {
                             .into(profileImage);
                 }
             }
+        }
+        else if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+            bloodBank.setLat(data.getDoubleExtra("latitude", 0));
+            bloodBank.setLon(data.getDoubleExtra("longitude", 0));
         }
     }
 

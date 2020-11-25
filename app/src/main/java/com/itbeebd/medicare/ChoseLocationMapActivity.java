@@ -2,6 +2,7 @@ package com.itbeebd.medicare;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.provider.Settings;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -65,6 +67,21 @@ public class ChoseLocationMapActivity extends FragmentActivity implements OnMapR
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         initializeDialog();
+
+        submit.setOnClickListener(view -> {
+            if(userLocation != null){
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("latitude", this.userLocation.latitude);
+                returnIntent.putExtra("longitude", this.userLocation.longitude);
+                setResult(Activity.RESULT_OK,returnIntent);
+            }
+            else {
+                Toast.makeText(this, "You didn't pick up the location", Toast.LENGTH_LONG).show();
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_CANCELED, returnIntent);
+            }
+            finish();
+        });
     }
 
     private void initializeDialog() {
@@ -239,4 +256,11 @@ public class ChoseLocationMapActivity extends FragmentActivity implements OnMapR
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED, returnIntent);
+        finish();
+    }
 }
