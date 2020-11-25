@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.itbeebd.medicare">
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -27,23 +28,72 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="m">
-        <activity android:name=".appointmentAndReport.ReportListActivity"/>
-        <activity android:name=".appointmentAndReport.AppointmentListActivity" />
-        <activity android:name=".diagnosticCenter.OrderTestActivity" />
-        <activity android:name=".bloodBank.BloodBankListActivity" />
-        <activity android:name=".diagnosticCenter.DiagnosticCenterListActivity" />
-        <activity android:name=".diagnosticCenter.DiagnosticCenterDashBoardActivity" />
-        <activity android:name=".doctors.DoctorDashBoardActivity" />
-        <activity android:name=".bloodBank.BloodBankDashBoardActivity" />
-        <activity android:name=".diagnosticCenter.DiagnosticCenterSignUpActivity" />
-        <activity android:name=".bloodBank.BloodBankSignUpActivity" />
-        <activity android:name=".RegistrationOptionActivity" />
-        <activity android:name=".AppGuideActivity" />
-        <activity android:name=".doctors.DoctorSignUpActivity" />
-        <activity android:name=".bloodBank.BloodDonorRegistrationActivity" />
-        <activity android:name=".userProfile.AllBookedAppointmentActivity" />
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <!--<activity
+            android:name=".ChoseLocationMapActivity"
+            android:label="@string/title_activity_chose_location_map"
+            android:screenOrientation="portrait" />-->
         <activity
-            android:name=".SplashActivity"
+            android:name=".appointmentAndReport.ReportListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".appointmentAndReport.AppointmentListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".diagnosticCenter.OrderTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".bloodBank.BloodBankListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".diagnosticCenter.DiagnosticCenterListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".diagnosticCenter.DiagnosticCenterDashBoardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".doctors.DoctorDashBoardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".bloodBank.BloodBankDashBoardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".diagnosticCenter.DiagnosticCenterSignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".bloodBank.BloodBankSignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegistrationOptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AppGuideActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".doctors.DoctorSignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".bloodBank.BloodDonorRegistrationActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".userProfile.AllBookedAppointmentActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ChoseLocationMapActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -112,18 +162,7 @@
             android:resource="@color/colorAccent" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id" />
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" /> <!-- sugar orm settings -->
+            android:value="@string/default_notification_channel_id" /> <!-- sugar orm settings -->
         <meta-data
             android:name="DATABASE"
             android:value="itbeebdMedicare.db" />

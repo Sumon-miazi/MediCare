@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toTopOf="parent"
+        tools:context=".ChoseLocationMapActivity" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_btn_bg"
+        android:padding="16dp"
+        android:visibility="visible"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="Drag the marker to select the location and hit SUBMIT"
+            android:textColor="@color/textColor"
+            android:textSize="12sp"
+            map:layout_constraintBottom_toTopOf="@+id/latitudeTxt"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/latitudeTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Latitude:"
+            android:textColor="@color/result_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            map:layout_constraintBottom_toTopOf="@+id/longitudeTxt"
+            map:layout_constraintEnd_toStartOf="@+id/locationSubmitId"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+        <TextView
+            android:id="@+id/longitudeTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Longitude:"
+            android:textColor="@color/result_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toStartOf="@+id/locationSubmitId"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/latitudeTxt" />
+
+        <Button
+            android:id="@+id/locationSubmitId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/blue_bg"
+            android:text="submit"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
