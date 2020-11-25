@@ -102,7 +102,7 @@
             <View
                 android:id="@+id/blankView"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/doctorMessageImgId" />
@@ -234,7 +234,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/robotomedium"
                 android:textColor="@color/textColor"
-                android:text="Hello i am sumon miazi and i am from cumilla bangladesh"
+                android:text="@string/doctor_bio"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

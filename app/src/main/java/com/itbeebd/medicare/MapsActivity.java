@@ -260,7 +260,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Marker initialLocationMarker = mMap.addMarker(new MarkerOptions()
                     .position(initialDestinationLocation)
                     .title(title)
-                    .icon(bitmapDescriptorFromVector(this, R.drawable.ic_user_marker)));
+                    .icon(bitmapDescriptorFromVector(this, R.drawable.ic_common_gps_marker)));
             initialLocationMarker.showInfoWindow();
         }
         else {
@@ -463,7 +463,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     addMarker(
                             this.hospitals.get(i).getName(),
                             this.hospitals.get(i).getLocation(),
-                            R.drawable.ic_user_marker
+                            R.drawable.ic_hospital_gps_marker
                     );
                 }
                 break;
@@ -473,7 +473,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     addMarker(
                             this.diagnosticCenters.get(i).getName(),
                             this.diagnosticCenters.get(i).getLocation(),
-                            R.drawable.ic_user_marker
+                            R.drawable.ic_diagnostic_gps_marker
                     );
                 }
                 break;
@@ -483,7 +483,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     addMarker(
                             this.bloodBanks.get(i).getName(),
                             this.bloodBanks.get(i).getLocation(),
-                            R.drawable.ic_user_marker
+                            R.drawable.ic_blood_bank_gps_marker
                     );
                 }
                 break;
@@ -506,7 +506,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(latitude, longitude))
                 .title("My location")
-                .icon(bitmapDescriptorFromVector(this, R.drawable.ic_user_marker)));
+                .icon(bitmapDescriptorFromVector(this, R.drawable.ic_user_gps_marker)));
 
 
     }

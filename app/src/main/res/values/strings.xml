@@ -39,5 +39,6 @@
         <item>Neptune</item>
     </string-array>
     <string name="title_activity_chose_location_map">Map</string>
+    <string name="doctor_bio">In addition to his surgical practice, he is on the board of Vision Health International, an organization providing eye care and surgery to indigent patients in Central and South America.</string>
 
 </resources>

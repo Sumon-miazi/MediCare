@@ -41,10 +41,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <!--<activity
+        <activity
             android:name=".ChoseLocationMapActivity"
             android:label="@string/title_activity_chose_location_map"
-            android:screenOrientation="portrait" />-->
+            android:screenOrientation="portrait" />
         <activity
             android:name=".appointmentAndReport.ReportListActivity"
             android:screenOrientation="portrait" />
@@ -93,7 +93,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ChoseLocationMapActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

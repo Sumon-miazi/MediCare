@@ -183,6 +183,7 @@ public class DoctorApi extends BaseService {
                                         object.getString("educationHistory"),
                                         object.getString("address"),
                                         object.getString("phone"));
+                                doctor.setAbout(object.getString("about"));
                                 doctor.setImage(object.optString("image").equals("null")? null : object.optString("image"));
                                 doctorArrayList.add(doctor);
                             }
@@ -304,7 +305,7 @@ public class DoctorApi extends BaseService {
                                         hospitalObj.getDouble("latitude"),
                                         hospitalObj.getDouble("longitude"));
 
-                                doctorChamber.setImage(object.optString("image").equals("null")? null : object.optString("image"));
+                                doctorChamber.setImage(hospitalObj.optString("image").equals("null")? null : hospitalObj.optString("image"));
 
                                 JSONArray availableDays = object.getJSONArray("available_days");
                                 ArrayList<CustomDayOfWeek> customDayOfWeekArrayList = new ArrayList<>();

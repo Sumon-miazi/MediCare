@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
@@ -13,11 +14,10 @@ import com.itbeebd.medicare.api.ApiUrls;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.db.Dao;
 import com.itbeebd.medicare.utils.Patient;
-import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class UserProfileActivity extends Fragment {
 
-    private CircularImageView patientProfileImageView;
+    private ImageView patientProfileImageView;
     private Patient patient = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
