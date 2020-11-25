@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.itbeebd.medicare.MapsActivity;
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.allAdapters.DiagnosticCenterAdapter;
+import com.itbeebd.medicare.allAdapters.diagnostic.DiagnosticCenterAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.api.DiagnosticCenterApi;
 import com.itbeebd.medicare.utils.DiagnosticCenter;

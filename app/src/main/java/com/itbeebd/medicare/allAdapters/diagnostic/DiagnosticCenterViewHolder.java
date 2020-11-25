@@ -1,4 +1,4 @@
-package com.itbeebd.medicare.allAdapters;
+package com.itbeebd.medicare.allAdapters.diagnostic;
 
 import android.content.Context;
 import android.text.Html;

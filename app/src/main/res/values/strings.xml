@@ -30,6 +30,7 @@
 
     <string name="title_activity_chose_location_map">Map</string>
     <string name="doctor_bio">In addition to his surgical practice, he is on the board of Vision Health International, an organization providing eye care and surgery to indigent patients in Central and South America.</string>
+    <string name="select_tests_from_below_and_hit_order_test_button">Select tests from below and hit ORDER TEST button</string>
 
     <string-array name="districs_list">
         <item>Bagerhat</item>

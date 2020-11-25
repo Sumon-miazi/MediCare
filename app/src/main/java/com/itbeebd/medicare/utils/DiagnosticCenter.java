@@ -3,13 +3,15 @@ package com.itbeebd.medicare.utils;
 import com.google.android.gms.maps.model.LatLng;
 import com.orm.SugarRecord;
 
+import java.util.ArrayList;
+
 public class DiagnosticCenter extends SugarRecord {
     private int diagnosticId;
     private String uid;
     private String name;
     private String image;
     private String address;
-    private String services;
+    private ArrayList<String> services;
     private String email;
     private String phone;
     private String token;
@@ -60,12 +62,16 @@ public class DiagnosticCenter extends SugarRecord {
         this.address = address;
     }
 
-    public String getServices() {
+    public ArrayList<String> getServices() {
         return services;
     }
 
-    public void setServices(String services) {
+    public void setServices(ArrayList<String> services) {
         this.services = services;
+    }
+
+    public String getService() {
+        return "services";
     }
 
     public String getEmail() {

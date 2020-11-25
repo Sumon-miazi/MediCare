@@ -37,7 +37,7 @@ public class DiagnosticCenterApi extends BaseService{
                 getImageFile(diagnosticCenter.getImage()),
                 diagnosticCenter.getUid(),
                 diagnosticCenter.getName(),
-                diagnosticCenter.getServices(),
+                diagnosticCenter.getService(),
                 diagnosticCenter.getAddress(),
                 diagnosticCenter.getPhone(),
                 diagnosticCenter.getEmail(),
@@ -63,13 +63,19 @@ public class DiagnosticCenterApi extends BaseService{
                             diagnosticCenter.setName(userObj.getString("name"));
                             diagnosticCenter.setImage(userObj.optString("image").equals("null")? null : userObj.optString("image"));
                             diagnosticCenter.setAddress(userObj.getString("address"));
-                            diagnosticCenter.setServices(userObj.getString("services"));
                             diagnosticCenter.setEmail(userObj.getString("email"));
                             diagnosticCenter.setPhone(userObj.getString("phone"));
                             diagnosticCenter.setLat(userObj.getDouble("latitude"));
                             diagnosticCenter.setLon(userObj.getDouble("longitude"));
                             diagnosticCenter.setUid(userObj.getString("uid"));
                             diagnosticCenter.setDiagnosticId(userObj.getInt("id"));
+
+                            ArrayList<String> services = new ArrayList<>();
+                            JSONArray serviceArray = userObj.getJSONArray("services");
+                            for(int j = 0; j < serviceArray.length(); j++){
+                                services.add(serviceArray.getString(j));
+                            }
+                            diagnosticCenter.setServices(services);
 
                             CustomSharedPref.getInstance(context).setUserId(diagnosticCenter.getDiagnosticId());
 
@@ -118,14 +124,19 @@ public class DiagnosticCenterApi extends BaseService{
                             diagnosticCenter.setName(userObj.getString("name"));
                             diagnosticCenter.setImage(userObj.optString("image").equals("null")? null : userObj.optString("image"));
                             diagnosticCenter.setAddress(userObj.getString("address"));
-                            diagnosticCenter.setServices(userObj.getString("services"));
                             diagnosticCenter.setEmail(userObj.getString("email"));
                             diagnosticCenter.setPhone(userObj.getString("phone"));
                             diagnosticCenter.setLat(userObj.getDouble("latitude"));
                             diagnosticCenter.setLon(userObj.getDouble("longitude"));
                             diagnosticCenter.setUid(userObj.getString("uid"));
-
                             diagnosticCenter.setDiagnosticId(userObj.getInt("id"));
+
+                            ArrayList<String> services = new ArrayList<>();
+                            JSONArray serviceArray = userObj.getJSONArray("services");
+                            for(int j = 0; j < serviceArray.length(); j++){
+                                services.add(serviceArray.getString(j));
+                            }
+                            diagnosticCenter.setServices(services);
 
                             new Dao().saveDiagnosticCenterProfile(diagnosticCenter);
 
@@ -171,13 +182,13 @@ public class DiagnosticCenterApi extends BaseService{
                         System.out.println("getAllDiagnosticCenter>>>>>>>>>>> " + jsonObject.toString());
 
                         if (jsonObject.optString("status").equals("true")) {
-                            JSONArray hospitalsJsonArray = jsonObject.getJSONArray("data");
+                            JSONArray diagnosticJsonArray = jsonObject.getJSONArray("data");
 
                             ArrayList<DiagnosticCenter> diagnosticCenters = new ArrayList<>();
 
-                            for (int i = 0; i < hospitalsJsonArray.length(); i++) {
+                            for (int i = 0; i < diagnosticJsonArray.length(); i++) {
 
-                                JSONObject object = hospitalsJsonArray.getJSONObject(i);
+                                JSONObject object = diagnosticJsonArray.getJSONObject(i);
 
                                 DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
                                 diagnosticCenter.setDiagnosticId(object.getInt("id"));
@@ -185,9 +196,16 @@ public class DiagnosticCenterApi extends BaseService{
                                 diagnosticCenter.setImage(object.optString("image").equals("null")? null : object.optString("image"));
                                 diagnosticCenter.setAddress(object.getString("address"));
                                 diagnosticCenter.setPhone(object.getString("phone"));
-                                diagnosticCenter.setServices(object.getString("services"));
+
                                 diagnosticCenter.setLat(object.getDouble("latitude"));
                                 diagnosticCenter.setLon(object.getDouble("longitude"));
+
+                                ArrayList<String> services = new ArrayList<>();
+                                JSONArray serviceArray = object.getJSONArray("services");
+                                for(int j = 0; j < serviceArray.length(); j++){
+                                    services.add(serviceArray.getString(j));
+                                }
+                                diagnosticCenter.setServices(services);
 
                                 diagnosticCenters.add(diagnosticCenter);
                             }

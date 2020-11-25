@@ -8,55 +8,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".diagnosticCenter.OrderTestActivity">
 
-
     <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView19"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="128dp"
-        android:text="Available test"
-        android:textColor="@color/textColor"
-        android:textStyle="bold"
+        android:padding="10dp"
+        android:text="@string/select_tests_from_below_and_hit_order_test_button"
+        android:textColor="@color/result_color"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/testSpinnerId"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/testListViewId"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/round_border_bg"
-        android:popupBackground="@drawable/white_rounded_bg"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16"
-        tools:listitem="@layout/single_spinner_item" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:text="@string/test_intro"
-        android:textAlignment="center"
-        android:textColor="@color/textColor"
-        android:textSize="18sp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/orderTestBtnId"
-        app:layout_constraintTop_toBottomOf="@+id/testSpinnerId"
-        app:layout_constraintVertical_bias="0.18"
-        tools:layout_editor_absoluteX="-16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
 
     <Button
         android:id="@+id/orderTestBtnId"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
         android:background="@drawable/blue_bg"
         android:minWidth="180dp"
         android:text="Oder test"
