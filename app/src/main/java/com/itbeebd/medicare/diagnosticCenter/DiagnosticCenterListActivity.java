@@ -48,7 +48,7 @@ public class DiagnosticCenterListActivity extends AppCompatActivity implements O
         Intent intent = null;
         if(view.getId() == R.id.requestReportBtnId){
             intent = new Intent(this, OrderTestActivity.class);
-            intent.putExtra("diagnosticCenterId", item.getDiagnosticId());
+            intent.putExtra("diagnosticCenter", item);
 
         }
         else if(view.getId() == R.id.showMeOnMapId){

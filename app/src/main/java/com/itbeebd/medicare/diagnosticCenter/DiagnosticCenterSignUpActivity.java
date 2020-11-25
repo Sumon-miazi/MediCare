@@ -113,7 +113,7 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
 
         diagnosticCenter.setName(name);
         diagnosticCenter.setAddress(address);
-        diagnosticCenter.setServices(services);
+       // diagnosticCenter.setServices(services);
         diagnosticCenter.setEmail(email);
         diagnosticCenter.setPhone(number);
         diagnosticCenter.setUid(firebaseUser.getUid());

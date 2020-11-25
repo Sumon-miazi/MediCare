@@ -238,7 +238,6 @@ public class AppointmentApi extends BaseService{
                                 diagnosticCenter.setName(diagnosticCenterObj.getString("name"));
                                 diagnosticCenter.setImage(diagnosticCenterObj.optString("image").equals("null")? null : diagnosticCenterObj.optString("image"));
                                 diagnosticCenter.setAddress(diagnosticCenterObj.getString("address"));
-                                diagnosticCenter.setServices(diagnosticCenterObj.getString("services"));
                                 diagnosticCenter.setEmail(diagnosticCenterObj.getString("email"));
                                 diagnosticCenter.setPhone(diagnosticCenterObj.getString("phone"));
                                 diagnosticCenter.setLat(diagnosticCenterObj.getDouble("latitude"));
@@ -246,6 +245,12 @@ public class AppointmentApi extends BaseService{
                                 diagnosticCenter.setUid(diagnosticCenterObj.getString("uid"));
                                 diagnosticCenter.setDiagnosticId(diagnosticCenterObj.getInt("id"));
 
+                                ArrayList<String> services = new ArrayList<>();
+                                JSONArray serviceArray = diagnosticCenterObj.getJSONArray("services");
+                                for(int j = 0; j < serviceArray.length(); j++){
+                                    services.add(serviceArray.getJSONObject(j).getString("name"));
+                                }
+                                diagnosticCenter.setServices(services);
                                 reportFile.setDiagnosticCenter(diagnosticCenter);
 
                                 reportFiles.add(reportFile);

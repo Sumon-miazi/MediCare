@@ -141,9 +141,15 @@ public class SearchApi extends BaseService{
                 diagnosticCenter.setImage(object.optString("image").equals("null")? null : object.optString("image"));
                 diagnosticCenter.setAddress(object.getString("address"));
                 diagnosticCenter.setPhone(object.getString("phone"));
-                diagnosticCenter.setServices(object.getString("services"));
                 diagnosticCenter.setLat(object.getDouble("latitude"));
                 diagnosticCenter.setLon(object.getDouble("longitude"));
+
+                ArrayList<String> services = new ArrayList<>();
+                JSONArray serviceArray = object.getJSONArray("services");
+                for(int j = 0; j < serviceArray.length(); j++){
+                    services.add(serviceArray.getJSONObject(j).getString("name"));
+                }
+                diagnosticCenter.setServices(services);
 
                 diagnosticCenters.add(diagnosticCenter);
             }

@@ -37,9 +37,15 @@ public class OrderTestActivity extends AppCompatActivity implements OnRecyclerOb
 
         orderTestBtn.setOnClickListener(this::orderTest);
 
-        if(getIntent().hasExtra("diagnosticCenterId")){
-            diagnosticCenter = getIntent().getParcelableExtra("diagnosticCenter");
-            if(diagnosticCenter != null) initRecyclerView();
+        if(getIntent().hasExtra("diagnosticCenter")){
+            diagnosticCenter = (DiagnosticCenter) getIntent().getSerializableExtra("diagnosticCenter");
+            if(diagnosticCenter != null){
+                System.out.println(">>>>>>>>>>. " + diagnosticCenter.getServices().size());
+                initRecyclerView();
+            }
+            else{
+                System.out.println(">>>>>>>>>>. null" );
+            }
         }
     }
 

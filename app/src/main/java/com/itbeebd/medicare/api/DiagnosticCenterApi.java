@@ -37,7 +37,7 @@ public class DiagnosticCenterApi extends BaseService{
                 getImageFile(diagnosticCenter.getImage()),
                 diagnosticCenter.getUid(),
                 diagnosticCenter.getName(),
-                diagnosticCenter.getService(),
+                diagnosticCenter.getServiceString(),
                 diagnosticCenter.getAddress(),
                 diagnosticCenter.getPhone(),
                 diagnosticCenter.getEmail(),
@@ -73,7 +73,7 @@ public class DiagnosticCenterApi extends BaseService{
                             ArrayList<String> services = new ArrayList<>();
                             JSONArray serviceArray = userObj.getJSONArray("services");
                             for(int j = 0; j < serviceArray.length(); j++){
-                                services.add(serviceArray.getString(j));
+                                services.add(serviceArray.getJSONObject(j).getString("name"));
                             }
                             diagnosticCenter.setServices(services);
 
@@ -134,7 +134,7 @@ public class DiagnosticCenterApi extends BaseService{
                             ArrayList<String> services = new ArrayList<>();
                             JSONArray serviceArray = userObj.getJSONArray("services");
                             for(int j = 0; j < serviceArray.length(); j++){
-                                services.add(serviceArray.getString(j));
+                                services.add(serviceArray.getJSONObject(j).getString("name"));
                             }
                             diagnosticCenter.setServices(services);
 
@@ -203,7 +203,7 @@ public class DiagnosticCenterApi extends BaseService{
                                 ArrayList<String> services = new ArrayList<>();
                                 JSONArray serviceArray = object.getJSONArray("services");
                                 for(int j = 0; j < serviceArray.length(); j++){
-                                    services.add(serviceArray.getString(j));
+                                    services.add(serviceArray.getJSONObject(j).getString("name"));
                                 }
                                 diagnosticCenter.setServices(services);
 

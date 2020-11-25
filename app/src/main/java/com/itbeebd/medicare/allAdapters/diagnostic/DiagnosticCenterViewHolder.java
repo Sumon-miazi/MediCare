@@ -1,7 +1,6 @@
 package com.itbeebd.medicare.allAdapters.diagnostic;
 
 import android.content.Context;
-import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -51,7 +50,7 @@ public class DiagnosticCenterViewHolder extends BaseViewHolder<DiagnosticCenter,
         name.setText(item.getName());
         address.setText(item.getAddress());
         phone.setText(item.getPhone());
-        allServicesTxt.setText(Html.fromHtml(item.getServices()));
+        allServicesTxt.setText(item.getService());
 
         if(item.getImage() != null){
             // System.out.println("<<<<<<<<<>>>>> " + ApiUrls.BASE_IMAGE_URL + item.getImage());

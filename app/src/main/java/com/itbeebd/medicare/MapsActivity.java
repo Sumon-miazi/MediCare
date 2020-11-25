@@ -14,7 +14,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
-import android.text.Html;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -569,7 +568,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         diagnosticName.setText(diagnosticCenterData.getName());
         diagnosticAddress.setText(diagnosticCenterData.getAddress());
         diagnosticPhone.setText(diagnosticCenterData.getPhone());
-        allServicesTxt.setText(Html.fromHtml(diagnosticCenterData.getServices()));
+
+        allServicesTxt.setText(diagnosticCenterData.getService());
 
         if (diagnosticCenterData.getImage() != null) {
             Glide.with(this)

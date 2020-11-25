@@ -108,7 +108,7 @@
         <item>Friend</item>
         <item>Acquainted</item>
         <item>Friend of Friend</item>
-        <item>Friend's relative</item>
+        <item>Friends relative</item>
     </string-array>
 
     <string-array name="blood_amount_list">

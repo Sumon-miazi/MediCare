@@ -1,11 +1,15 @@
 package com.itbeebd.medicare.utils;
 
+import android.text.Html;
+import android.text.Spanned;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.orm.SugarRecord;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class DiagnosticCenter extends SugarRecord {
+public class DiagnosticCenter extends SugarRecord implements Serializable {
     private int diagnosticId;
     private String uid;
     private String name;
@@ -70,8 +74,18 @@ public class DiagnosticCenter extends SugarRecord {
         this.services = services;
     }
 
-    public String getService() {
-        return "services";
+    public Spanned getService() {
+        String service = "";
+        for (int i = 0; i < this.services.size(); i++){
+            if(i < services.size() -1)service += services.get(i) + "<br>";
+            else service += services.get(i);
+        }
+        return Html.fromHtml(service);
+    }
+
+    public String getServiceString() {
+        String service = "";
+        return service;
     }
 
     public String getEmail() {
