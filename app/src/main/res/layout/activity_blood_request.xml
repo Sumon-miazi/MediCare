@@ -86,7 +86,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
             app:smsp_floatingLabelColor="#009688"
             app:smsp_floatingLabelText="City preference"
-            app:smsp_hint="City preference"
+            app:smsp_hint="Blood needed amount"
             app:smsp_itemColor="#171717"
             app:smsp_itemListColor="@color/textColor"
             app:smsp_itemListHintBackgroundColor="@color/example_4_green"

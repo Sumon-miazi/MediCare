@@ -13,7 +13,6 @@ import androidx.cardview.widget.CardView;
 import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
 import com.google.android.material.textfield.TextInputEditText;
 import com.itbeebd.medicare.R;
-import com.itbeebd.medicare.api.ApiUrls;
 import com.itbeebd.medicare.api.BloodApi;
 import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.BloodRequest;
@@ -21,6 +20,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -179,12 +179,7 @@ public class BloodRequestActivity extends AppCompatActivity implements DatePicke
 
     private void initBloodForSpinner() {
 
-        ArrayList<String> items = new ArrayList<>();
-
-        items.add(ApiUrls.HOSPITAL + " in 5km");
-        items.add(ApiUrls.HOSPITAL + " in 10km");
-        items.add(ApiUrls.HOSPITAL + " in 20km");
-        items.add(ApiUrls.HOSPITAL + " in 50km");
+        ArrayList<String> items = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.districs_list)));
 
         bloodForSpinner.setItem(items);
 
@@ -204,12 +199,7 @@ public class BloodRequestActivity extends AppCompatActivity implements DatePicke
 
     private void initCitySpinner() {
 
-        ArrayList<String> items = new ArrayList<>();
-
-        items.add(ApiUrls.HOSPITAL + " in 5km");
-        items.add(ApiUrls.HOSPITAL + " in 10km");
-        items.add(ApiUrls.HOSPITAL + " in 20km");
-        items.add(ApiUrls.HOSPITAL + " in 50km");
+        ArrayList<String> items = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.districs_list)));
 
         citySpinner.setItem(items);
 
@@ -229,12 +219,7 @@ public class BloodRequestActivity extends AppCompatActivity implements DatePicke
 
     private void initAmountSpinner() {
 
-        ArrayList<String> items = new ArrayList<>();
-
-        items.add(ApiUrls.HOSPITAL + " in 5km");
-        items.add(ApiUrls.HOSPITAL + " in 10km");
-        items.add(ApiUrls.HOSPITAL + " in 20km");
-        items.add(ApiUrls.HOSPITAL + " in 50km");
+        ArrayList<String> items = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.blood_amount_list)));
 
         amountSpinner.setItem(items);
 

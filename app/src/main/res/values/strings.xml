@@ -28,17 +28,93 @@
     <string name="test_intro">Please select a test from the list and place order to the diagnostic center. you can order one test at a time. so if you want to order multiple test just select the test and click on the ORDER TEST button. thank you</string>
     <string name="enter_varification_code">Enter OTP code</string>
 
-    <string-array name="blood_for_list">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-    </string-array>
     <string name="title_activity_chose_location_map">Map</string>
     <string name="doctor_bio">In addition to his surgical practice, he is on the board of Vision Health International, an organization providing eye care and surgery to indigent patients in Central and South America.</string>
 
+    <string-array name="districs_list">
+        <item>Bagerhat</item>
+        <item>Bandarban</item>
+        <item>Barguna</item>
+        <item>Barishal</item>
+        <item>Bhola</item>
+        <item>Bogura</item>
+        <item>Brahmanbaria</item>
+        <item>Chandpur</item>
+        <item>Chapainawabganj</item>
+        <item>Chittagong</item>
+        <item>Chuadanga</item>
+        <item>Cumilla</item>
+        <item>Dhaka</item>
+        <item>Dinajpur</item>
+        <item>Faridpur</item>
+        <item>Feni</item>
+        <item>Gaibandha</item>
+        <item>Gazipur</item>
+        <item>Gopalganj</item>
+        <item>Habiganj </item>
+        <item>Jamalpur</item>
+        <item>Jashore</item>
+        <item>Jhalokati</item>
+        <item>Jhenaidah</item>
+        <item>Joypurhat</item>
+        <item>Khagrachhari</item>
+        <item>Khulna</item>
+        <item>Kishoreganj</item>
+        <item>Kurigram</item>
+        <item>Kushtia</item>
+        <item>Lakshmipur</item>
+        <item>Lalmonirhat</item>
+        <item>Madaripur</item>
+        <item>Magura</item>
+        <item>Manikganj</item>
+        <item>Maulvibazar</item>
+        <item>Meherpur</item>
+        <item>Munshiganj</item>
+        <item>Mymensingh</item>
+        <item>Naogaon</item>
+        <item>Narail</item>
+        <item>Narayanganj</item>
+        <item>Narsingdi</item>
+        <item>Natore</item>
+        <item>Nawabganj</item>
+        <item>Netrokona</item>
+        <item>Nilphamari</item>
+        <item>Noakhali</item>
+        <item>Pabna</item>
+        <item>Panchagarh</item>
+        <item>Patuakhali</item>
+        <item>Pirojpur</item>
+        <item>Rajbari</item>
+        <item>Rajshahi</item>
+        <item>Rangamati</item>
+        <item>Rangpur</item>
+        <item>Satkhira</item>
+        <item>Shariatpur</item>
+        <item>Sherpur</item>
+        <item>Sirajganj</item>
+        <item>Sunamganj</item>
+        <item>Sylhet</item>
+        <item>Tangail</item>
+        <item>Thakurgaon</item>
+    </string-array>
+
+    <string-array name="blood_for_list">
+        <item>Myself</item>
+        <item>My spouse</item>
+        <item>My children</item>
+        <item>Family</item>
+        <item>Relative</item>
+        <item>Friend</item>
+        <item>Acquainted</item>
+        <item>Friend of Friend</item>
+        <item>Friend's relative</item>
+    </string-array>
+
+    <string-array name="blood_amount_list">
+        <item>1 bag</item>
+        <item>2 bag</item>
+        <item>3 bag</item>
+        <item>4 bag</item>
+        <item>5 bag</item>
+    </string-array>
 </resources>
