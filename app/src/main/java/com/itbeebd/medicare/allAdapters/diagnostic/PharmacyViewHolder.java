@@ -60,6 +60,11 @@ public class PharmacyViewHolder extends BaseViewHolder<Pharmacy, OnRecyclerObjec
             listener.onItemClicked(item, view);
         });
 
+        pharmacyCallBtn.setOnClickListener(view -> {
+            assert listener != null;
+            listener.onItemClicked(item, view);
+        });
+
     }
 
 

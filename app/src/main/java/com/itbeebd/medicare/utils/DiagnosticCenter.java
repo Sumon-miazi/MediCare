@@ -84,8 +84,7 @@ public class DiagnosticCenter extends SugarRecord implements Serializable {
     }
 
     public String getServiceString() {
-        String service = "";
-        return service;
+        return "";
     }
 
     public String getEmail() {

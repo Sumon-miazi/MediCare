@@ -12,6 +12,7 @@ import com.itbeebd.medicare.R;
 import com.itbeebd.medicare.allAdapters.appointmentAdapters.DiagnosticListAdapter;
 import com.itbeebd.medicare.allAdapters.genericClasses.OnRecyclerObjectClickListener;
 import com.itbeebd.medicare.api.AppointmentApi;
+import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.utils.ReportFile;
 
 import java.util.HashMap;
@@ -31,11 +32,26 @@ public class ReportListActivity extends AppCompatActivity implements OnRecyclerO
         if(getIntent().hasExtra("appointment_id")){
             getAppointmentReport(getIntent().getIntExtra("appointment_id", 0));
         }
+        else if(getIntent().hasExtra("show_all_reports")){
+            getAllReports();
+        }
 
     }
 
     private void getAppointmentReport(int id){
         new AppointmentApi().getAnAppointmentReports(id, (data, message) -> {
+            if(data != null){
+                diagnosticListAdapter.setItems(data);
+                diagnosticListAdapter.setListener(this);
+                reportListView.setLayoutManager(new LinearLayoutManager(this));
+                reportListView.setAdapter(diagnosticListAdapter);
+            }
+            else Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void getAllReports(){
+        new AppointmentApi().getAllReports(CustomSharedPref.getInstance(this).getUserId(),(data, message) -> {
             if(data != null){
                 diagnosticListAdapter.setItems(data);
                 diagnosticListAdapter.setListener(this);

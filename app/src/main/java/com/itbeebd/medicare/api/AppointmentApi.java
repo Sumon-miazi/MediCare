@@ -273,4 +273,88 @@ public class AppointmentApi extends BaseService{
             }
         });
     }
+
+    public void getAllReports(int id, GetDataFromApiCall<ReportFile> getData) {
+        System.out.println("getAllReports>>>>>>>>>>> called ");
+        final RetrofitRequestBody retrofitRequestBody = new RetrofitRequestBody();
+        Call<ResponseBody> responseBodyCall = service.getAllReports(retrofitRequestBody.getDataById(id));
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                JSONObject jsonObject = null;
+                if (response.isSuccessful()) {
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+                        System.out.println("getAllReports>>>>>>>>>>> " + jsonObject.toString());
+                        if (jsonObject.optString("status").equals("true")) {
+
+                            JSONArray reportJsonObj = jsonObject.getJSONArray("data");
+                            ArrayList<ReportFile> reportFiles = new ArrayList<>();
+                            for(int i = 0; i < reportJsonObj.length(); i++){
+
+                                JSONObject reportObject = reportJsonObj.getJSONObject(i);
+                                ReportFile reportFile = new ReportFile();
+
+                                reportFile.setId(reportObject.getInt("id"));
+                                reportFile.setDiagnosticCenterId(reportObject.getInt("diagnostic_center_id"));
+                                reportFile.setAppointmentId(reportObject.optInt("appointment_id"));
+                                reportFile.setComplete(reportObject.getInt("complete") == 1);
+
+                                JSONArray jsonArray = reportObject.getJSONArray("file");
+
+                                ArrayList<Map<String, String>> files = new ArrayList<>();
+
+                                for(int j = 0; j < jsonArray.length(); j++){
+                                    JSONObject object = jsonArray.getJSONObject(j);
+                                    Map<String, String> file = new HashMap<>();
+                                    file.put("title", object.getString("original_name"));
+                                    file.put("file", object.getString("download_link"));
+
+                                    files.add(file);
+                                }
+
+                                reportFile.setFiles(files);
+
+
+                                JSONObject diagnosticCenterObj = reportObject.getJSONObject("diagnostic_center");
+
+                                DiagnosticCenter diagnosticCenter = new DiagnosticCenter();
+                                diagnosticCenter.setName(diagnosticCenterObj.getString("name"));
+                                diagnosticCenter.setImage(diagnosticCenterObj.optString("image").equals("null")? null : diagnosticCenterObj.optString("image"));
+                                diagnosticCenter.setAddress(diagnosticCenterObj.getString("address"));
+                                diagnosticCenter.setEmail(diagnosticCenterObj.getString("email"));
+                                diagnosticCenter.setPhone(diagnosticCenterObj.getString("phone"));
+                                diagnosticCenter.setLat(diagnosticCenterObj.getDouble("latitude"));
+                                diagnosticCenter.setLon(diagnosticCenterObj.getDouble("longitude"));
+                                diagnosticCenter.setUid(diagnosticCenterObj.getString("uid"));
+                                diagnosticCenter.setDiagnosticId(diagnosticCenterObj.getInt("id"));
+
+                                ArrayList<String> services = new ArrayList<>();
+                                JSONArray serviceArray = diagnosticCenterObj.getJSONArray("services");
+                                for(int j = 0; j < serviceArray.length(); j++){
+                                    services.add(serviceArray.getJSONObject(j).getString("name"));
+                                }
+                                diagnosticCenter.setServices(services);
+                                reportFile.setDiagnosticCenter(diagnosticCenter);
+
+                                reportFiles.add(reportFile);
+                            }
+                            getData.data(reportFiles, jsonObject.optString("message"));
+
+                        } else getData.data(null, jsonObject.optString("message"));
+
+                    } catch (Exception ignore) {
+                        System.out.println("getAllReports>>>>>>>>>>> catch " + ignore.getMessage());
+                        getData.data(null,  ignore.getMessage());
+                    }
+                } else getData.data(null,  response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("getAllReports>>>>>>>>>>> failed " + t.getMessage());
+                getData.data(null, t.getMessage());
+            }
+        });
+    }
 }

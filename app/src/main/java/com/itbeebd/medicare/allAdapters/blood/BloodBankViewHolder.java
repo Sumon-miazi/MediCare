@@ -59,7 +59,10 @@ public class BloodBankViewHolder extends BaseViewHolder<BloodBank, OnRecyclerObj
             assert listener != null;
             listener.onItemClicked(item, view);
         });
-
+        bbCallBtn.setOnClickListener(view -> {
+            assert listener != null;
+            listener.onItemClicked(item, view);
+        });
     }
 
 

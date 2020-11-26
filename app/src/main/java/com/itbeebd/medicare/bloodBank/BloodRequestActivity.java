@@ -179,7 +179,7 @@ public class BloodRequestActivity extends AppCompatActivity implements DatePicke
 
     private void initBloodForSpinner() {
 
-        ArrayList<String> items = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.districs_list)));
+        ArrayList<String> items = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.blood_for_list)));
 
         bloodForSpinner.setItem(items);
 

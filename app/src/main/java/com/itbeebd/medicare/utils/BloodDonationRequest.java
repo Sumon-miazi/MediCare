@@ -1,9 +1,8 @@
 package com.itbeebd.medicare.utils;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.io.Serializable;
 
-public class BloodDonationRequest implements Parcelable {
+public class BloodDonationRequest implements Serializable {
 
     private int id;
     private int userId;
@@ -40,55 +39,6 @@ public class BloodDonationRequest implements Parcelable {
         this.bloodNeededDateTime = bloodNeededDateTime;
         this.phone = phone;
         this.token = token;
-    }
-
-
-    public static final Creator<BloodDonationRequest> CREATOR = new Creator<BloodDonationRequest>() {
-        @Override
-        public BloodDonationRequest createFromParcel(Parcel in) {
-            return new BloodDonationRequest(in);
-        }
-
-        @Override
-        public BloodDonationRequest[] newArray(int size) {
-            return new BloodDonationRequest[size];
-        }
-    };
-
-    public BloodDonationRequest(Parcel parcel) {
-        this.id = parcel.readInt();
-        this.userId = parcel.readInt();
-        this.name = parcel.readString();
-        this.image = parcel.readString();
-        this.bloodFor = parcel.readString();
-        this.city = parcel.readString();
-        this.hospital = parcel.readString();
-        this.amount = parcel.readString();
-        this.bloodGroup = parcel.readString();
-        this.bloodNeededDateTime = parcel.readString();
-        this.phone = parcel.readString();
-        this.token = parcel.readString();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(this.id);
-        parcel.writeInt(this.userId);
-        parcel.writeString(this.name);
-        parcel.writeString(this.image);
-        parcel.writeString(this.bloodFor);
-        parcel.writeString(this.city);
-        parcel.writeString(this.hospital);
-        parcel.writeString(this.amount);
-        parcel.writeString(this.bloodGroup);
-        parcel.writeString(this.bloodNeededDateTime);
-        parcel.writeString(this.phone);
-        parcel.writeString(this.token);
     }
 
     public int getId() {

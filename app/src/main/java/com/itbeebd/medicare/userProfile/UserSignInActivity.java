@@ -141,7 +141,7 @@ public class UserSignInActivity extends AppCompatActivity implements View.OnClic
                                    @NotNull PhoneAuthProvider.ForceResendingToken token) {
                 if (flashbar != null)
                     flashbar.dismiss();
-                flashbar = showFlash("Attention Please", "আপনার ফোন নাম্বারে একটি ভেরিফিকেশন কোড পাঠানো হয়েছে।  যদি না যায় একটু অপেক্ষা করুন। কোডটি টাইপ করে SIGN IN বাটনের ক্লিক করুন।  ধন্যবাদ ");
+                flashbar = showFlash("Attention Please", "আপনার ফোন নাম্বারে একটি ভেরিফিকেশন কোড পাঠানো হয়েছে।  যদি না যায় একটু অপেক্ষা করুন। কোডটি টাইপ করে CONFIRM বাটনের ক্লিক করুন।  ধন্যবাদ ");
                 flashbar.show();
 
                // showCodeConfirmationDialog();
@@ -220,7 +220,7 @@ public class UserSignInActivity extends AppCompatActivity implements View.OnClic
 
         if (flashbar != null)
             flashbar.dismiss();
-        flashbar = showFlash("Code Resend", "আপনার ফোন নাম্বারে পুনরায় একটি ভেরিফিকেশন কোড পাঠানো হয়েছে।  যদি না যায় একটু অপেক্ষা করুন। কোডটি টাইপ করে SIGN IN বাটনের ক্লিক করুন।  ধন্যবাদ ");
+        flashbar = showFlash("Code Resend", "আপনার ফোন নাম্বারে পুনরায় একটি ভেরিফিকেশন কোড পাঠানো হয়েছে।  যদি না যায় একটু অপেক্ষা করুন। কোডটি টাইপ করে CONFIRM বাটনের ক্লিক করুন।  ধন্যবাদ ");
         flashbar.show();
     }
 
@@ -270,7 +270,7 @@ public class UserSignInActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void gotoToDashBoardAsRequired(FirebaseUser user) {
-        new UserApi().checkUserExistOrNot(user.getUid(), (patient, doctor, bloodBank, diagnosticCenter, message, userType) -> {
+        new UserApi(this).checkUserExistOrNot(user.getUid(), (patient, doctor, bloodBank, diagnosticCenter, message, userType) -> {
             System.out.println("checkUserExistOrNot>>>>>>>>>>>>>>>>>" + message);
             if (userType != null) {
                 Intent intent = null;

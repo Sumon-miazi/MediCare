@@ -1,6 +1,7 @@
 package com.itbeebd.medicare.pharmacy;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -54,6 +55,18 @@ public class PharmacyListActivity extends AppCompatActivity implements OnRecycle
             intent.putExtra("title", item.getName());
             startActivity(intent);
         }
+        else if(view.getId() == R.id.bbCallBtn){
+            dialPhoneNumber(item.getPhone());
+        }
 
+
+    }
+
+    public void dialPhoneNumber(String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + phoneNumber));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 }

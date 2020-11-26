@@ -1,6 +1,7 @@
 package com.itbeebd.medicare.doctors;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +32,7 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
     private TextView totalReview;
     private ImageView doctorImage;
     private TextView about;
+    private CardView doctorCallImg;
 
     private RecyclerView allDoctorChamberRecyclerView;
     private DoctorChamberAdapter doctorChamberListAdapter;
@@ -41,6 +44,7 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_info);
 
+        doctorCallImg = findViewById(R.id.doctorCallImgId);
         doctorName = findViewById(R.id.doctorProfileNameTxtViewId);
         doctorImage = findViewById(R.id.main_doctorImageViewId);
         doctorQualification = findViewById(R.id.doctorProfileTitleTxtViewId);
@@ -78,6 +82,12 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
                 }
             });
         }
+
+        doctorCallImg.setOnClickListener(view -> {
+            if(doctor != null){
+                dialPhoneNumber(doctor.getPhone());
+            }
+        });
     }
 
     @Override
@@ -95,5 +105,13 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
         Intent intent = new Intent(this, DoctorAppointmentActivity.class);
         intent.putExtra("appointment", doctorChambers);
         startActivity(intent);
+    }
+
+    public void dialPhoneNumber(String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + phoneNumber));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 }

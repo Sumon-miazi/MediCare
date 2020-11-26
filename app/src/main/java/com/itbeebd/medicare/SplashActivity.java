@@ -49,16 +49,18 @@ public class SplashActivity extends AppCompatActivity {
         networkIndicate = findViewById(R.id.networkIndicateId);
         animationView = findViewById(R.id.route_animation);
 
-        if(!CustomSharedPref.getInstance(this).getAppIntroShownOrNot()){
-            startActivity(new Intent(this, AppGuideActivity.class));
-            finish();
-        }
+      //  if(!CustomSharedPref.getInstance(this).getAppIntroShownOrNot()){
+      //      startActivity(new Intent(this, AppGuideActivity.class));
+      //      finish();
+      //  }
+
+        System.out.println(">>>>>. splash activity");
     }
 
     private void goToActivityAsRequired() {
         System.out.println(">>>>>. splash goToActivityAsRequired");
-        FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
-            firebaseUser = firebaseAuth.getCurrentUser();
+
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             if (firebaseUser == null) {
                 System.out.println(">>>>>. splash if");
                 goToSignInActivity();
@@ -67,7 +69,6 @@ public class SplashActivity extends AppCompatActivity {
                 CustomSharedPref.getInstance(this).setUserUid(firebaseUser.getUid());
                 goToMainActivity(firebaseUser, true);
             }
-        });
     }
 
     private void goToSignInActivity() {
@@ -91,7 +92,7 @@ public class SplashActivity extends AppCompatActivity {
             if (alreadyNotCalledCheckUserExistOrNot) {
                 System.out.println(">>>>>>>>>>>>>>>>> getUserSignedInOrNot false " + user.getUid());
                 alreadyNotCalledCheckUserExistOrNot = false;
-                new UserApi().checkUserExistOrNot(user.getUid(), (patient, doctor, bloodBank, diagnosticCenter, message, userType) -> {
+                new UserApi(this).checkUserExistOrNot(user.getUid(), (patient, doctor, bloodBank, diagnosticCenter, message, userType) -> {
                      System.out.println("checkUserExistOrNot>>>>>>>>>>>>>>>>>" + message + " " + userType);
                     if (userType != null) {
                         Intent intent = null;
@@ -187,19 +188,22 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(CustomSharedPref.getInstance(this).getAppIntroShownOrNot())
+      //  if(CustomSharedPref.getInstance(this).getAppIntroShownOrNot())
         try {
             Tovuti.from(SplashActivity.this).monitor((connectionType, isConnected, isFast) -> {
                 if (!isConnected) {
+                    System.out.println(">>>>>. start if");
                     splash_message.setText(R.string.no_internet);
                     networkIndicate.setText(R.string.no_internet_error);
                     networkIndicate.setVisibility(View.VISIBLE);
                 } else if (!isFast) {
+                    System.out.println(">>>>>. start else if");
                     splash_message.setText(R.string.slow_internet_connection);
                     networkIndicate.setText(R.string.slow_internet);
                     networkIndicate.setVisibility(View.VISIBLE);
                     goToActivityAsRequired();
                 } else {
+                    System.out.println(">>>>>. start else");
                     splash_message.setText(R.string.loading);
                     networkIndicate.setVisibility(View.GONE);
                     goToActivityAsRequired();
@@ -213,6 +217,9 @@ public class SplashActivity extends AppCompatActivity {
     protected void onStop() {
         try {
             Tovuti.from(this).stop();
+            alreadyNotCalledMainActivity = true;
+            alreadyNotCalledCheckUserExistOrNot = true;
+            alreadyNotCalledSignInActivity = true;
         } catch (Exception ignore) {
         }
         super.onStop();

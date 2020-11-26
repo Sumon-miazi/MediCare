@@ -20,6 +20,6 @@ public class BloodDonationRequestAdapter extends GenericRecyclerAdapter<BloodDon
     @NonNull
     @Override
     public BloodDonationRequestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new BloodDonationRequestViewHolder(inflate(R.layout.single_blood_donor_view, parent), context);
+        return new BloodDonationRequestViewHolder(inflate(R.layout.single_blood_request_view, parent), context);
     }
 }

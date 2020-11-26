@@ -3,9 +3,9 @@ package com.itbeebd.medicare.api;
 public class ApiUrls {
 
 
-   // public static final String IP_ADDRESS = "http://medicare.itbeebd.com";
-   // public static final String BASE_URL = IP_ADDRESS + "/api/";
-   // public static final String BASE_IMAGE_URL = IP_ADDRESS + "/storage/";
+    public static final String IP_ADDRESS = "http://medicare.itbeebd.com";
+    public static final String BASE_URL = IP_ADDRESS + "/api/";
+    public static final String BASE_IMAGE_URL = IP_ADDRESS + "/storage/";
 
     public static final String HOSPITAL = "hospitals";
     public static final String DIAGNOSTIC = "diagnostic centers";
@@ -13,9 +13,9 @@ public class ApiUrls {
     public static final String PHARMACY = "pharmacies";
 
 
-    public static final String IP_ADDRESS = "http://192.168.43.77";
-    public static final String BASE_URL = IP_ADDRESS + "/MediCare/public/api/";
-    public static final String BASE_IMAGE_URL = IP_ADDRESS + "/MediCare/public/storage/";
+   // public static final String IP_ADDRESS = "http://192.168.43.77";
+   // public static final String BASE_URL = IP_ADDRESS + "/MediCare/public/api/";
+   // public static final String BASE_IMAGE_URL = IP_ADDRESS + "/MediCare/public/storage/";
 
 
     public static final String SEARCH_NEARBY = "searchNearbyByNameAndDistance";
@@ -35,6 +35,7 @@ public class ApiUrls {
     public static final String GET_ALL_APPOINTMENT = "getAllAppointment";
     public static final String GET_NEXT_APPOINTMENT = "getNextAppointment";
     public static final String GET_AN_APPOINTMENT_REPORTS = "getAnAppointmentReports";
+    public static final String GET_ALL_REPORTS = "getAllReports";
 
 
     public static final String ADD_BLOOD_DONOR = "addBloodDonor";

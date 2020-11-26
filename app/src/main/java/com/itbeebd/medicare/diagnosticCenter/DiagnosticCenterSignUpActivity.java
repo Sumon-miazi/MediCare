@@ -84,7 +84,7 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
         worldMapBtn = findViewById(R.id.worldMapBtnId);
         dcName = findViewById(R.id.dcNameId);
         dcAddress = findViewById(R.id.dcAddressId);
-        dcServices = findViewById(R.id.dcServicesId);
+       // dcServices = findViewById(R.id.dcServicesId);
         dcPhone = findViewById(R.id.dcPhoneId);
         dcEmail = findViewById(R.id.dcEmailId);
 
@@ -98,11 +98,11 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
     public void registerDiagnosticCenter(View view) {
         String name = dcName.getText().toString();
         String address = dcAddress.getText().toString();
-        String services = dcServices.getText().toString();
+       // String services = dcServices.getText().toString();
         String number = dcPhone.getText().toString();
         String email = dcEmail.getText().toString();
 
-        if(checkDataIsEmpty(name, address, services, number, email)){
+        if(checkDataIsEmpty(name, address, number, email)){
             Toast.makeText(this,"Please fill up the all field", Toast.LENGTH_LONG).show();
             return;
         };
@@ -129,7 +129,7 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
         });
     }
 
-    private boolean checkDataIsEmpty(String name, String address, String services, String number, String email){
+    private boolean checkDataIsEmpty(String name, String address, String number, String email){
 
         if(name.isEmpty()){
             Toast.makeText(this, "Enter blood bank name", Toast.LENGTH_SHORT).show();
@@ -144,10 +144,7 @@ public class DiagnosticCenterSignUpActivity extends AppCompatActivity {
             Toast.makeText(this, "Enter blood bank number", Toast.LENGTH_SHORT).show();
             return true;
         }
-        if(services.isEmpty()){
-            Toast.makeText(this, "write about the services", Toast.LENGTH_SHORT).show();
-            return true;
-        }
+
 
         if(email.isEmpty()){
             Toast.makeText(this, "Email is mandatory", Toast.LENGTH_SHORT).show();

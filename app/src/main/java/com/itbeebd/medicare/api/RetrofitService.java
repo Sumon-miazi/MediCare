@@ -76,7 +76,8 @@ public interface RetrofitService {
     @POST(ApiUrls.GET_AN_APPOINTMENT_REPORTS)
     Call<ResponseBody> getAnAppointmentReports(@Body Map<String, Object> body);
 
-
+    @POST(ApiUrls.GET_ALL_REPORTS)
+    Call<ResponseBody> getAllReports(@Body Map<String, Object> body);
 
     @POST(ApiUrls.ADD_BLOOD_DONOR)
     Call<ResponseBody> addBloodDonor(@Body Map<String, Object> body);

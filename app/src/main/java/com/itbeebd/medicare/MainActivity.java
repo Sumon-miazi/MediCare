@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView;
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.itbeebd.medicare.appointmentAndReport.AppointmentListActivity;
 import com.itbeebd.medicare.bloodBank.BloodBankFragment;
 import com.itbeebd.medicare.bloodBank.BloodBankListActivity;
@@ -20,9 +21,10 @@ import com.itbeebd.medicare.hospitals.HospitalListActivity;
 import com.itbeebd.medicare.medication.MedicationFragment;
 import com.itbeebd.medicare.pharmacy.PharmacyListActivity;
 import com.itbeebd.medicare.userProfile.UserProfileActivity;
+import com.itbeebd.medicare.userProfile.UserSignInActivity;
 
 public class MainActivity extends AppCompatActivity implements BubbleNavigationChangeListener,
-        DashBoardActivity.OnItemSelectedListener {
+        DashBoardActivity.OnItemSelectedListener, UserProfileActivity.OnItemSelectedListener {
 
     private BubbleNavigationLinearView bubbleNavigation;
     private FragmentManager fragmentManager;
@@ -106,6 +108,14 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
         }
         else if(view.getId() == R.id.pharmacyCardViewId){
             startActivity(new Intent(this, PharmacyListActivity.class));
+        }
+        else if(view.getId() == R.id.logOutBtn){
+            FirebaseAuth.getInstance().signOut();
+                CustomSharedPref.getInstance(this).setUserSignedInOrNot(false);
+                Intent intent = new Intent(this, UserSignInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
         }
     }
 

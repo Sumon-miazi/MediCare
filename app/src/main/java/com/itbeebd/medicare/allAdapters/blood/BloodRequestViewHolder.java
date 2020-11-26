@@ -18,6 +18,10 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 public class BloodRequestViewHolder extends BaseViewHolder<BloodRequest, OnRecyclerObjectClickListener<BloodRequest>> {
     private CircularImageView userImageView;
     private TextView nameTxtView;
+    private TextView bloodFor;
+    private TextView cityName;
+    private TextView hospitalName;
+    private TextView needTime;
     private TextView bloodAmount;
     private TextView contact;
     private TextView bloodGroup;
@@ -28,8 +32,12 @@ public class BloodRequestViewHolder extends BaseViewHolder<BloodRequest, OnRecyc
         this.context = context;
         userImageView = itemView.findViewById(R.id.bloodDonorImageViewId);
         nameTxtView = itemView.findViewById(R.id.bloodDonorNameTxtViewId);
-        bloodAmount = itemView.findViewById(R.id.donorAddressTxtViewId);
-        contact = itemView.findViewById(R.id.contactDonorTxtId);
+        bloodFor = itemView.findViewById(R.id.bloodForTxt);
+        cityName = itemView.findViewById(R.id.cityNameTxt);
+        hospitalName = itemView.findViewById(R.id.hospitalNameTxt);
+        needTime = itemView.findViewById(R.id.needTimeTxt);
+        bloodAmount = itemView.findViewById(R.id.amountTxt);
+        contact = itemView.findViewById(R.id.contactTxtId);
         bloodGroup = itemView.findViewById(R.id.bloodGroupNameTxtViewId);
 
     }
@@ -37,7 +45,11 @@ public class BloodRequestViewHolder extends BaseViewHolder<BloodRequest, OnRecyc
     @Override
     public void onBind(BloodRequest item, @Nullable OnRecyclerObjectClickListener<BloodRequest> listener) {
         nameTxtView.setText(item.getName());
-        bloodAmount.setText(item.getAmount());
+        bloodFor.setText(("Blood For: " + item.getBloodFor()));
+        cityName.setText(("City : " + item.getCity()));
+        hospitalName.setText(("Hospital : " + item.getHospital()));
+        needTime.setText(("Time : " + item.getBloodNeededDateTimeString()));
+        bloodAmount.setText(("Need : " + item.getAmount()));
         contact.setText(item.getPhone());
         bloodGroup.setText(item.getBloodGroup());
 

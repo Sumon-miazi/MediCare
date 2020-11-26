@@ -16,37 +16,47 @@ import com.itbeebd.medicare.utils.BloodDonationRequest;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class BloodDonationRequestViewHolder extends BaseViewHolder<BloodDonationRequest, OnRecyclerObjectClickListener<BloodDonationRequest>> {
-    private TextView userName;
-    private CircularImageView bloodDonorImageView;
-    private TextView addressName;
-    private TextView lastBloodDonateDate;
-    private TextView contactNumber;
-    private TextView bloodGroupName;
+    private CircularImageView userImageView;
+    private TextView nameTxtView;
+    private TextView bloodFor;
+    private TextView cityName;
+    private TextView hospitalName;
+    private TextView needTime;
+    private TextView bloodAmount;
+    private TextView contact;
+    private TextView bloodGroup;
     private Context context;
 
     public BloodDonationRequestViewHolder(@NonNull View itemView, Context context) {
         super(itemView);
         this.context = context;
-        bloodDonorImageView = itemView.findViewById(R.id.bloodDonorImageViewId);
-        userName = itemView.findViewById(R.id.bloodDonorNameTxtViewId);
-        addressName = itemView.findViewById(R.id.donorAddressTxtViewId);
-        lastBloodDonateDate = itemView.findViewById(R.id.lastBloodDonateDateId);
-        contactNumber = itemView.findViewById(R.id.contactDonorTxtId);
-        bloodGroupName = itemView.findViewById(R.id.bloodGroupNameTxtViewId);
+        userImageView = itemView.findViewById(R.id.bloodDonorImageViewId);
+        nameTxtView = itemView.findViewById(R.id.bloodDonorNameTxtViewId);
+        bloodFor = itemView.findViewById(R.id.bloodForTxt);
+        cityName = itemView.findViewById(R.id.cityNameTxt);
+        hospitalName = itemView.findViewById(R.id.hospitalNameTxt);
+        needTime = itemView.findViewById(R.id.needTimeTxt);
+        bloodAmount = itemView.findViewById(R.id.amountTxt);
+        contact = itemView.findViewById(R.id.contactTxtId);
+        bloodGroup = itemView.findViewById(R.id.bloodGroupNameTxtViewId);
     }
 
     @Override
     public void onBind(BloodDonationRequest item, @Nullable OnRecyclerObjectClickListener<BloodDonationRequest> listener) {
-        userName.setText(item.getName());
-        //addressName.setText(item.getAddress());
-        contactNumber.setText(item.getPhone());
-        bloodGroupName.setText(item.getBloodGroup());
+        nameTxtView.setText(item.getName());
+        bloodFor.setText(("Blood For: " + item.getBloodFor()));
+        cityName.setText(("City : " + item.getCity()));
+        hospitalName.setText(("Hospital : " + item.getHospital()));
+        needTime.setText(("Time : " + item.getBloodNeededDateTime()));
+        bloodAmount.setText(("Need : " + item.getAmount()));
+        contact.setText(item.getPhone());
+        bloodGroup.setText(item.getBloodGroup());
 
         if(item.getImage() != null){
             System.out.println("<<<<<<<<<>>>>> " + ApiUrls.BASE_IMAGE_URL + item.getImage());
             Glide.with(context)
                     .load(ApiUrls.BASE_IMAGE_URL + item.getImage())
-                    .into(bloodDonorImageView);
+                    .into(userImageView);
         }
 /*
         bloodBankInfoLayout.setOnClickListener(view -> {
