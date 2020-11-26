@@ -53,6 +53,7 @@ import com.itbeebd.medicare.diagnosticCenter.OrderTestActivity;
 import com.itbeebd.medicare.utils.BloodBank;
 import com.itbeebd.medicare.utils.DiagnosticCenter;
 import com.itbeebd.medicare.utils.Hospital;
+import com.itbeebd.medicare.utils.Pharmacy;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
@@ -97,6 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private ArrayList<Hospital> hospitals;
     private ArrayList<DiagnosticCenter> diagnosticCenters;
+    private ArrayList<Pharmacy> pharmacies;
     private ArrayList<BloodBank> bloodBanks;
     private String selectedNearbyCategoryName = "";
     private String name = "";
@@ -194,6 +196,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         nearBy.add(ApiUrls.DIAGNOSTIC + " in 10km");
         nearBy.add(ApiUrls.DIAGNOSTIC + " in 20km");
         nearBy.add(ApiUrls.DIAGNOSTIC + " in 50km");
+
+        nearBy.add(ApiUrls.PHARMACY + " in 5km");
+        nearBy.add(ApiUrls.PHARMACY + " in 10km");
+        nearBy.add(ApiUrls.PHARMACY + " in 20km");
+        nearBy.add(ApiUrls.PHARMACY + " in 50km");
 
         nearBy.add(ApiUrls.BLOODBANK + " in 5km");
         nearBy.add(ApiUrls.BLOODBANK + " in 10km");
@@ -417,7 +424,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Toast.makeText(this,name + " >>>>> " + radius, Toast.LENGTH_LONG).show();
 
         new SearchApi().getNearby(userLocation, selectedNearbyCategoryName, Integer.parseInt(radius),
-                (hospitals, diagnosticCenters, bloodBanks, message) -> {
+                (hospitals, diagnosticCenters, pharmacies, bloodBanks, message) -> {
 
                     if (selectedNearbyCategoryName.equals(ApiUrls.HOSPITAL) && hospitals != null && !hospitals.isEmpty()) {
                         this.name = this.selectedNearbyCategoryName;
@@ -432,6 +439,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     else if (selectedNearbyCategoryName.equals(ApiUrls.BLOODBANK) && bloodBanks != null && !bloodBanks.isEmpty()) {
                         this.name = this.selectedNearbyCategoryName;
                         this.bloodBanks = bloodBanks;
+                        setMarkersOnMap();
+                    }
+                    else if (selectedNearbyCategoryName.equals(ApiUrls.PHARMACY) && pharmacies != null && !pharmacies.isEmpty()) {
+                        this.name = this.selectedNearbyCategoryName;
+                        this.pharmacies = pharmacies;
                         setMarkersOnMap();
                     }
 
@@ -483,6 +495,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             this.bloodBanks.get(i).getName(),
                             this.bloodBanks.get(i).getLocation(),
                             R.drawable.ic_blood_bank_gps_marker
+                    );
+                }
+                break;
+            case ApiUrls.PHARMACY:
+                for (int i = 0; i < this.pharmacies.size(); i++) {
+                    bounds.include(this.pharmacies.get(i).getLocation());
+                    addMarker(
+                            this.pharmacies.get(i).getName(),
+                            this.pharmacies.get(i).getLocation(),
+                            R.drawable.ic_pharmacy_gps_marker
                     );
                 }
                 break;
@@ -538,6 +560,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         }
+        else if(name.equals(ApiUrls.PHARMACY) && this.pharmacies != null){
+            System.out.println(">>>>>>>>>>>>>pharmacy "+ this.pharmacies != null);
+            for (int i = 0; i < this.pharmacies.size(); i++) {
+                Pharmacy pharmacy = this.pharmacies.get(i);
+                if(pharmacy.getName().equals(title)){
+                    searchLayout.setVisibility(View.GONE);
+                    setPharmacyData(pharmacy);
+                    break;
+                }
+            }
+        }
         else if(name.equals(ApiUrls.BLOODBANK) && this.bloodBanks != null){
             System.out.println(">>>>>>>>>>>>>bb ");
             for (int i = 0; i < this.bloodBanks.size(); i++) {
@@ -581,6 +614,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Intent intent = new Intent(this, OrderTestActivity.class);
             intent.putExtra("diagnosticCenterId", diagnosticCenterData.getDiagnosticId());
             startActivity(intent);
+        });
+    }
+
+    private void setPharmacyData(Pharmacy pharmacyData) {
+        bbCardView.setVisibility(View.VISIBLE);
+        bbName.setText(pharmacyData.getName());
+        bbAddress.setText(pharmacyData.getAddress());
+        bbPhone.setText(pharmacyData.getPhone());
+
+        if (pharmacyData.getImage() != null) {
+            Glide.with(this)
+                    .load(ApiUrls.BASE_IMAGE_URL + pharmacyData.getImage())
+                    .into(bbImage);
+        }
+
+        bbCallBtn.setOnClickListener(view -> {
+            Toast.makeText(this, "called button clicked " + pharmacyData.getName(), Toast.LENGTH_SHORT).show();
         });
     }
 

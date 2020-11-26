@@ -7,6 +7,7 @@ import com.itbeebd.medicare.api.allInterfaces.GetSearchedData;
 import com.itbeebd.medicare.utils.BloodBank;
 import com.itbeebd.medicare.utils.DiagnosticCenter;
 import com.itbeebd.medicare.utils.Hospital;
+import com.itbeebd.medicare.utils.Pharmacy;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -48,6 +49,7 @@ public class SearchApi extends BaseService{
                         System.out.println("condition>>>>>>>>>>> " + name.toLowerCase().equals(ApiUrls.HOSPITAL));
                         System.out.println("condition>>>>>>>>>>> " + name.toLowerCase().equals(ApiUrls.DIAGNOSTIC));
                         System.out.println("condition>>>>>>>>>>> " + name.toLowerCase().equals(ApiUrls.BLOODBANK));
+                        System.out.println("condition>>>>>>>>>>> " + name.toLowerCase().equals(ApiUrls.PHARMACY));
                        // System.out.println("name>>>>>>>>>>> " + name);
 
                         if (jsonObject.optString("status").equals("true")) {
@@ -59,6 +61,7 @@ public class SearchApi extends BaseService{
                                         getHospitalsFromJsonArray(jsonArray),
                                         null,
                                         null,
+                                        null,
                                         jsonObject.optString("message"));
                             }
 
@@ -68,6 +71,17 @@ public class SearchApi extends BaseService{
                                         null,
                                         getDiagnosticsFromJsonArray(jsonArray),
                                         null,
+                                        null,
+                                        jsonObject.optString("message"));
+                            }
+
+                            else if(name.toLowerCase().equals(ApiUrls.PHARMACY)){
+                                System.out.println("name>>>>>>>>>>> " + name);
+                                getSearchedData.data(
+                                        null,
+                                        null,
+                                        getPharmaciesFromJsonArray(jsonArray),
+                                        null,
                                         jsonObject.optString("message"));
                             }
 
@@ -76,19 +90,20 @@ public class SearchApi extends BaseService{
                                 getSearchedData.data(
                                         null,
                                         null,
+                                        null,
                                         getBloodBanksFromJsonArray(jsonArray),
                                         jsonObject.optString("message"));
                             }
 
 
-                        } else getSearchedData.data(null, null, null, jsonObject.optString("message"));
+                        } else getSearchedData.data(null, null, null, null, jsonObject.optString("message"));
 
                     } catch (Exception ignore) {
                         System.out.println("getNearByNameAndDistance>>>>>>>>>>> catch " + ignore.getMessage());
 
-                        getSearchedData.data(null, null, null,  ignore.getMessage());
+                        getSearchedData.data(null, null, null, null,  ignore.getMessage());
                     }
-                } else getSearchedData.data(null, null, null, response.message());
+                } else getSearchedData.data(null, null,  null,null, response.message());
             }
 
             @Override
@@ -96,7 +111,7 @@ public class SearchApi extends BaseService{
 
                 System.out.println("getNearByNameAndDistance>>>>>>>>>>> failed " + t.getMessage());
 
-                getSearchedData.data(null, null, null, t.getMessage());
+                getSearchedData.data(null, null, null,null, t.getMessage());
             }
         });
     }
@@ -158,6 +173,33 @@ public class SearchApi extends BaseService{
         }
         catch (Exception ignore){
             System.out.println("name>>>>>>>>>>>dc " + ignore.getMessage());
+            return null;
+        }
+    }
+
+    private ArrayList<Pharmacy> getPharmaciesFromJsonArray(JSONArray pharmacyArray){
+        try {
+            ArrayList<Pharmacy> pharmacies = new ArrayList<>();
+
+            for (int i = 0; i < pharmacyArray.length(); i++) {
+                JSONObject object = pharmacyArray.getJSONObject(i);
+
+                Pharmacy pharmacy = new Pharmacy(
+                        object.getInt("id"),
+                        object.getString("name"),
+                        object.getString("address"),
+                        object.getString("phone"),
+                        object.getString("about"),
+                        object.getDouble("latitude"),
+                        object.getDouble("longitude"));
+                pharmacy.setImage(object.optString("image").equals("null")? null : object.optString("image"));
+
+                pharmacies.add(pharmacy);
+            }
+
+            return pharmacies;
+        }
+        catch (Exception ignore){
             return null;
         }
     }

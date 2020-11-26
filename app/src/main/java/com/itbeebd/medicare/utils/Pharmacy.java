@@ -1,5 +1,7 @@
 package com.itbeebd.medicare.utils;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 
 public class Pharmacy implements Serializable {
@@ -122,5 +124,9 @@ public class Pharmacy implements Serializable {
 
     public void setLon(double lon) {
         this.lon = lon;
+    }
+
+    public LatLng getLocation(){
+        return new LatLng(lat, lon);
     }
 }
