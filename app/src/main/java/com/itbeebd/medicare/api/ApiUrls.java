@@ -10,6 +10,7 @@ public class ApiUrls {
     public static final String HOSPITAL = "hospitals";
     public static final String DIAGNOSTIC = "diagnostic centers";
     public static final String BLOODBANK = "blood banks";
+    public static final String PHARMACY = "pharmacies";
 
 
     public static final String IP_ADDRESS = "http://192.168.43.77";
@@ -47,6 +48,9 @@ public class ApiUrls {
     public static final String GET_BLOOD_BANK_DATA = "getBloodBankDataByUid";
     public static final String GET_BLOOD_REQUEST_OF_BLOOD_BANK = "getAllBloodRequestOfABloodBankById";
 
+    public static final String GET_ALL_PHARMACY = "getAllPharmacies";
+    public static final String SIGN_UP_PHARMACY = "signUpPharmacy";
+    public static final String GET_PHARMACY_DATA = "getPharmacyDataByUid";
 
 
     public static final String SIGN_UP_DOCTOR = "signUpDoctor";

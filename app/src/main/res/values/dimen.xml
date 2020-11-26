@@ -9,4 +9,5 @@
     <dimen name="doctor_profile_communication_card_view_padding">12dp</dimen>
 
     <dimen name="app_logo_size">100dp</dimen>
+    <dimen name="dash_board_card_margin">2dp</dimen>
 </resources>

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.itbeebd.medicare.bloodBank.BloodBankSignUpActivity;
 import com.itbeebd.medicare.diagnosticCenter.DiagnosticCenterSignUpActivity;
 import com.itbeebd.medicare.doctors.DoctorSignUpActivity;
+import com.itbeebd.medicare.pharmacy.PharmacySignUpActivity;
 import com.itbeebd.medicare.userProfile.UserSignUpActivity;
 
 public class RegistrationOptionActivity extends AppCompatActivity {
@@ -33,5 +34,9 @@ public class RegistrationOptionActivity extends AppCompatActivity {
 
     public void registerDiagnosticCenter(View view) {
         startActivity(new Intent(this, DiagnosticCenterSignUpActivity.class));
+    }
+
+    public void registerPharmacy(View view) {
+        startActivity(new Intent(this, PharmacySignUpActivity.class));
     }
 }

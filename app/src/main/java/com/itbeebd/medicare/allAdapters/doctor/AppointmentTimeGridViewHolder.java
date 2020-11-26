@@ -3,6 +3,7 @@ package com.itbeebd.medicare.allAdapters.doctor;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,7 @@ public class AppointmentTimeGridViewHolder extends BaseViewHolder<String, OnRecy
         timeTxt.setOnClickListener(view -> {
          //   timeBg.setBackgroundColor(context.getResources().getColor(R.color.green));
          //   timeTxt.setTextColor(context.getResources().getColor(R.color.white));
+            Toast.makeText(context, item + " Selected", Toast.LENGTH_SHORT).show();
             assert listener != null;
             listener.onItemClicked(item, view);
         });

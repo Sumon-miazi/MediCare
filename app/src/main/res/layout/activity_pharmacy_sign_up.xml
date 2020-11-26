@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nestedScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".pharmacy.PharmacySignUpActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/profileImageId"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/guideline12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/profileChangeBtnId"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/profileImageId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileImageId"
+            app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
+
+
+        <LinearLayout
+            android:id="@+id/user_name_institute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileChangeBtnId">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter pharmacy name"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:startIconContentDescription="content_description_end_icon"
+                app:startIconDrawable="@drawable/ic_baseline_apartment_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pharmacyNameId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:maxEms="50"
+                    android:maxLength="50"
+                    android:maxLines="1"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter address"
+                app:layout_constraintBottom_toTopOf="@+id/textInputLayout4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+                app:startIconContentDescription="tring/content_description_end_icon"
+                app:startIconDrawable="@drawable/ic_baseline_article_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pharmacyAddressId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:maxLength="100"
+                    android:maxLines="2"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Write about the pharmacy"
+                app:layout_constraintBottom_toTopOf="@+id/textInputLayout5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
+                app:startIconContentDescription="content_description_end_icon"
+                app:startIconDrawable="@drawable/ic_like">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pharmacyAboutId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:maxLength="300"
+                    android:maxLines="4"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter phone number"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
+                app:startIconContentDescription="content_description_end_icon"
+                app:startIconDrawable="@drawable/ic_baseline_phone_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pharmacyPhoneId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:maxLength="300"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout50"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your email"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
+                app:startIconContentDescription="content_description_end_icon"
+                app:startIconDrawable="@drawable/ic_baseline_alternate_email_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pharmacyEmailId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="300"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/worldMapBtnId"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:layout_margin="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/world"
+            app:layout_constraintBottom_toTopOf="@+id/pharmacyRegistrationBtnId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_name_institute"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="select pharmacy location on the map"
+            app:layout_constraintBottom_toBottomOf="@+id/worldMapBtnId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/worldMapBtnId" />
+
+        <Button
+            android:id="@+id/pharmacyRegistrationBtnId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/blue_bg"
+            android:onClick="registerBloodBank"
+            android:text="Sign up"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.26" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -35,6 +35,7 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
     private CircularImageView main_doctorImageView;
     private CardView hospitalCardView;
     private CardView diagnosticCardView;
+    private CardView pharmacyCardView;
     private CardView bloodBankCardView;
     private RecyclerView allSpecialistView;
     private TextView appointmentDateHint;
@@ -57,6 +58,7 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
         main_doctorImageView = view.findViewById(R.id.main_doctorImageViewId);
         hospitalCardView = view.findViewById(R.id.hospitalCardViewId);
         diagnosticCardView = view.findViewById(R.id.diagnosticCardViewId);
+        pharmacyCardView = view.findViewById(R.id.pharmacyCardViewId);
         bloodBankCardView = view.findViewById(R.id.bloodBankCardViewId);
         allSpecialistView = view.findViewById(R.id.allSpecialistViewId);
         nextAppointmentView = view.findViewById(R.id.constraintLayout2);
@@ -73,8 +75,10 @@ public class DashBoardActivity extends Fragment implements OnRecyclerObjectClick
 
         hospitalCardView.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
         diagnosticCardView.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
+        pharmacyCardView.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
         bloodBankCardView.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
         showAllAppointment.setOnClickListener(v -> listener.onItemSelectedOnDashBoard(v));
+
         searchOnMapBtn.setOnClickListener(v -> getContext().startActivity(new Intent(getContext(), MapsActivity.class)));
 
         setUpAllSpecialist();

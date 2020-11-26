@@ -18,6 +18,7 @@ import com.itbeebd.medicare.db.CustomSharedPref;
 import com.itbeebd.medicare.diagnosticCenter.DiagnosticCenterListActivity;
 import com.itbeebd.medicare.hospitals.HospitalListActivity;
 import com.itbeebd.medicare.medication.MedicationFragment;
+import com.itbeebd.medicare.pharmacy.PharmacyListActivity;
 import com.itbeebd.medicare.userProfile.UserProfileActivity;
 
 public class MainActivity extends AppCompatActivity implements BubbleNavigationChangeListener,
@@ -102,6 +103,9 @@ public class MainActivity extends AppCompatActivity implements BubbleNavigationC
         }
         else if(view.getId() == R.id.calenderIconId){
             startActivity(new Intent(this, AppointmentListActivity.class));
+        }
+        else if(view.getId() == R.id.pharmacyCardViewId){
+            startActivity(new Intent(this, PharmacyListActivity.class));
         }
     }
 

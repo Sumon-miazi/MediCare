@@ -93,6 +93,9 @@ public interface RetrofitService {
     @POST(ApiUrls.GET_ALL_BLOOD_BANK)
     Call<ResponseBody> getAllBloodBank(@Body Map<String, Object> body);
 
+    @POST(ApiUrls.GET_ALL_PHARMACY)
+    Call<ResponseBody> getAllPharmacy(@Body Map<String, Object> body);
+
 
    // @POST(ApiUrls.SIGN_UP_BLOOD_BANK)
    // Call<ResponseBody> signUpBloodBank(@Body Map<String, Object> body);
@@ -110,6 +113,20 @@ public interface RetrofitService {
                                     @Part("lat") double lat,
                                     @Part("long") double lon,
                                     @Part("api_key") String api_key);
+
+    @Multipart
+    @POST(ApiUrls.SIGN_UP_PHARMACY)
+    Call<ResponseBody> signUpPharmacy(@Part MultipartBody.Part image,
+                                       @Part("uid") String uid,
+                                       @Part("name") String name,
+                                       @Part("address") String address,
+                                       @Part("about") String about,
+                                       @Part("phone") String phone,
+                                       @Part("email") String email,
+                                       @Part("token") String token,
+                                       @Part("lat") double lat,
+                                       @Part("long") double lon,
+                                       @Part("api_key") String api_key);
 
     @POST(ApiUrls.GET_BLOOD_BANK_DATA)
     Call<ResponseBody> getBloodBankData(@Body Map<String, Object> body);
