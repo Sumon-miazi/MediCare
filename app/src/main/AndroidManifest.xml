@@ -134,7 +134,9 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
-            android:screenOrientation="portrait" /> <!-- Service for firebase cloud messaging -->
+            android:screenOrientation="portrait" />
+
+        <!-- Service for firebase cloud messaging -->
         <service
             android:name=".service.CloudMessagingService"
             android:exported="false">

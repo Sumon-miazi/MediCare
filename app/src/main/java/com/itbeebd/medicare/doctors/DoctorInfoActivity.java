@@ -33,6 +33,7 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
     private ImageView doctorImage;
     private TextView about;
     private CardView doctorCallImg;
+    private CardView doctorMessageImg;
 
     private RecyclerView allDoctorChamberRecyclerView;
     private DoctorChamberAdapter doctorChamberListAdapter;
@@ -45,6 +46,7 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
         setContentView(R.layout.activity_doctor_info);
 
         doctorCallImg = findViewById(R.id.doctorCallImgId);
+        doctorMessageImg = findViewById(R.id.doctorMessageImgId);
         doctorName = findViewById(R.id.doctorProfileNameTxtViewId);
         doctorImage = findViewById(R.id.main_doctorImageViewId);
         doctorQualification = findViewById(R.id.doctorProfileTitleTxtViewId);
@@ -88,6 +90,11 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
                 dialPhoneNumber(doctor.getPhone());
             }
         });
+        doctorMessageImg.setOnClickListener(view -> {
+            if(doctor != null){
+                sendMail(doctor.getEmail());
+            }
+        });
     }
 
     @Override
@@ -110,6 +117,17 @@ public class DoctorInfoActivity extends AppCompatActivity implements OnRecyclerO
     public void dialPhoneNumber(String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + phoneNumber));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+    private void sendMail(String email){
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Appointment");
+       // intent.putExtra(Intent.EXTRA_TEXT,"Body Here");
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
